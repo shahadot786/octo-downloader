@@ -102,6 +102,8 @@ android {
         }
     }
 
+
+
     //for pdf
    packagingOptions {
         pickFirst 'lib/x86/libc++_shared.so'
@@ -116,6 +118,7 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    //google ads
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {

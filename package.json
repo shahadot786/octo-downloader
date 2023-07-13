@@ -10,6 +10,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "@notifee/react-native": "^7.8.0",
+    "@react-native-admob/admob": "^2.0.1",
+    "@react-native-community/netinfo": "^9.4.1",
     "@react-native-google-signin/google-signin": "^10.0.1",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/material-top-tabs": "^6.6.3",
