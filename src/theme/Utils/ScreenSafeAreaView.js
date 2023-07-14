@@ -1,5 +1,6 @@
-import {Platform, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import React from 'react';
+import colors from '../constant/colors';
 
 const ScreenSafeAreaView = props => {
   return (

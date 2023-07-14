@@ -1,0 +1,32 @@
+import { StyleSheet, View, Pressable } from 'react-native';
+import React from 'react';
+import colors from '../../../theme/constant/colors';
+
+const TabButton = ({ children, onPress }) => {
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [
+        {
+          bottom: 40,
+          justifyContent: 'center',
+          alignItems: 'center',
+          opacity: pressed ? 0.9 : 1,
+        },
+      ]}>
+      <View
+        style={{
+          width: 70,
+          height: 70,
+          borderRadius: 35,
+          backgroundColor: colors.Primary,
+        }}>
+        {children}
+      </View>
+    </Pressable>
+  );
+};
+
+export default TabButton;
+
+const styles = StyleSheet.create({});

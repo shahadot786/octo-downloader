@@ -1,14 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import ScreenSafeAreaView from '../../theme/Utils/ScreenSafeAreaView';
+import colors from '../../theme/constant/colors';
 
 const HomeScreen = () => {
   return (
-    <View>
+    <ScreenSafeAreaView style={styles.container}>
       <Text>HomeScreen</Text>
-    </View>
+    </ScreenSafeAreaView>
   );
 };
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: { backgroundColor: colors.Black },
+});
