@@ -9,5 +9,6 @@
     // "activityBar.activeForeground": "#ffffff"
     //activityBar.inactiveBackground
     //activityBar.inactiveForeground
-  }
+  },
+  "java.compile.nullAnalysis.mode": "automatic"
 }
