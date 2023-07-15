@@ -1,10 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import React from 'react';
+import useTheme from '../../hooks/theme/useTheme';
+import { commonStyles } from '../../styles/commonStyles';
 
 const SettingsScreen = () => {
+  const { toggleTheme } = useTheme();
   return (
-    <View>
-      <Text>SettingsScreen</Text>
+    <View style={commonStyles.justifyAlignCenter}>
+      <Button title="Toggle Theme" onPress={toggleTheme} />
     </View>
   );
 };
