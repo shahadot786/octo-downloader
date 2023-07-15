@@ -1,25 +1,19 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
-import colors from '../constant/colors';
-import Text_Size from '../fonts';
+import useTheme from '../../hooks/theme/useTheme';
 
 
 const TitleText = props => {
+    const {text_1} = useTheme();
   return (
     <View>
       <Text
         allowFontScaling={false}
-        style={[styles.title, {color: colors.Black}, {...props.textStyle}]}>
+        style={[text_1, {...props.textStyle}]}>
         {props.text}
       </Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: Text_Size.Text_1,
-  },
-});
 
 export default TitleText;

@@ -1,12 +1,13 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import React from 'react';
 import useTheme from '../../hooks/theme/useTheme';
+import TitleText from '../../theme/Text/TitleText';
 
 const LoadingScreen = () => {
-  const { container, text, toggleTheme, isDarkMode } = useTheme();
+  const { container, toggleTheme,initialMode } = useTheme();
   return (
     <View style={container}>
-      <Text style={text}>{isDarkMode ? 'Dark Mode' : 'Light Mode'}</Text>
+      <TitleText text={initialMode? 'Dark Mode':'Light Mode'}/>
       <Button style={styles.button} title="Toggle Mode" onPress={toggleTheme} />
     </View>
   );
