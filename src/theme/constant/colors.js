@@ -9,5 +9,6 @@ const colors = {
   Error: '#ff3333',
   Blue: '#2192FF',
   Yellow: '#F2BE22',
+  SoftBlack: '#1b1b1d',
 };
 export default colors;

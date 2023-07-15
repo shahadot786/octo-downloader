@@ -11,20 +11,19 @@ import strings from '../theme/constant/strings';
 const Stack = createNativeStackNavigator();
 
 const MainStack = () => {
-  const [timer, setTimer] = useState(3);
+  const [timer, setTimer] = useState(2);
   //redux
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   if (timer > 0) {
-  //     const timerId = setTimeout(() => {
-  //       setTimer(timer - 1);
-  //     }, 1000);
-  //     return () => clearTimeout(timerId);
-  //   } else {
-  //     dispatch(setIsLoading(false));
-  //   }
-  // }, [timer]);
+  useEffect(() => {
+    if (timer > 0) {
+      const timerId = setTimeout(() => {
+        setTimer(timer - 1);
+      }, 1000);
+      return () => clearTimeout(timerId);
+    } else {
+      dispatch(setIsLoading(false));
+    }
+  }, [timer]);
 
   const { isLoading } = useAppSelector(state => state.loading);
   //get the bottom tab
