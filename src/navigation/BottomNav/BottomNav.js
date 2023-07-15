@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from '../../screens/Home/HomeScreen';
 import AudioPlayerScreen from '../../screens/Player/Audio/AudioPlayerScreen';
 import VideoPlayerScreen from '../../screens/Player/Video/VideoPlayerScreen';
@@ -16,25 +18,6 @@ const Tab = createBottomTabNavigator();
 const BottomNav = () => {
   return (
     <Tab.Navigator
-      // screenOptions={() => ({
-      //   headerShown: false,
-      //   tabBarShowLabel: true,
-      //   tabBarStyle: {
-      //     height: 65,
-      //     paddingHorizontal: 0,
-      //     paddingTop: 4,
-      //     paddingBottom: 6,
-      //     backgroundColor: '#1b1b1d',
-      //     position: 'absolute',
-      //     borderTopWidth: 0,
-      //   },
-      //   tabBarActiveTintColor: '#15c55d',
-      //   tabBarInactiveTintColor: '#d5ffdb',
-      //   tabBarLabelStyle: {
-      //     fontSize: 12, marginTop:2,
-      //     margin: 0,
-      //   },
-      // })}
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
@@ -43,10 +26,9 @@ const BottomNav = () => {
           bottom: 15,
           left: 20,
           right: 20,
-          elevation: 0,
           backgroundColor: colors.Black,
           borderRadius: 15,
-          height: 90,
+          height: 70,
           borderTopWidth: 0,
           ...styles.shadow,
         },
@@ -60,7 +42,7 @@ const BottomNav = () => {
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
             <View style={commonStyles.justifyAlignCenter}>
-              <FontAwesome name="home" color={color} size={30} />
+              <FontAwesome name="home" color={color} size={20} />
               <Text style={{ color: color, fontSize: 12, marginTop: 2 }}>
                 HOME
               </Text>
@@ -69,28 +51,28 @@ const BottomNav = () => {
         }}
       />
       <Tab.Screen
-        name="Audio"
+        name="Galley"
         component={AudioPlayerScreen}
         options={{
-          tabBarLabel: 'Audio',
+          tabBarLabel: 'Gallery',
           tabBarIcon: ({ color }) => (
             <View style={commonStyles.justifyAlignCenter}>
-              <FontAwesome name="sticky-note" color={color} size={30} />
+              <Ionicons name="images" color={color} size={20} />
               <Text style={{ color: color, fontSize: 12, marginTop: 2 }}>
-                Audio
+                AUDIO
               </Text>
             </View>
           ),
         }}
       />
       <Tab.Screen
-        name="Video"
+        name="Download"
         component={VideoPlayerScreen}
         options={{
-          tabBarLabel: 'Video',
+          tabBarLabel: 'Download',
           tabBarIcon: ({ color }) => (
             <View style={commonStyles.justifyAlignCenter}>
-              <FontAwesome name="plus" color={color} size={40} />
+              <Ionicons name="download" color={color} size={25} />
             </View>
           ),
           tabBarButton: props => <TabButton {...props} />,
@@ -98,15 +80,15 @@ const BottomNav = () => {
       />
 
       <Tab.Screen
-        name="Pdf"
+        name="PRO"
         component={PdfScreen}
         options={{
-          tabBarLabel: 'Pdf',
+          tabBarLabel: 'PRO',
           tabBarIcon: ({ color }) => (
             <View style={commonStyles.justifyAlignCenter}>
-              <FontAwesome name="user" color={color} size={30} />
+              <MaterialCommunityIcons name="shield-crown" color={color} size={20} />
               <Text style={{ color: color, fontSize: 12, marginTop: 2 }}>
-                Pdf
+                PRO
               </Text>
             </View>
           ),
@@ -119,7 +101,7 @@ const BottomNav = () => {
           tabBarLabel: 'Settings',
           tabBarIcon: ({ color }) => (
             <View style={commonStyles.justifyAlignCenter}>
-              <FontAwesome name="gear" color={color} size={30} />
+              <Ionicons name="settings" color={color} size={20} />
               <Text style={{ color: color, fontSize: 12, marginTop: 2 }}>
                 SETTINGS
               </Text>
@@ -140,7 +122,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 10,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.20,
     elevation: 5,
   },
 });

@@ -8,7 +8,7 @@ const TabButton = ({ children, onPress }) => {
       onPress={onPress}
       style={({ pressed }) => [
         {
-          bottom: 40,
+          bottom: 30,
           justifyContent: 'center',
           alignItems: 'center',
           opacity: pressed ? 0.9 : 1,
@@ -16,9 +16,9 @@ const TabButton = ({ children, onPress }) => {
       ]}>
       <View
         style={{
-          width: 70,
-          height: 70,
-          borderRadius: 35,
+          width: 50,
+          height: 50,
+          borderRadius: 25,
           backgroundColor: colors.Primary,
         }}>
         {children}

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -6,6 +6,7 @@ import LoadingScreen from '../screens/Loading/LoadingScreen';
 import BottomNav from './BottomNav/BottomNav';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { setIsLoading } from '../store/slices/loading/loadingSlice';
+import strings from '../theme/constant/strings';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,16 +15,16 @@ const MainStack = () => {
   //redux
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   if (timer > 0) {
-  //     const timerId = setTimeout(() => {
-  //       setTimer(timer - 1);
-  //     }, 1000);
-  //     return () => clearTimeout(timerId);
-  //   } else {
-  //     dispatch(setIsLoading(false));
-  //   }
-  // }, [timer]);
+  useEffect(() => {
+    if (timer > 0) {
+      const timerId = setTimeout(() => {
+        setTimer(timer - 1);
+      }, 1000);
+      return () => clearTimeout(timerId);
+    } else {
+      dispatch(setIsLoading(false));
+    }
+  }, [timer]);
 
   const { isLoading } = useAppSelector(state => state.loading);
   //get the bottom tab
@@ -35,13 +36,13 @@ const MainStack = () => {
       <Stack.Navigator>
         {isLoading && (
           <Stack.Screen
-            name="Loading"
+            name={strings.LoadingScreen}
             component={LoadingScreen}
             options={{ headerShown: false }}
           />
         )}
         <Stack.Screen
-          name="BottomTab"
+          name={strings.BottomTabScreen}
           component={BottomTabs}
           options={{ headerShown: false }}
         />
