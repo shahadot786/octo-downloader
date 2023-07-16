@@ -10,5 +10,6 @@ const colors = {
   Blue: '#2192FF',
   Yellow: '#F2BE22',
   SoftBlack: '#1b1b1d',
+  SoftWhite: '#e4e1e1',
 };
 export default colors;

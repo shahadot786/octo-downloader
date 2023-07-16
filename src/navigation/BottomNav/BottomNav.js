@@ -12,10 +12,12 @@ import { commonStyles } from '../../styles/commonStyles';
 import GalleryScreen from '../../screens/Gallery/GalleryScreen';
 import DownloadScreen from '../../screens/Download/DownloadScreen';
 import VideoScreen from '../../screens/Video/VideoScreen';
+import useTheme from '../../hooks/theme/useTheme';
 
 const Tab = createBottomTabNavigator();
 
 const BottomNav = () => {
+  const { initialMode } = useTheme();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -26,7 +28,7 @@ const BottomNav = () => {
           bottom: 15,
           left: 20,
           right: 20,
-          backgroundColor: colors.SoftBlack,
+          backgroundColor: initialMode ? colors.SoftBlack : colors.SoftWhite,
           borderRadius: 15,
           height: 70,
           borderTopWidth: 0,
