@@ -1,16 +1,17 @@
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
-import colors from '../constant/colors';
-import Text_Size from '../fonts';
+import useTheme from '../../hooks/theme/useTheme';
+import Text_Size from '../constant/fonts';
 
 const ShortText = props => {
+  const { textColor } = useTheme();
   return (
     <View>
       <Text
         allowFontScaling={false}
         ellipsizeMode={props.ellipsizeMode}
         numberOfLines={props.numberOfLines}
-        style={[styles.title, {color: colors.Black}, {...props.textStyle}]}>
+        style={[styles.title, textColor, { ...props.textStyle }]}>
         {props.text}
       </Text>
     </View>

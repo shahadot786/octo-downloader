@@ -3,15 +3,15 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from '../../screens/Home/HomeScreen';
-import AudioPlayerScreen from '../../screens/Player/Audio/AudioPlayerScreen';
-import VideoPlayerScreen from '../../screens/Player/Video/VideoPlayerScreen';
-import TabButton from './Utils/TabButton';
-import PdfScreen from '../../screens/Pdf/PdfScreen';
+import TabButton from './atoms/TabButton';
 import SettingsScreen from '../../screens/Settings/SettingsScreen';
 import colors from '../../theme/constant/colors';
 import { commonStyles } from '../../styles/commonStyles';
+import GalleryScreen from '../../screens/Gallery/GalleryScreen';
+import DownloadScreen from '../../screens/Download/DownloadScreen';
+import VideoScreen from '../../screens/Video/VideoScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +26,7 @@ const BottomNav = () => {
           bottom: 15,
           left: 20,
           right: 20,
-          backgroundColor: colors.Black,
+          backgroundColor: colors.SoftBlack,
           borderRadius: 15,
           height: 70,
           borderTopWidth: 0,
@@ -52,14 +52,14 @@ const BottomNav = () => {
       />
       <Tab.Screen
         name="Galley"
-        component={AudioPlayerScreen}
+        component={GalleryScreen}
         options={{
           tabBarLabel: 'Gallery',
           tabBarIcon: ({ color }) => (
             <View style={commonStyles.justifyAlignCenter}>
               <Ionicons name="images" color={color} size={20} />
               <Text style={{ color: color, fontSize: 12, marginTop: 2 }}>
-                AUDIO
+                GALLERY
               </Text>
             </View>
           ),
@@ -67,7 +67,7 @@ const BottomNav = () => {
       />
       <Tab.Screen
         name="Download"
-        component={VideoPlayerScreen}
+        component={DownloadScreen}
         options={{
           tabBarLabel: 'Download',
           tabBarIcon: ({ color }) => (
@@ -80,20 +80,39 @@ const BottomNav = () => {
       />
 
       <Tab.Screen
+        name="VIDEO"
+        component={VideoScreen}
+        options={{
+          tabBarLabel: 'VIDEO',
+          tabBarIcon: ({ color }) => (
+            <View style={commonStyles.justifyAlignCenter}>
+              <MaterialIcons name="video-library" color={color} size={20} />
+              <Text style={{ color: color, fontSize: 12, marginTop: 2 }}>
+                VIDEO
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      {/* <Tab.Screen
         name="PRO"
         component={PdfScreen}
         options={{
           tabBarLabel: 'PRO',
           tabBarIcon: ({ color }) => (
             <View style={commonStyles.justifyAlignCenter}>
-              <MaterialCommunityIcons name="shield-crown" color={color} size={20} />
+              <MaterialCommunityIcons
+                name="shield-crown"
+                color={color}
+                size={20}
+              />
               <Text style={{ color: color, fontSize: 12, marginTop: 2 }}>
                 PRO
               </Text>
             </View>
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Settings"
         component={SettingsScreen}
@@ -122,7 +141,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 10,
     },
-    shadowOpacity: 0.20,
+    shadowOpacity: 0.2,
     elevation: 5,
   },
 });
