@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native';
 import React from 'react';
 import { Provider } from 'react-redux';
 import Routes from './src/navigation/Routes';
