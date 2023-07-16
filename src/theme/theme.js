@@ -1,17 +1,12 @@
-import Text_Size from "./constant/fonts";
+import colors from './constant/colors';
 
-const getTheme = (initialMode) => {
-
+const getTheme = initialMode => {
   return {
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: initialMode ? '#000000' : '#FFFFFF',
+    backgroundColor: {
+      backgroundColor: initialMode ? colors.Black : colors.White,
     },
-    text_1: {
-      fontSize: Text_Size.Text_1,
-      color: initialMode ? '#FFFFFF' : '#000000',
+    textColor: {
+      color: initialMode ? colors.White : colors.Black,
     },
   };
 };

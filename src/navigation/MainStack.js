@@ -11,10 +11,9 @@ import strings from '../theme/constant/strings';
 const Stack = createNativeStackNavigator();
 
 const MainStack = () => {
-  const [timer, setTimer] = useState(3);
+  const [timer, setTimer] = useState(2);
   //redux
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     if (timer > 0) {
       const timerId = setTimeout(() => {

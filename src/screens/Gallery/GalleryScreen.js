@@ -1,17 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
-import colors from '../../theme/constant/colors';
 import TitleText from '../../theme/Text/TitleText';
 
-const HomeScreen = () => {
+const GalleryScreen = () => {
   return (
     <ScreenSafeAreaView style={styles.container}>
-      <TitleText text={'Home'} />
+      <TitleText text={'Gallery'} />
     </ScreenSafeAreaView>
   );
 };
 
-export default HomeScreen;
+export default GalleryScreen;
 
 const styles = StyleSheet.create({});
