@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import metrics from '../theme/constant/metrics';
 
 export const commonStyles = StyleSheet.create({
   cardShadow: {
@@ -26,5 +27,14 @@ export const commonStyles = StyleSheet.create({
   justifyAlignCenter: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  justifyBetween: {
+    justifyContent: 'space-between',
+  },
+  smallImageSize: {
+    width:
+      metrics.screenWidth <= 380 ? 50 : metrics.screenWidth <= 600 ? 60 : 70,
+    height:
+      metrics.screenWidth <= 380 ? 50 : metrics.screenWidth <= 600 ? 60 : 70,
   },
 });
