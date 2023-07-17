@@ -1214,6 +1214,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@iabtcf/core@^1.5.3":
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/@iabtcf/core/-/core-1.5.6.tgz#92568d89252fbf205aa65836703cb0a52e812382"
+  integrity sha512-u2q9thI9vLurYZdGtyJsDYOqoeLc4EgQsYGSc+UVibYII61B/ENJPZS6eFlML1F0hSoTR/goptpo5nGRDkKd2w==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz"
@@ -1526,13 +1531,6 @@
   version "7.8.0"
   resolved "https://registry.npmjs.org/@notifee/react-native/-/react-native-7.8.0.tgz"
   integrity sha512-sx8h62U4FrR4pqlbN1rkgPsdamDt9Tad0zgfO6VtP6rNJq/78k8nxUnh0xIX3WPDcCV8KAzdYCE7+UNvhF1CpQ==
-
-"@react-native-admob/admob@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@react-native-admob/admob/-/admob-2.0.1.tgz"
-  integrity sha512-IHDzwC9n+15w3Cg03oWB4rHXyUpkTFyoP3gPEzVbZEnPDyUdl1eacmM66MovNoVc5m6h7pXNa0AXzgL+yIEW7A==
-  dependencies:
-    use-deep-compare-effect "^1.8.1"
 
 "@react-native-community/cli-clean@11.3.5":
   version "11.3.5"
@@ -4945,6 +4943,19 @@ react-native-blob-util@^0.18.3:
   dependencies:
     base-64 "0.1.0"
     glob "^7.2.3"
+
+react-native-device-info@^10.8.0:
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-10.8.0.tgz#c331c94d65542f86bac197f223ee064c7e10a9ec"
+  integrity sha512-DE4/X82ZVhdcnR1Y21iTP46WSSJA/rHK3lmeqWfGGq1RKLwXTIdxmfbZZnYwryqJ+esrw2l4ND19qlgxDGby8A==
+
+react-native-google-mobile-ads@^11.1.1:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-google-mobile-ads/-/react-native-google-mobile-ads-11.1.1.tgz#065fb549ae68afd3d03f645469530d950aa41130"
+  integrity sha512-5AeGjyWc/MVGTw6vUWjNe609KWrH5eoY4vQ2gy70MVcPnxSlSzoTUvAe6Prqms9ciMTrgMf+wB1JmTMinIbdSg==
+  dependencies:
+    "@iabtcf/core" "^1.5.3"
+    use-deep-compare-effect "^1.8.1"
 
 react-native-mmkv@^2.10.1:
   version "2.10.1"

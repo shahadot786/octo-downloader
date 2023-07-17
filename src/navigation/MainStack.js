@@ -7,6 +7,7 @@ import BottomNav from './BottomNav/BottomNav';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { setIsLoading } from '../store/slices/loading/loadingSlice';
 import strings from '../theme/constant/strings';
+import UpdateVideoListScreen from '../screens/Video/UpdateVideoListScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,11 @@ const MainStack = () => {
         <Stack.Screen
           name={strings.BottomTabScreen}
           component={BottomTabs}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={strings.UpdateVideoListScreen}
+          component={UpdateVideoListScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
