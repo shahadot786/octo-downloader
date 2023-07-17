@@ -5,4 +5,5 @@ export const keyStrings = {
   imagesDoc: 'Y4OCVdDHzfKtd0y4zY5tImages',
   videosDoc: 'dGvED9ejGQ06ptIjbbXlVideos',
   pdfDocs: '8wGyOGrL5N5CNysCoVr4PDF',
+  versionDoc: 'vNgr610Rm1VXzCfMTBCbAppUpdate',
 };

@@ -11,6 +11,7 @@ import BottomSpacingNav from '../../theme/Global/BottomSpacingNav';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
 import HomePromotion from '../../components/molecules/cards/promotion/HomePromotion';
 import BottomSpacing from '../../theme/Global/BottomSpacing';
+import AppUpdateModal from '../../components/templates/modal/AppUpdateModal';
 
 const HomeScreen = () => {
   return (
@@ -108,6 +109,7 @@ const HomeScreen = () => {
             <BottomSpacing />
           </ScrollView>
         </View>
+        <AppUpdateModal />
       </View>
     </ScreenSafeAreaView>
   );

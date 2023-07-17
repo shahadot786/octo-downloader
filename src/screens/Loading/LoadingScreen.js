@@ -8,12 +8,9 @@ import metrics from '../../theme/constant/metrics';
 import useTheme from '../../hooks/theme/useTheme';
 import HeaderText from '../../theme/Text/HeaderText';
 import mobileAds from 'react-native-google-mobile-ads';
-import DeviceInfo from 'react-native-device-info';
 
 const LoadingScreen = () => {
   const { backgroundColor } = useTheme();
-  let version = DeviceInfo.getVersion();
-  // console.log({ version });
   const initialGoogleAds = () => {
     mobileAds()
       .initialize()
