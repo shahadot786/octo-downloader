@@ -6,7 +6,7 @@ import HeaderText from '../../theme/Text/HeaderText';
 const UpdateVideoListScreen = () => {
   return (
     <ScreenSafeAreaView>
-      <HeaderText text={'Updated Video List Screen'} />
+      {/* <HeaderText text={'Updated Video List Screen'} /> */}
     </ScreenSafeAreaView>
   );
 };

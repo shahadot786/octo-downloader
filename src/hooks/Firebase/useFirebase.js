@@ -36,7 +36,7 @@ export const useFirebase = docId => {
 
   useEffect(() => {
     getData();
-  }, [data]);
+  }, []);
 
   return { data, loading };
 };

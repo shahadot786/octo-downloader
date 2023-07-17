@@ -8,11 +8,12 @@ import { useAppDispatch, useAppSelector } from '../store/store';
 import { setIsLoading } from '../store/slices/loading/loadingSlice';
 import strings from '../theme/constant/strings';
 import UpdateVideoListScreen from '../screens/Video/UpdateVideoListScreen';
+import CustomHeader from '../components/common/CustomHeader';
 
 const Stack = createNativeStackNavigator();
-
 const MainStack = () => {
   const [timer, setTimer] = useState(4);
+
   //redux
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -49,7 +50,11 @@ const MainStack = () => {
         <Stack.Screen
           name={strings.UpdateVideoListScreen}
           component={UpdateVideoListScreen}
-          options={{ headerShown: false }}
+          options={({ navigation }) => ({
+            header: props => (
+              <CustomHeader title="Update Video List" navigation={navigation} />
+            ),
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
