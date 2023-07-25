@@ -4,7 +4,6 @@ import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import colors from '../../theme/constant/colors';
 import TitleText from '../../theme/Text/TitleText';
 import images from '../../theme/constant/images';
-import metrics from '../../theme/constant/metrics';
 import { commonStyles } from '../../styles/commonStyles';
 import DescriptionText from '../../theme/Text/DescriptionText';
 import BottomSpacingNav from '../../theme/Global/BottomSpacingNav';
@@ -36,14 +35,14 @@ const HomeScreen = () => {
             {/* Promotion */}
             <HomePromotion />
           </View>
-          <View
+          {/* <View
             style={{
               marginVertical: 5,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
             <BannerAds />
-          </View>
+          </View> */}
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.scrollView}>

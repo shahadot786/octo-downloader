@@ -29,7 +29,7 @@ const AppUpdateModal = () => {
   }, [data, loading]);
 
   const modalVisibleHandler = () => {
-    if (appUpdateVersion === version) {
+    if (appUpdateVersion !== version) {
       setShowModal(true);
     } else {
       setShowModal(false);
