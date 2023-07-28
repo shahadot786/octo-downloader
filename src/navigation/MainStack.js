@@ -7,8 +7,8 @@ import BottomNav from './BottomNav/BottomNav';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { setIsLoading } from '../store/slices/loading/loadingSlice';
 import strings from '../theme/constant/strings';
-import UpdateVideoListScreen from '../screens/Video/UpdateVideoListScreen';
 import CustomHeader from '../components/common/CustomHeader';
+import MovieScreen from '../screens/Movie/MovieScreen';
 
 const Stack = createNativeStackNavigator();
 const MainStack = () => {
@@ -48,8 +48,8 @@ const MainStack = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name={strings.UpdateVideoListScreen}
-          component={UpdateVideoListScreen}
+          name={strings.MovieScreen}
+          component={MovieScreen}
           options={({ navigation }) => ({
             header: props => (
               <CustomHeader title="Update Video List" navigation={navigation} />
