@@ -1,5 +1,5 @@
 import { Image, StyleSheet, ScrollView, View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import colors from '../../theme/constant/colors';
 import TitleText from '../../theme/Text/TitleText';
@@ -11,8 +11,22 @@ import BannerAds from '../../hooks/Ads/Banner/BannerAds';
 import HomePromotion from '../../components/molecules/cards/promotion/HomePromotion';
 import BottomSpacing from '../../theme/Global/BottomSpacing';
 import AppUpdateModal from '../../components/templates/modal/AppUpdateModal';
+import useNetInfo from '../../hooks/Network/useNetInfo';
+import { toastNotification } from '../../utils/constants';
+import { useToast } from 'react-native-toast-notifications';
 
 const HomeScreen = () => {
+  const netInfoState = useNetInfo();
+  const toast = useToast();
+  useEffect(() => {
+    if (netInfoState === null) {
+      // Handle the case when netInfoState is null (loading state or initial state)
+      return;
+    }
+    if (!netInfoState.isConnected) {
+      toast.show('No Internet Connection!!', toastNotification('normal'));
+    }
+  }, [netInfoState, toast]);
   return (
     <ScreenSafeAreaView style={styles.container}>
       {/* main container */}
@@ -35,14 +49,14 @@ const HomeScreen = () => {
             {/* Promotion */}
             <HomePromotion />
           </View>
-          {/* <View
+          <View
             style={{
               marginVertical: 5,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
             <BannerAds />
-          </View> */}
+          </View>
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.scrollView}>

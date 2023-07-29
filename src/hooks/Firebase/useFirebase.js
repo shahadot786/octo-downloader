@@ -36,6 +36,9 @@ export const useFirebase = docId => {
 
   useEffect(() => {
     getData();
+
+    // No-op cleanup function since we don't have any subscriptions or listeners in this effect.
+    return () => {};
   }, []);
 
   return { data, loading };

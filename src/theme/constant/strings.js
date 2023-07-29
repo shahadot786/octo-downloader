@@ -1,6 +1,6 @@
 const strings = {
   HomeScreen: 'HomeScreen',
-  LoadingScreen: 'LoadingScreen',
+  SplashScreen: 'SplashScreen',
   BottomTabScreen: 'BottomTabScreen',
   MovieScreen: 'MovieScreen',
 };

@@ -3,27 +3,21 @@ import React from 'react';
 import { commonStyles } from '../../../../styles/commonStyles';
 import DescriptionText from '../../../../theme/Text/DescriptionText';
 import colors from '../../../../theme/constant/colors';
-import { useFirebase } from '../../../../hooks/Firebase/useFirebase';
-import { keyStrings } from '../../../../hooks/Firebase/keyStrings';
-import AppActivityIndicator from '../../../common/AppActivityIndicator';
 import images from '../../../../theme/constant/images';
 import { useNavigation } from '@react-navigation/native';
 import strings from '../../../../theme/constant/strings';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import useTheme from '../../../../hooks/theme/useTheme';
+import { useAppSelector } from '../../../../store/store';
 
 const HomePromotion = () => {
   const navigation = useNavigation();
-  const { data, loading } = useFirebase(keyStrings.promotionDoc);
+  const { promotion } = useAppSelector(state => state.firebase);
   const onPressHandler = () => {
-    navigation.navigate(strings.UpdateVideoListScreen);
+    navigation.navigate(strings.MovieScreen);
   };
   const { initialMode } = useTheme();
-  return loading ? (
-    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-      <AppActivityIndicator />
-    </View>
-  ) : (
+  return (
     <Pressable
       onPress={onPressHandler}
       style={({ pressed }) => [
@@ -36,8 +30,8 @@ const HomePromotion = () => {
       <View style={{ width: '25%' }}>
         <Image
           source={
-            data?.promotion?.image
-              ? { uri: data?.promotion?.image }
+            promotion?.imageUrl
+              ? { uri: promotion?.imageUrl }
               : images.promo_icon
           }
           style={[styles.image, commonStyles.smallImageSize]}
@@ -50,8 +44,8 @@ const HomePromotion = () => {
         ]}>
         <DescriptionText
           text={
-            data?.promotion?.message
-              ? data?.promotion?.message
+            promotion?.message
+              ? promotion?.message
               : 'Clicked to watch or download new videos..'
           }
         />

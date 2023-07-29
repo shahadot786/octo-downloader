@@ -2,39 +2,29 @@ import { StyleSheet, View, Linking } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import MiddleModal from '../../common/MiddleModal';
 import colors from '../../../theme/constant/colors';
-import { keyStrings } from '../../../hooks/Firebase/keyStrings';
-import { useFirebase } from '../../../hooks/Firebase/useFirebase';
 import TitleText from '../../../theme/Text/TitleText';
 import IOSButton from '../../atoms/buttons/IOSButton';
 import metrics from '../../../theme/constant/metrics';
 import Text_Size from '../../../theme/constant/fonts';
-import AppActivityIndicator from '../../common/AppActivityIndicator';
 import DeviceInfo from 'react-native-device-info';
+import { useAppSelector } from '../../../store/store';
 
 const AppUpdateModal = () => {
   const [showModal, setShowModal] = useState(false);
-  const [appUpdateVersion, setAppUpdateVersion] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [title, setTitle] = useState('');
-  const [message, setMessage] = useState('');
-  const { data, loading } = useFirebase(keyStrings.versionDoc);
-  let version = DeviceInfo.getVersion();
-
-  useEffect(() => {
-    setIsLoading(loading);
-    setTitle(data?.version?.title);
-    setMessage(data?.version?.message);
-    setAppUpdateVersion(data?.version?.versionName);
-    modalVisibleHandler();
-  }, [data, loading]);
-
+  let appVersion = DeviceInfo.getVersion();
+  const { version } = useAppSelector(state => state.firebase);
   const modalVisibleHandler = () => {
-    if (appUpdateVersion !== version) {
+    if (version.versionName !== appVersion) {
       setShowModal(true);
     } else {
       setShowModal(false);
     }
   };
+
+  useEffect(() => {
+    modalVisibleHandler();
+  }, [version]);
+
   const buttonPressHandler = async () => {
     const url =
       'https://play.google.com/store/apps/details?id=com.octodownloader';
@@ -50,32 +40,28 @@ const AppUpdateModal = () => {
     <View>
       <MiddleModal
         crossIcon
-        header={title}
+        header={version.title}
         isModalVisible={showModal}
         setIsModalVisible={setShowModal}
         onBlur={undefined}
         notOutsidePress
         height={'20%'}>
-        {isLoading ? (
-          <AppActivityIndicator />
-        ) : (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingHorizontal: '5%',
-            }}>
-            <TitleText text={message} textStyle={styles.text} />
-            <IOSButton
-              onSelect={buttonPressHandler}
-              containerStyle={styles.containerStyle}
-              btnStyle={{ backgroundColor: colors.Green }}
-              textAlignment={styles.textAlignment}
-              titleStyle={styles.textStyle}
-              title={'Update'}
-            />
-          </View>
-        )}
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingHorizontal: '5%',
+          }}>
+          <TitleText text={version.message} textStyle={styles.text} />
+          <IOSButton
+            onSelect={buttonPressHandler}
+            containerStyle={styles.containerStyle}
+            btnStyle={{ backgroundColor: colors.Green }}
+            textAlignment={styles.textAlignment}
+            titleStyle={styles.textStyle}
+            title={'Update'}
+          />
+        </View>
       </MiddleModal>
     </View>
   );
