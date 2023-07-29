@@ -1,31 +1,17 @@
 import { StyleSheet } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import LoadingScreen from '../screens/Loading/LoadingScreen';
 import BottomNav from './BottomNav/BottomNav';
-import { useAppDispatch, useAppSelector } from '../store/store';
-import { setIsLoading } from '../store/slices/loading/loadingSlice';
 import strings from '../theme/constant/strings';
+import CustomHeader from '../components/common/CustomHeader';
+import MovieScreen from '../screens/Movie/MovieScreen';
+import SplashScreen from '../screens/Splash/SplashScreen';
+import { useSplash } from '../hooks/Utils/useSplash';
 
 const Stack = createNativeStackNavigator();
-
 const MainStack = () => {
-  const [timer, setTimer] = useState(4);
-  //redux
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (timer > 0) {
-      const timerId = setTimeout(() => {
-        setTimer(timer - 1);
-      }, 1000);
-      return () => clearTimeout(timerId);
-    } else {
-      dispatch(setIsLoading(false));
-    }
-  }, [timer]);
-
-  const { isLoading } = useAppSelector(state => state.loading);
+  const { versionLoading, moviesLoading, promotionLoading } = useSplash();
   //get the bottom tab
   function BottomTabs() {
     return <BottomNav />;
@@ -33,10 +19,10 @@ const MainStack = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {isLoading && (
+        {(versionLoading || moviesLoading || promotionLoading) && (
           <Stack.Screen
-            name={strings.LoadingScreen}
-            component={LoadingScreen}
+            name={strings.SplashScreen}
+            component={SplashScreen}
             options={{ headerShown: false }}
           />
         )}
@@ -44,6 +30,15 @@ const MainStack = () => {
           name={strings.BottomTabScreen}
           component={BottomTabs}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={strings.MovieScreen}
+          component={MovieScreen}
+          options={({ navigation }) => ({
+            header: props => (
+              <CustomHeader title="Update Movies" navigation={navigation} />
+            ),
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>

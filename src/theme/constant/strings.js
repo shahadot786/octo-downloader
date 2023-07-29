@@ -1,6 +1,7 @@
 const strings = {
   HomeScreen: 'HomeScreen',
-  LoadingScreen: 'LoadingScreen',
-  BottomTabScreen:'BottomTabScreen',
+  SplashScreen: 'SplashScreen',
+  BottomTabScreen: 'BottomTabScreen',
+  MovieScreen: 'MovieScreen',
 };
 export default strings;

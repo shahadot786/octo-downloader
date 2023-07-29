@@ -5,13 +5,11 @@ import { commonStyles } from '../../styles/commonStyles';
 import images from '../../theme/constant/images';
 import AnimatedLottieView from 'lottie-react-native';
 import metrics from '../../theme/constant/metrics';
-import useTheme from '../../hooks/theme/useTheme';
 import HeaderText from '../../theme/Text/HeaderText';
 
-const LoadingScreen = () => {
-  const { backgroundColor } = useTheme();
+const SplashScreen = () => {
   return (
-    <ScreenSafeAreaView style={[backgroundColor, commonStyles.alignCenter]}>
+    <ScreenSafeAreaView style={[commonStyles.alignCenter]}>
       <View style={styles.marginVertical}>
         <View style={styles.logoContainer}>
           <View style={styles.imageView}>
@@ -35,7 +33,7 @@ const LoadingScreen = () => {
   );
 };
 
-export default LoadingScreen;
+export default SplashScreen;
 
 const styles = StyleSheet.create({
   imageView: {

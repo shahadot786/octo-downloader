@@ -6,13 +6,15 @@ import {
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import linkSlice from './slices/links/linkSlice';
-import loadingSlice from './slices/loading/loadingSlice';
 import themeSlice from './slices/themeSlice/themeSlice';
+import versionSlice from './slices/firebase/versionSlice/versionSlice';
+import firebaseSlice from './slices/firebase/firebaseSlice';
 
 const appReducer = combineReducers({
-  loading: loadingSlice,
+  version: versionSlice,
   link: linkSlice,
   theme: themeSlice,
+  firebase: firebaseSlice,
 });
 
 const RootReducer = (state, action) => {
