@@ -1,5 +1,5 @@
 import { Image, StyleSheet, ScrollView, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import colors from '../../theme/constant/colors';
 import TitleText from '../../theme/Text/TitleText';
@@ -12,11 +12,12 @@ import HomePromotion from '../../components/molecules/cards/promotion/HomePromot
 import BottomSpacing from '../../theme/Global/BottomSpacing';
 import AppUpdateModal from '../../components/templates/modal/AppUpdateModal';
 import useNetInfo from '../../hooks/Network/useNetInfo';
-import { toastNotification } from '../../utils/constants';
 import { useToast } from 'react-native-toast-notifications';
+import { toastNotification } from '../../utils/constants';
 
 const HomeScreen = () => {
   const netInfoState = useNetInfo();
+  const [isOnline, setIsOnline] = useState(null);
   const toast = useToast();
   useEffect(() => {
     if (netInfoState === null) {
@@ -25,6 +26,9 @@ const HomeScreen = () => {
     }
     if (!netInfoState.isConnected) {
       toast.show('No Internet Connection!!', toastNotification('normal'));
+      setIsOnline(false);
+    } else {
+      setIsOnline(true);
     }
   }, [netInfoState, toast]);
   return (
@@ -49,14 +53,16 @@ const HomeScreen = () => {
             {/* Promotion */}
             <HomePromotion />
           </View>
-          <View
-            style={{
-              marginVertical: 5,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <BannerAds />
-          </View>
+          {isOnline && (
+            <View
+              style={{
+                marginVertical: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <BannerAds />
+            </View>
+          )}
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.scrollView}>

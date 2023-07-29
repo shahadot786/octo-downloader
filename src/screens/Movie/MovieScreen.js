@@ -5,7 +5,7 @@ import HeaderText from '../../theme/Text/HeaderText';
 import { useAppSelector } from '../../store/store';
 
 const MovieScreen = () => {
-  const { movies } = useAppSelector(state => state.movies);
+  const { movies } = useAppSelector(state => state.firebase);
   return (
     <ScreenSafeAreaView>
       {/* <HeaderText text={'Updated Video List Screen'} /> */}

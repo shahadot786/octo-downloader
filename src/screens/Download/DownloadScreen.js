@@ -5,7 +5,7 @@ import {
   Keyboard,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import CustomTextInput from '../../components/atoms/inputs/CustomTextInput';
 import CustomDropdown from '../../components/molecules/dropdown/CustomDropdown';
@@ -16,6 +16,7 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import PrimaryButton from '../../components/atoms/buttons/PrimaryButton';
 import colors from '../../theme/constant/colors';
 import CustomProgressBar from '../../components/molecules/progressBar/CustomProgressBar';
+import useNetInfo from '../../hooks/Network/useNetInfo';
 
 const DownloadScreen = () => {
   const {
@@ -25,6 +26,19 @@ const DownloadScreen = () => {
     onPasteBtnPressHandler,
     inputValue,
   } = useDownload();
+  const netInfoState = useNetInfo();
+  const [isOnline, setIsOnline] = useState(null);
+  useEffect(() => {
+    if (netInfoState === null) {
+      // Handle the case when netInfoState is null (loading state or initial state)
+      return;
+    }
+    if (!netInfoState.isConnected) {
+      setIsOnline(false);
+    } else {
+      setIsOnline(true);
+    }
+  }, [netInfoState]);
 
   return (
     <ScreenSafeAreaView style={styles.container}>
@@ -45,8 +59,9 @@ const DownloadScreen = () => {
             selectedValue={selectedOption}
             placeholder="Select a type"
           />
+          {/* large banner ad */}
           <View style={{ marginVertical: 10, alignItems: 'center' }}>
-            <LargeBannerAd />
+            {isOnline && <LargeBannerAd />}
           </View>
           <View>
             <PrimaryButton title={'Download'} background={colors.Green} />
