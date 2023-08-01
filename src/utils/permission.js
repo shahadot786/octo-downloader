@@ -1,3 +1,4 @@
+// eslint-disable-next-line react-native/split-platform-components
 import {PermissionsAndroid, Platform} from 'react-native';
 
 export const androidCameraPermission = () =>

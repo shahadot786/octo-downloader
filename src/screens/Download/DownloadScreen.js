@@ -19,6 +19,7 @@ const DownloadScreen = () => {
     onChangeInputText,
     onPasteBtnPressHandler,
     inputValue,
+    onDownloadPressHandler,
   } = useDownload();
 
   return (
@@ -44,7 +45,11 @@ const DownloadScreen = () => {
             <LargeBannerAd />
           </View>
           <View>
-            <PrimaryButton title={'Download'} background={colors.Green} />
+            <PrimaryButton
+              title={'Download'}
+              background={colors.Green}
+              onPress={onDownloadPressHandler}
+            />
           </View>
           <View>
             <CustomProgressBar />
