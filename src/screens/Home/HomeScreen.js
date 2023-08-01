@@ -1,10 +1,11 @@
-import { Image, StyleSheet, ScrollView, View } from 'react-native';
-import React, { useEffect } from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import {Image, StyleSheet, ScrollView, View} from 'react-native';
+import React, {useEffect} from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import colors from '../../theme/constant/colors';
 import TitleText from '../../theme/Text/TitleText';
 import images from '../../theme/constant/images';
-import { commonStyles } from '../../styles/commonStyles';
+import {commonStyles} from '../../styles/commonStyles';
 import DescriptionText from '../../theme/Text/DescriptionText';
 import BottomSpacingNav from '../../theme/Global/BottomSpacingNav';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
@@ -12,8 +13,8 @@ import HomePromotion from '../../components/molecules/cards/promotion/HomePromot
 import BottomSpacing from '../../theme/Global/BottomSpacing';
 import AppUpdateModal from '../../components/templates/modal/AppUpdateModal';
 import useNetInfo from '../../hooks/Network/useNetInfo';
-import { toastNotification } from '../../utils/constants';
-import { useToast } from 'react-native-toast-notifications';
+import {toastNotification} from '../../utils/constants';
+import {useToast} from 'react-native-toast-notifications';
 
 const HomeScreen = () => {
   const netInfoState = useNetInfo();
@@ -35,7 +36,7 @@ const HomeScreen = () => {
         <View style={styles.topView}>
           <View style={[styles.topCardView, commonStyles.flexRow]}>
             {/* Image and text */}
-            <View style={{ width: '35%' }}>
+            <View style={{width: '35%'}}>
               <Image
                 source={images.logo}
                 style={[styles.topLogoImage, commonStyles.smallImageSize]}
@@ -72,7 +73,7 @@ const HomeScreen = () => {
                 style={[
                   commonStyles.flexRow,
                   commonStyles.justifyBetween,
-                  { marginVertical: 10 },
+                  {marginVertical: 10},
                 ]}>
                 <View
                   style={{
@@ -99,7 +100,7 @@ const HomeScreen = () => {
                 style={[
                   commonStyles.flexRow,
                   commonStyles.justifyBetween,
-                  { marginVertical: 10 },
+                  {marginVertical: 10},
                 ]}>
                 <View
                   style={{
@@ -131,12 +132,15 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+  desText: {
+    marginTop: 5,
+  },
   mainContainer: {
     flex: 1,
     marginHorizontal: 15,
     marginVertical: 10,
   },
-  topView: {},
+  scrollView: {},
   topCardView: {
     justifyContent: 'space-between',
     // borderBottomColor: colors.Grey,
@@ -146,8 +150,5 @@ const styles = StyleSheet.create({
   topLogoImage: {
     resizeMode: 'contain',
   },
-  scrollView: {},
-  desText: {
-    marginTop: 5,
-  },
+  topView: {},
 });
