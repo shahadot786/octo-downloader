@@ -15,10 +15,13 @@ import AppUpdateModal from '../../components/templates/modal/AppUpdateModal';
 import useNetInfo from '../../hooks/Network/useNetInfo';
 import {toastNotification} from '../../utils/constants';
 import {useToast} from 'react-native-toast-notifications';
+import {useAppSelector} from '../../store/store';
 
 const HomeScreen = () => {
   const netInfoState = useNetInfo();
   const toast = useToast();
+  const {isAdShown} = useAppSelector(state => state.ads);
+
   useEffect(() => {
     if (netInfoState === null) {
       // Handle the case when netInfoState is null (loading state or initial state)
@@ -50,14 +53,16 @@ const HomeScreen = () => {
             {/* Promotion */}
             <HomePromotion />
           </View>
-          <View
-            style={{
-              marginVertical: 5,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <BannerAds />
-          </View>
+          {isAdShown && (
+            <View
+              style={{
+                marginVertical: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <BannerAds />
+            </View>
+          )}
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.scrollView}>

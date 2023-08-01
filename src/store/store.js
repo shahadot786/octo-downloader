@@ -4,11 +4,13 @@ import {useDispatch} from 'react-redux';
 import linkSlice from './slices/links/linkSlice';
 import themeSlice from './slices/themeSlice/themeSlice';
 import firebaseSlice from './slices/firebase/firebaseSlice';
+import adSlice from './slices/ad/adSlice';
 
 const appReducer = combineReducers({
   link: linkSlice,
   theme: themeSlice,
   firebase: firebaseSlice,
+  ads: adSlice,
 });
 
 const RootReducer = (state, action) => {
