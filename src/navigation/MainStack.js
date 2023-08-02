@@ -9,12 +9,19 @@ import SplashScreen from '../screens/Splash/SplashScreen';
 import {useSplash} from '../hooks/Utils/useSplash';
 
 const Stack = createNativeStackNavigator();
+
+// bottom navigation
+function BottomTabs() {
+  return <BottomNav />;
+}
+//custom header for navigation
+function CustomHeaderHandler(props) {
+  return <CustomHeader title={props.title} navigation={props.navigation} />;
+}
+
 const MainStack = () => {
   const {versionLoading, moviesLoading, promotionLoading} = useSplash();
-  //get the bottom tab
-  function BottomTabs() {
-    return <BottomNav />;
-  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -25,6 +32,7 @@ const MainStack = () => {
             options={{headerShown: false}}
           />
         )}
+        {/* Pass the BottomTabs component as the component prop */}
         <Stack.Screen
           name={strings.BottomTabScreen}
           component={BottomTabs}
@@ -34,8 +42,11 @@ const MainStack = () => {
           name={strings.MovieScreen}
           component={MovieScreen}
           options={({navigation}) => ({
-            header: () => (
-              <CustomHeader title="Update Movies" navigation={navigation} />
+            header: (
+              <CustomHeaderHandler
+                title={'Update Movies'}
+                navigation={navigation}
+              />
             ),
           })}
         />
