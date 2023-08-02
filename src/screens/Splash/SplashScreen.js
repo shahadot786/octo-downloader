@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import {Image, StyleSheet, View} from 'react-native';
 import React from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';

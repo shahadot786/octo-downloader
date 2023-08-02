@@ -47,6 +47,7 @@ export const useSplash = () => {
     initialGoogleAds();
     getAllPermission();
   }, []);
+
   useEffect(() => {
     dispatch(
       setVersion({
@@ -55,10 +56,10 @@ export const useSplash = () => {
         versionName: versionData?.version?.versionName,
       }),
     );
-  }, [versionData]);
+  }, [dispatch, versionData]);
   useEffect(() => {
     dispatch(setMovies(moviesData?.movies));
-  }, [moviesData]);
+  }, [dispatch, moviesData]);
 
   useEffect(() => {
     dispatch(
@@ -67,7 +68,7 @@ export const useSplash = () => {
         message: promotionData?.promotion?.message,
       }),
     );
-  }, [promotionData]);
+  }, [dispatch, promotionData]);
 
   return {versionLoading, moviesLoading, promotionLoading};
 };
