@@ -1,12 +1,12 @@
-import { StyleSheet, View, Pressable } from 'react-native';
+import {View, Pressable} from 'react-native';
 import React from 'react';
 import colors from '../../../theme/constant/colors';
 
-const TabButton = ({ children, onPress }) => {
+const TabButton = ({children, onPress}) => {
   return (
     <Pressable
       onPress={onPress}
-      style={({ pressed }) => [
+      style={({pressed}) => [
         {
           bottom: 30,
           justifyContent: 'center',
@@ -28,5 +28,3 @@ const TabButton = ({ children, onPress }) => {
 };
 
 export default TabButton;
-
-const styles = StyleSheet.create({});

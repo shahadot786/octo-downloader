@@ -1,18 +1,16 @@
-import {
-  combineReducers,
-  configureStore,
-  ThunkDispatch,
-} from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import {combineReducers, configureStore, ThunkDispatch} from '@reduxjs/toolkit';
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import linkSlice from './slices/links/linkSlice';
 import themeSlice from './slices/themeSlice/themeSlice';
 import firebaseSlice from './slices/firebase/firebaseSlice';
+import adSlice from './slices/ad/adSlice';
 
 const appReducer = combineReducers({
   link: linkSlice,
   theme: themeSlice,
   firebase: firebaseSlice,
+  ads: adSlice,
 });
 
 const RootReducer = (state, action) => {

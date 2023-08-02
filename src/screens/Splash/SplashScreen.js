@@ -1,7 +1,8 @@
-import { Image, StyleSheet, View } from 'react-native';
+/* eslint-disable no-undef */
+import {Image, StyleSheet, View} from 'react-native';
 import React from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
-import { commonStyles } from '../../styles/commonStyles';
+import {commonStyles} from '../../styles/commonStyles';
 import images from '../../theme/constant/images';
 import AnimatedLottieView from 'lottie-react-native';
 import metrics from '../../theme/constant/metrics';

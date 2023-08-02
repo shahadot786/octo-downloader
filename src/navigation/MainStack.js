@@ -1,17 +1,16 @@
-import { StyleSheet } from 'react-native';
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
 import BottomNav from './BottomNav/BottomNav';
 import strings from '../theme/constant/strings';
 import CustomHeader from '../components/common/CustomHeader';
 import MovieScreen from '../screens/Movie/MovieScreen';
 import SplashScreen from '../screens/Splash/SplashScreen';
-import { useSplash } from '../hooks/Utils/useSplash';
+import {useSplash} from '../hooks/Utils/useSplash';
 
 const Stack = createNativeStackNavigator();
 const MainStack = () => {
-  const { versionLoading, moviesLoading, promotionLoading } = useSplash();
+  const {versionLoading, moviesLoading, promotionLoading} = useSplash();
   //get the bottom tab
   function BottomTabs() {
     return <BottomNav />;
@@ -23,19 +22,19 @@ const MainStack = () => {
           <Stack.Screen
             name={strings.SplashScreen}
             component={SplashScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
         )}
         <Stack.Screen
           name={strings.BottomTabScreen}
           component={BottomTabs}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name={strings.MovieScreen}
           component={MovieScreen}
-          options={({ navigation }) => ({
-            header: props => (
+          options={({navigation}) => ({
+            header: () => (
               <CustomHeader title="Update Movies" navigation={navigation} />
             ),
           })}
@@ -46,5 +45,3 @@ const MainStack = () => {
 };
 
 export default MainStack;
-
-const styles = StyleSheet.create({});
