@@ -27,7 +27,7 @@ export const useSplash = () => {
   const initialGoogleAds = () => {
     mobileAds()
       .initialize()
-      .then(adapterStatuses => {
+      .then(() => {
         // Initialization complete!
         // console.log(adapterStatuses);
       });

@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import NetInfo from '@react-native-community/netinfo';
-import { keyStrings } from './keyStrings';
+import {keyStrings} from './keyStrings';
 import localStorage from '../Utils/localStorage';
 
 export const useFirebase = docId => {
@@ -21,8 +21,11 @@ export const useFirebase = docId => {
         //set data to local storage
         try {
           await localStorage.setItem(docId, JSON.stringify(tempData?._data));
-        } catch (error) {}
+        } catch (error) {
+          /* empty */
+        }
       } catch (error) {
+        /* empty */
       } finally {
         setLoading(false);
       }
@@ -41,5 +44,5 @@ export const useFirebase = docId => {
     return () => {};
   }, []);
 
-  return { data, loading };
+  return {data, loading};
 };

@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {Image, StyleSheet, ScrollView, View} from 'react-native';
 import React, {useEffect} from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
