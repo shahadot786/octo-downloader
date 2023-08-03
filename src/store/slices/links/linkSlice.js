@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   isSaveLinkData: null,
@@ -14,6 +14,6 @@ const linkSlice = createSlice({
   },
 });
 
-export const { setIsSaveLinkData } = linkSlice.actions;
+export const {setIsSaveLinkData} = linkSlice.actions;
 
 export default linkSlice.reducer;

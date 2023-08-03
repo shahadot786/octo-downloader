@@ -1,5 +1,5 @@
-import { StyleSheet, View, TextInput, Pressable } from 'react-native';
-import React, { useState } from 'react';
+import {StyleSheet, View, TextInput, Pressable} from 'react-native';
+import React, {useState} from 'react';
 import colors from '../../../theme/constant/colors';
 import metrics from '../../../theme/constant/metrics';
 import Text_Size from '../../../theme/constant/fonts';
@@ -7,7 +7,7 @@ import useTheme from '../../../hooks/theme/useTheme';
 import DescriptionText from '../../../theme/Text/DescriptionText';
 
 const CustomTextInput = props => {
-  const { initialMode } = useTheme();
+  const {initialMode} = useTheme();
   const [isFocused, setIsFocused] = useState(false);
   const handleFocus = () => {
     setIsFocused(true);
@@ -25,7 +25,7 @@ const CustomTextInput = props => {
             styles.defaultInputStyle,
             props.inputStyle,
             isFocused && styles.focusedInput,
-            { color: initialMode ? colors.White : colors.Black },
+            {color: initialMode ? colors.White : colors.Black},
           ]}
           onChangeText={props.onChangeText}
           value={props.value}
@@ -43,14 +43,11 @@ const CustomTextInput = props => {
         {!isFocused && (
           <Pressable
             onPress={() => props.onPasteBtnPressHandler()}
-            style={({ pressed }) => [
-              { opacity: pressed ? 0.7 : 1 },
+            style={({pressed}) => [
+              {opacity: pressed ? 0.7 : 1},
               styles.pasteBtn,
             ]}>
-            <DescriptionText
-              text={'Paste'}
-              textStyle={{ color: colors.White }}
-            />
+            <DescriptionText text={'Paste'} textStyle={{color: colors.White}} />
           </Pressable>
         )}
       </View>

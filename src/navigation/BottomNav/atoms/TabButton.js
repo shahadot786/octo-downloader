@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {View, Pressable} from 'react-native';
 import React from 'react';
 import colors from '../../../theme/constant/colors';

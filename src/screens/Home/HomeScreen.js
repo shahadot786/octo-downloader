@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {Image, StyleSheet, ScrollView, View} from 'react-native';
 import React from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
@@ -57,7 +58,8 @@ const HomeScreen = () => {
                   height: 150,
                   backgroundColor: colors.Blue,
                   borderRadius: 10,
-                }}></View>
+                }}
+              />
 
               <View
                 style={[
@@ -71,21 +73,24 @@ const HomeScreen = () => {
                     backgroundColor: colors.Green,
                     height: 200,
                     borderRadius: 10,
-                  }}></View>
+                  }}
+                />
                 <View
                   style={{
                     width: '45%',
                     backgroundColor: colors.Warning,
                     height: 200,
                     borderRadius: 10,
-                  }}></View>
+                  }}
+                />
               </View>
               <View
                 style={{
                   height: 150,
                   backgroundColor: colors.Yellow,
                   borderRadius: 10,
-                }}></View>
+                }}
+              />
               <View
                 style={[
                   commonStyles.flexRow,
@@ -98,14 +103,16 @@ const HomeScreen = () => {
                     backgroundColor: colors.Green,
                     height: 200,
                     borderRadius: 10,
-                  }}></View>
+                  }}
+                />
                 <View
                   style={{
                     width: '45%',
                     backgroundColor: colors.Warning,
                     height: 200,
                     borderRadius: 10,
-                  }}></View>
+                  }}
+                />
               </View>
             </View>
             {/* bottom spacing */}

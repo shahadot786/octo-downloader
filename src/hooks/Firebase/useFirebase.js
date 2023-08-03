@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useState, useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import NetInfo from '@react-native-community/netinfo';
@@ -39,8 +40,6 @@ export const useFirebase = docId => {
 
   useEffect(() => {
     getData();
-
-    // No-op cleanup function since we don't have any subscriptions or listeners in this effect.
     return () => {};
   }, []);
 

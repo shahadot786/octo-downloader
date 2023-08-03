@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, View, Pressable, Keyboard, ScrollView} from 'react-native';
 import React from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';

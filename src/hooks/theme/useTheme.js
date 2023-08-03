@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '../../store/store';
-import { toggleMode } from '../../store/slices/themeSlice/themeSlice';
-import { MMKV } from 'react-native-mmkv';
+import {useAppDispatch, useAppSelector} from '../../store/store';
+import {toggleMode} from '../../store/slices/themeSlice/themeSlice';
+import {MMKV} from 'react-native-mmkv';
 import getTheme from '../../theme/theme';
 const storage = new MMKV();
 
@@ -20,7 +20,7 @@ const useTheme = () => {
     storage.set('themeMode', newMode ? 'dark' : 'light');
   };
 
-  return { ...theme, toggleTheme , initialMode};
+  return {...theme, toggleTheme, initialMode};
 };
 
 export default useTheme;

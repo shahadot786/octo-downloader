@@ -1,4 +1,4 @@
-import { ActivityIndicator } from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import React from 'react';
 import colors from '../../theme/constant/colors';
 const AppActivityIndicator = props => {

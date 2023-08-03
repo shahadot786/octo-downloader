@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Pressable } from 'react-native';
+import {View, StyleSheet, Pressable} from 'react-native';
 import TitleText from '../../../theme/Text/TitleText';
 
 const IOSButton = ({
@@ -20,15 +20,13 @@ const IOSButton = ({
         ...styles.cardlist,
         ...containerStyle,
       }}>
-      <View style={{ ...styles.progressContainer, ...progressStyle }} />
-      <View style={{ ...styles.touchable }}>
+      <View style={{...styles.progressContainer, ...progressStyle}} />
+      <View style={{...styles.touchable}}>
         <Pressable
           onPress={onSelect}
           disabled={disabled}
-          style={({ pressed }) => [
-            { ...btnStyle, opacity: pressed ? 0.7 : 1 },
-          ]}>
-          <View style={{ ...styles.card, ...textAlignment }}>
+          style={({pressed}) => [{...btnStyle, opacity: pressed ? 0.7 : 1}]}>
+          <View style={{...styles.card, ...textAlignment}}>
             <TitleText
               textStyle={{
                 ...titleStyle,

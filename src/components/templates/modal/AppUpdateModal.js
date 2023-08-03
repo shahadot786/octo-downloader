@@ -1,5 +1,7 @@
-import { StyleSheet, View, Linking } from 'react-native';
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps */
+import {StyleSheet, View, Linking} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import MiddleModal from '../../common/MiddleModal';
 import colors from '../../../theme/constant/colors';
 import TitleText from '../../../theme/Text/TitleText';
@@ -7,12 +9,12 @@ import IOSButton from '../../atoms/buttons/IOSButton';
 import metrics from '../../../theme/constant/metrics';
 import Text_Size from '../../../theme/constant/fonts';
 import DeviceInfo from 'react-native-device-info';
-import { useAppSelector } from '../../../store/store';
+import {useAppSelector} from '../../../store/store';
 
 const AppUpdateModal = () => {
   const [showModal, setShowModal] = useState(false);
   let appVersion = DeviceInfo.getVersion();
-  const { version } = useAppSelector(state => state.firebase);
+  const {version} = useAppSelector(state => state.firebase);
   const modalVisibleHandler = () => {
     if (version.versionName !== appVersion) {
       setShowModal(true);
@@ -56,7 +58,7 @@ const AppUpdateModal = () => {
           <IOSButton
             onSelect={buttonPressHandler}
             containerStyle={styles.containerStyle}
-            btnStyle={{ backgroundColor: colors.Green }}
+            btnStyle={{backgroundColor: colors.Green}}
             textAlignment={styles.textAlignment}
             titleStyle={styles.textStyle}
             title={'Update'}

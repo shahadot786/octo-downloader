@@ -1,10 +1,10 @@
-import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import {Platform, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import React from 'react';
 import useTheme from '../../hooks/theme/useTheme';
 import colors from '../constant/colors';
 
 const ScreenSafeAreaView = props => {
-  const { backgroundColor, initialMode } = useTheme();
+  const {backgroundColor, initialMode} = useTheme();
   return (
     <SafeAreaView style={[styles.container, backgroundColor, props.style]}>
       <StatusBar

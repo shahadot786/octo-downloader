@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { View, Pressable, ScrollView, StyleSheet } from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState} from 'react';
+import {View, Pressable, ScrollView, StyleSheet} from 'react-native';
 import DescriptionText from '../../../theme/Text/DescriptionText';
 import colors from '../../../theme/constant/colors';
 import useTheme from '../../../hooks/theme/useTheme';
 import metrics from '../../../theme/constant/metrics';
 
-const CustomDropdown = ({ options, onSelect, selectedValue, placeholder }) => {
-  const { initialMode } = useTheme();
+const CustomDropdown = ({options, onSelect, selectedValue, placeholder}) => {
+  const {initialMode} = useTheme();
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -31,7 +32,7 @@ const CustomDropdown = ({ options, onSelect, selectedValue, placeholder }) => {
           {options.map(item => (
             <Pressable
               key={item.value}
-              style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+              style={({pressed}) => [{opacity: pressed ? 0.7 : 1}]}
               onPress={() => handleSelect(item.value)}>
               <DescriptionText
                 text={item.label}
@@ -51,7 +52,7 @@ const CustomDropdown = ({ options, onSelect, selectedValue, placeholder }) => {
   return (
     <View>
       <Pressable
-        style={({ pressed }) => [
+        style={({pressed}) => [
           {
             opacity: pressed ? 0.7 : 1,
             backgroundColor: initialMode ? colors.Grey : colors.SoftBlack,

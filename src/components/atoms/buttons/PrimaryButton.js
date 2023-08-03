@@ -1,4 +1,4 @@
-import { StyleSheet, View, Pressable, ActivityIndicator } from 'react-native';
+import {StyleSheet, View, Pressable, ActivityIndicator} from 'react-native';
 import React from 'react';
 import TitleText from '../../../theme/Text/TitleText';
 import colors from '../../../theme/constant/colors';
@@ -14,13 +14,13 @@ const PrimaryButton = ({
   minWidth,
   paddingVertical,
 }) => {
-  const { initialMode } = useTheme();
+  const {initialMode} = useTheme();
   return (
     <Pressable
       onPress={onPress}
       disabled={disabled}
       activeOpacity={0.6}
-      style={({ pressed }) => [
+      style={({pressed}) => [
         {
           backgroundColor: pressed ? background : background,
           minWidth: minWidth ? minWidth : '30%',
@@ -29,21 +29,16 @@ const PrimaryButton = ({
         },
         styles.button,
       ]}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 8,
-        }}>
+      <View style={styles.btnView}>
         <TitleText
           text={title}
-          textStyle={{
-            color: initialMode ? colors.Black : colors.White,
-            textAlign: textAlign,
-            fontWeight: 500,
-            textTransform: 'capitalize',
-          }}
+          textStyle={[
+            {
+              color: initialMode ? colors.Black : colors.White,
+              textAlign: textAlign,
+            },
+            ...styles.btnText,
+          ]}
         />
         {loading && (
           <ActivityIndicator
@@ -62,5 +57,15 @@ const styles = StyleSheet.create({
   button: {
     paddingHorizontal: '5%',
     borderRadius: 5,
+  },
+  btnView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
+  },
+  btnText: {
+    fontWeight: 500,
+    textTransform: 'capitalize',
   },
 });

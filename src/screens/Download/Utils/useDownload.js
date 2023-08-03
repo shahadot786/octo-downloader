@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import Clipboard from '@react-native-clipboard/clipboard';
-import RNFetchBlob from 'react-native-blob-util';
+// import RNFetchBlob from 'react-native-blob-util';
 import {PERMISSIONS} from 'react-native-permissions';
 import {checkPermissions} from '../../../utils/checkPermissions';
 

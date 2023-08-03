@@ -1,15 +1,15 @@
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import useTheme from '../../hooks/theme/useTheme';
 import Text_Size from '../constant/fonts';
 
 const BigText = props => {
-  const { textColor } = useTheme();
+  const {textColor} = useTheme();
   return (
     <View>
       <Text
         allowFontScaling={false}
-        style={[textColor, styles.title, { ...props.textStyle }]}>
+        style={[textColor, styles.title, {...props.textStyle}]}>
         {props.text}
       </Text>
     </View>
