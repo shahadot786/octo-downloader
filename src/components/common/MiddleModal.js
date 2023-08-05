@@ -35,7 +35,7 @@ import useTheme from '../../hooks/theme/useTheme';
     btnTwoColor?: string;   [if isButton is true then this field is compulsory]
   */
 const MiddleModal = props => {
-  const { initialMode } = useTheme();
+  const {initialMode} = useTheme();
   return (
     <TouchableWithoutFeedback
       onBlur={props.onBlur}
@@ -72,7 +72,7 @@ const MiddleModal = props => {
                   }}>
                   <BigText
                     text={props.header}
-                    textStyle={{ color: colors.White }}
+                    textStyle={{color: colors.White}}
                   />
                 </View>
               )}
@@ -81,7 +81,7 @@ const MiddleModal = props => {
                   onPress={() => {
                     props?.setIsModalVisible(false);
                   }}
-                  style={({ pressed }) => [
+                  style={({pressed}) => [
                     {
                       position: 'absolute',
                       top: 5,
@@ -103,7 +103,7 @@ const MiddleModal = props => {
               <View>{props.children}</View>
               {/*Bottom Buttons */}
               {props.isButton && (
-                <View style={{ width: '100%' }}>
+                <View style={{width: '100%'}}>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -116,7 +116,7 @@ const MiddleModal = props => {
                         props?.setIsModalVisible(false);
                         props.handleBtnOnePress && props.handleBtnOnePress();
                       }}
-                      btnStyle={{ backgroundColor: props.btnOneColor }}
+                      btnStyle={{backgroundColor: props.btnOneColor}}
                       textAlignment={styles.textAlignment}
                       titleStyle={styles.textStyle}
                       title={props.btnOneText}
@@ -128,7 +128,7 @@ const MiddleModal = props => {
                         props.handleBtnTwoPress && props.handleBtnTwoPress();
                       }}
                       textAlignment={styles.textAlignment}
-                      btnStyle={{ backgroundColor: props.btnTwoColor }}
+                      btnStyle={{backgroundColor: props.btnTwoColor}}
                       titleStyle={styles.textStyle}
                       title={props.btnTwoText}
                     />

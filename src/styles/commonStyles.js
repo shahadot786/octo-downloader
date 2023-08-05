@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import metrics from '../theme/constant/metrics';
 
 export const commonStyles = StyleSheet.create({

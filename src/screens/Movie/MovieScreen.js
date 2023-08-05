@@ -1,18 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {View, Text} from 'react-native';
 import React from 'react';
-import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
-import HeaderText from '../../theme/Text/HeaderText';
-import { useAppSelector } from '../../store/store';
 
 const MovieScreen = () => {
-  const { movies } = useAppSelector(state => state.movies);
   return (
-    <ScreenSafeAreaView>
-      {/* <HeaderText text={'Updated Video List Screen'} /> */}
-    </ScreenSafeAreaView>
+    <View>
+      <Text>MovieScreen</Text>
+    </View>
   );
 };
 
 export default MovieScreen;
-
-const styles = StyleSheet.create({});

@@ -1,45 +1,44 @@
-import { StyleSheet, Pressable, View, Image } from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {StyleSheet, Pressable, View, Image} from 'react-native';
 import React from 'react';
-import { commonStyles } from '../../../../styles/commonStyles';
+import {commonStyles} from '../../../../styles/commonStyles';
 import DescriptionText from '../../../../theme/Text/DescriptionText';
 import colors from '../../../../theme/constant/colors';
 import images from '../../../../theme/constant/images';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import strings from '../../../../theme/constant/strings';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import useTheme from '../../../../hooks/theme/useTheme';
-import { useAppSelector } from '../../../../store/store';
+import {useAppSelector} from '../../../../store/store';
 
 const HomePromotion = () => {
   const navigation = useNavigation();
-  const { promotion } = useAppSelector(state => state.firebase);
+  const {promotion} = useAppSelector(state => state.firebase);
   const onPressHandler = () => {
     navigation.navigate(strings.MovieScreen);
   };
-  const { initialMode } = useTheme();
+  const {initialMode} = useTheme();
   return (
     <Pressable
       onPress={onPressHandler}
-      style={({ pressed }) => [
+      style={({pressed}) => [
         styles.promotion,
         commonStyles.flexRow,
         commonStyles.justifyBetween,
-        { opacity: pressed ? 0.7 : 1 },
+        {opacity: pressed ? 0.7 : 1},
       ]}>
       {/* image */}
-      <View style={{ width: '25%' }}>
+      <View style={{width: '25%'}}>
         <Image
           source={
-            promotion?.imageUrl
-              ? { uri: promotion?.imageUrl }
-              : images.promo_icon
+            promotion?.imageUrl ? {uri: promotion?.imageUrl} : images.promo_icon
           }
           style={[styles.image, commonStyles.smallImageSize]}
         />
       </View>
       <View
         style={[
-          { width: '70%', marginHorizontal: 10 },
+          {width: '70%', marginHorizontal: 10},
           commonStyles.justifyCenter,
         ]}>
         <DescriptionText
@@ -50,7 +49,7 @@ const HomePromotion = () => {
           }
         />
       </View>
-      <View style={{ position: 'absolute', bottom: 2, right: 10 }}>
+      <View style={{position: 'absolute', bottom: 2, right: 10}}>
         <Ionicons
           name="arrow-forward-circle-sharp"
           color={initialMode ? colors.White : colors.Black}
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.Error,
     width: '65%',
     borderRadius: 10,
-    marginVertical: '9%',
+    marginVertical: 20,
   },
   image: {
     resizeMode: 'contain',

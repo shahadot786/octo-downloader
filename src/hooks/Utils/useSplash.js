@@ -1,22 +1,24 @@
 import mobileAds from 'react-native-google-mobile-ads';
-import { useFirebase } from '../Firebase/useFirebase';
-import { keyStrings } from '../Firebase/keyStrings';
-import { useEffect } from 'react';
-import { useAppDispatch } from '../../store/store';
+import {useFirebase} from '../Firebase/useFirebase';
+import {keyStrings} from '../Firebase/keyStrings';
+import {useEffect} from 'react';
+import {PERMISSIONS} from 'react-native-permissions';
+import {useAppDispatch} from '../../store/store';
 import {
   setMovies,
   setPromotion,
   setVersion,
 } from '../../store/slices/firebase/firebaseSlice';
+import {checkPermissions} from '../../utils/checkPermissions';
 
 export const useSplash = () => {
-  const { data: versionData, loading: versionLoading } = useFirebase(
+  const {data: versionData, loading: versionLoading} = useFirebase(
     keyStrings.versionDoc,
   );
-  const { data: moviesData, loading: moviesLoading } = useFirebase(
+  const {data: moviesData, loading: moviesLoading} = useFirebase(
     keyStrings.moviesDoc,
   );
-  const { data: promotionData, loading: promotionLoading } = useFirebase(
+  const {data: promotionData, loading: promotionLoading} = useFirebase(
     keyStrings.promotionDoc,
   );
 
@@ -25,14 +27,27 @@ export const useSplash = () => {
   const initialGoogleAds = () => {
     mobileAds()
       .initialize()
-      .then(adapterStatuses => {
+      .then(() => {
         // Initialization complete!
         // console.log(adapterStatuses);
       });
   };
+  //get all the permission
+  const getAllPermission = async () => {
+    await checkPermissions([
+      PERMISSIONS.ANDROID.POST_NOTIFICATIONS,
+      PERMISSIONS.ANDROID.READ_MEDIA_AUDIO,
+      PERMISSIONS.ANDROID.READ_MEDIA_VIDEO,
+      PERMISSIONS.ANDROID.READ_MEDIA_IMAGES,
+      PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+      PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+    ]);
+  };
   useEffect(() => {
     initialGoogleAds();
+    getAllPermission();
   }, []);
+
   useEffect(() => {
     dispatch(
       setVersion({
@@ -41,10 +56,10 @@ export const useSplash = () => {
         versionName: versionData?.version?.versionName,
       }),
     );
-  }, [versionData]);
+  }, [dispatch, versionData]);
   useEffect(() => {
     dispatch(setMovies(moviesData?.movies));
-  }, [moviesData]);
+  }, [dispatch, moviesData]);
 
   useEffect(() => {
     dispatch(
@@ -53,7 +68,7 @@ export const useSplash = () => {
         message: promotionData?.promotion?.message,
       }),
     );
-  }, [promotionData]);
+  }, [dispatch, promotionData]);
 
-  return { versionLoading, moviesLoading, promotionLoading };
+  return {versionLoading, moviesLoading, promotionLoading};
 };

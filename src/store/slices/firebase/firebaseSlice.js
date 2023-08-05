@@ -1,12 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   movies: [],
   videos: [],
   images: [],
   pdf: [],
-  version: { message: '', title: '', versionName: '' },
-  promotion: { imageUrl: '', message: '' },
+  version: {message: '', title: '', versionName: ''},
+  promotion: {imageUrl: '', message: ''},
 };
 
 const firebaseSlice = createSlice({
@@ -26,13 +26,13 @@ const firebaseSlice = createSlice({
       state.pdf = action.payload;
     },
     setVersion: (state, action) => {
-      const { message, title, versionName } = action.payload;
+      const {message, title, versionName} = action.payload;
       state.version.message = message;
       state.version.title = title;
       state.version.versionName = versionName;
     },
     setPromotion: (state, action) => {
-      const { imageUrl, message } = action.payload;
+      const {imageUrl, message} = action.payload;
       state.promotion.imageUrl = imageUrl;
       state.promotion.message = message;
     },

@@ -1,4 +1,4 @@
-import { View, Platform } from 'react-native';
+import {View, Platform} from 'react-native';
 import React from 'react';
 import metrics from '../constant/metrics';
 

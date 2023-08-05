@@ -1,17 +1,17 @@
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import useTheme from '../../hooks/theme/useTheme';
 import Text_Size from '../constant/fonts';
 
 const DescriptionText = props => {
-  const { textColor } = useTheme();
+  const {textColor} = useTheme();
   return (
     <View>
       <Text
         allowFontScaling={false}
         ellipsizeMode={props.ellipsizeMode}
         numberOfLines={props.numberOfLines}
-        style={[styles.details, textColor, { ...props.textStyle }]}>
+        style={[styles.details, textColor, {...props.textStyle}]}>
         {props.text}
       </Text>
     </View>

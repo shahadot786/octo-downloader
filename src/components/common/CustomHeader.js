@@ -1,11 +1,11 @@
-import { StyleSheet, View, Pressable } from 'react-native';
+import {StyleSheet, View, Pressable} from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import colors from '../../theme/constant/colors';
 import TitleText from '../../theme/Text/TitleText';
 
-const CustomHeader = ({ title, navigation }) => {
+const CustomHeader = ({title, navigation}) => {
   const handleGoBack = () => {
     navigation.goBack();
   };
