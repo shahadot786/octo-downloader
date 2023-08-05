@@ -11,7 +11,6 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import PrimaryButton from '../../components/atoms/buttons/PrimaryButton';
 import colors from '../../theme/constant/colors';
 import CustomProgressBar from '../../components/molecules/progressBar/CustomProgressBar';
-import {useAppSelector} from '../../store/store';
 
 const DownloadScreen = () => {
   const {
@@ -21,9 +20,8 @@ const DownloadScreen = () => {
     onPasteBtnPressHandler,
     inputValue,
     onDownloadPressHandler,
+    isAdShown,
   } = useDownload();
-
-  const {isAdShown} = useAppSelector(state => state.ads);
 
   return (
     <ScreenSafeAreaView style={styles.container}>

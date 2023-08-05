@@ -3,8 +3,10 @@ import Clipboard from '@react-native-clipboard/clipboard';
 // import RNFetchBlob from 'react-native-blob-util';
 import {PERMISSIONS} from 'react-native-permissions';
 import {checkPermissions} from '../../../utils/checkPermissions';
+import {useAppSelector} from '../../../store/store';
 
 export const useDownload = () => {
+  const {isAdShown} = useAppSelector(state => state.ads);
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
 
@@ -36,6 +38,7 @@ export const useDownload = () => {
       PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
       PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
     ]);
+    console.log(permissionsGranted);
     if (permissionsGranted) {
       console.log('Granted');
     }
@@ -48,5 +51,6 @@ export const useDownload = () => {
     onPasteBtnPressHandler,
     inputValue,
     onDownloadPressHandler,
+    isAdShown,
   };
 };
