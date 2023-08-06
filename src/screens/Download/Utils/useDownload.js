@@ -2,12 +2,13 @@ import {useState} from 'react';
 import Clipboard from '@react-native-clipboard/clipboard';
 import RNFetchBlob from 'react-native-blob-util';
 import {useAppSelector} from '../../../store/store';
+import {fileTypes} from './constant';
 
 export const useDownload = () => {
   const {isAdShown} = useAppSelector(state => state.ads);
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
-  const docPath = RNFetchBlob.fs.dirs.DownloadDir;
+  const [downloadProgress, setDownloadProgress] = useState(0); // State to store download progress
 
   const handleSelectOption = value => {
     setSelectedOption(value);
@@ -22,39 +23,57 @@ export const useDownload = () => {
       const clipboardValue = await Clipboard.getString();
       setInputValue(clipboardValue);
     } catch (error) {
-      //   console.log('Error pasting from clipboard:', error);
+      // console.log('Error pasting from clipboard:', error);
     }
   };
 
-  //download press handler
-  // const onDownloadPressHandler = async () => {};
-  // handle download image function
-  const onDownloadPressHandler = async () => {
-    const url =
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4';
-    const path = `${docPath}/DownloadImage.mp4`;
-    await RNFetchBlob.config({
-      path: path,
-      fileCache: true,
-      addAndroidDownloads: {
-        useDownloadManager: true,
-        notification: true,
-        title: 'Download Successful! Click to view',
-        description: 'An Video file.',
-        mime: 'video/mp4',
-      },
-    })
-      .fetch('GET', url)
-      .then(async res => {
-        if (res && res.info().status === 200) {
-          console.log(res);
-        } else {
-          console.log(res);
-        }
-      })
-      .catch(error => console.log(error));
+  const docPath = RNFetchBlob.fs.dirs.DocumentDir;
+  const getFolderPath = fileType => {
+    const folder = fileTypes[fileType]?.folder || 'Miscellaneous';
+    return `${docPath}/Octodownloader/${folder}`;
   };
 
+  const getFileNameFromUrl = url => {
+    const index = url.lastIndexOf('/');
+    return url.substring(index + 1);
+  };
+
+  const onDownloadPressHandler = async fileType => {
+    const url =
+      'https://scienceandfilm.org/uploads/videos/files/Beneath_Hill_60_Trailer.mp4';
+    const {mime} = fileTypes[fileType] || fileTypes.text;
+    const path = `${getFolderPath(fileType)}/DownloadedFile.${fileType}`;
+    const fileName = getFileNameFromUrl(url);
+
+    try {
+      await RNFetchBlob.config({
+        path: path,
+        fileCache: true,
+        addAndroidDownloads: {
+          useDownloadManager: true,
+          notification: true,
+          title: fileName,
+          description: `A ${fileType} file.`,
+          mime: mime,
+        },
+      })
+        .fetch('GET', url)
+        .progress((received, total) => {
+          const progress = (received / total) * 100;
+          setDownloadProgress(progress);
+        })
+        .then(async res => {
+          const filePath = res?.data;
+          console.log(filePath);
+        });
+
+      // You can do something with the downloaded file using the 'res.data' here if needed
+    } catch (error) {
+      console.log('Download error:', error);
+    }
+  };
+  const percentage = Math.floor(downloadProgress * 10) + '%';
+  console.log(percentage, 'downloadProgress');
   return {
     handleSelectOption,
     selectedOption,
@@ -63,5 +82,6 @@ export const useDownload = () => {
     inputValue,
     isAdShown,
     onDownloadPressHandler,
+    downloadProgress,
   };
 };
