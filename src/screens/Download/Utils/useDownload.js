@@ -1,14 +1,13 @@
 import {useState} from 'react';
 import Clipboard from '@react-native-clipboard/clipboard';
-// import RNFetchBlob from 'react-native-blob-util';
-import {PERMISSIONS} from 'react-native-permissions';
-import {checkPermissions} from '../../../utils/checkPermissions';
+import RNFetchBlob from 'react-native-blob-util';
 import {useAppSelector} from '../../../store/store';
 
 export const useDownload = () => {
   const {isAdShown} = useAppSelector(state => state.ads);
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const docPath = RNFetchBlob.fs.dirs.DownloadDir;
 
   const handleSelectOption = value => {
     setSelectedOption(value);
@@ -28,20 +27,32 @@ export const useDownload = () => {
   };
 
   //download press handler
+  // const onDownloadPressHandler = async () => {};
+  // handle download image function
   const onDownloadPressHandler = async () => {
-    // first check the storage permission
-    const permissionsGranted = await checkPermissions([
-      PERMISSIONS.ANDROID.POST_NOTIFICATIONS,
-      PERMISSIONS.ANDROID.READ_MEDIA_AUDIO,
-      PERMISSIONS.ANDROID.READ_MEDIA_VIDEO,
-      PERMISSIONS.ANDROID.READ_MEDIA_IMAGES,
-      PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
-      PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
-    ]);
-    console.log(permissionsGranted);
-    if (permissionsGranted) {
-      console.log('Granted');
-    }
+    const url =
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4';
+    const path = `${docPath}/DownloadImage.mp4`;
+    await RNFetchBlob.config({
+      path: path,
+      fileCache: true,
+      addAndroidDownloads: {
+        useDownloadManager: true,
+        notification: true,
+        title: 'Download Successful! Click to view',
+        description: 'An Video file.',
+        mime: 'video/mp4',
+      },
+    })
+      .fetch('GET', url)
+      .then(async res => {
+        if (res && res.info().status === 200) {
+          console.log(res);
+        } else {
+          console.log(res);
+        }
+      })
+      .catch(error => console.log(error));
   };
 
   return {
@@ -50,7 +61,7 @@ export const useDownload = () => {
     onChangeInputText,
     onPasteBtnPressHandler,
     inputValue,
-    onDownloadPressHandler,
     isAdShown,
+    onDownloadPressHandler,
   };
 };

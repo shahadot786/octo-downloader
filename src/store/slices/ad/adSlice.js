@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-  isAdShown: true,
+  isAdShown: false,
 };
 
 const adSlice = createSlice({
