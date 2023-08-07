@@ -8,8 +8,7 @@ export const useDownload = () => {
   const {isAdShown} = useAppSelector(state => state.ads);
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
-  const [downloadProgress, setDownloadProgress] = useState(0); // State to store download progress
-
+  const [downloadProgress, setDownloadProgress] = useState(0);
   const handleSelectOption = value => {
     setSelectedOption(value);
   };
@@ -23,27 +22,25 @@ export const useDownload = () => {
       const clipboardValue = await Clipboard.getString();
       setInputValue(clipboardValue);
     } catch (error) {
-      // console.log('Error pasting from clipboard:', error);
+      console.log('Error pasting from clipboard:', error);
     }
   };
 
-  const docPath = RNFetchBlob.fs.dirs.DocumentDir;
+  const docPath = RNFetchBlob.fs.dirs.DownloadDir;
+
   const getFolderPath = fileType => {
     const folder = fileTypes[fileType]?.folder || 'Miscellaneous';
     return `${docPath}/Octodownloader/${folder}`;
   };
-
   const getFileNameFromUrl = url => {
     const index = url.lastIndexOf('/');
     return url.substring(index + 1);
   };
-
   const onDownloadPressHandler = async fileType => {
-    const url =
-      'https://scienceandfilm.org/uploads/videos/files/Beneath_Hill_60_Trailer.mp4';
+    const url = 'https://www.africau.edu/images/default/sample.pdf';
     const {mime} = fileTypes[fileType] || fileTypes.text;
-    const path = `${getFolderPath(fileType)}/DownloadedFile.${fileType}`;
     const fileName = getFileNameFromUrl(url);
+    const path = `${getFolderPath(fileType)}/${fileName}.${fileType}`;
 
     try {
       await RNFetchBlob.config({
@@ -55,6 +52,7 @@ export const useDownload = () => {
           title: fileName,
           description: `A ${fileType} file.`,
           mime: mime,
+          mediaScannable: true,
         },
       })
         .fetch('GET', url)
@@ -63,8 +61,28 @@ export const useDownload = () => {
           setDownloadProgress(progress);
         })
         .then(async res => {
-          const filePath = res?.data;
-          console.log(filePath);
+          console.log(res?.path(), 'download successfully');
+
+          // Get the cached path of the downloaded file
+          // const cachedFilePath = res.path();
+          // // Construct the new path in local storage
+          // const newFilePath = `${docPath}/Octodownloader/Local/${fileName}.${fileType}`;
+          // // Check if the cached file exists before moving
+          // const isCachedFileExists = await RNFetchBlob.fs.exists(
+          //   cachedFilePath,
+          // );
+
+          // if (isCachedFileExists) {
+          //   try {
+          //     // Move the file from cache to local storage
+          //     await RNFetchBlob.fs.mv(cachedFilePath, newFilePath);
+          //     console.log('File moved to local storage:', newFilePath);
+          //   } catch (moveError) {
+          //     console.log('Error moving file:', moveError);
+          //   }
+          // } else {
+          //   console.log('Cached file does not exist:', cachedFilePath);
+          // }
         });
 
       // You can do something with the downloaded file using the 'res.data' here if needed
@@ -72,8 +90,8 @@ export const useDownload = () => {
       console.log('Download error:', error);
     }
   };
-  const percentage = Math.floor(downloadProgress * 10) + '%';
-  console.log(percentage, 'downloadProgress');
+  // const percentage = Math.floor(downloadProgress) + '%';
+
   return {
     handleSelectOption,
     selectedOption,
