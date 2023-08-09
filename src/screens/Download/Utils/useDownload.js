@@ -34,10 +34,16 @@ export const useDownload = () => {
   };
   const getFileNameFromUrl = url => {
     const index = url.lastIndexOf('/');
-    return url.substring(index + 1);
+    let filename = url.substring(index + 1);
+    // Replace %20 with underscores
+    filename = filename.replace(/%20/g, '-');
+    // Replace remaining spaces with underscores
+    filename = filename.replace(/\s+/g, '-');
+    return filename;
   };
   const onDownloadPressHandler = async fileType => {
-    const url = 'https://www.nhc.noaa.gov/video/DOLLY.mp4';
+    const url =
+      'https://sofj.ch/audio/songs/Total%20Eclipse%20Of%20The%20Heart.mp3';
     const {mime} = fileTypes[fileType] || fileTypes.text;
     const fileName = getFileNameFromUrl(url);
     const path = `${getFolderPath(fileType)}/${fileName}`;
