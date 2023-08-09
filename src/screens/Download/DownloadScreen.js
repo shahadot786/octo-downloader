@@ -49,7 +49,7 @@ const DownloadScreen = () => {
             <PrimaryButton
               title={'Download'}
               background={colors.Green}
-              onPress={() => onDownloadPressHandler('pdf')}
+              onPress={() => onDownloadPressHandler('video')}
             />
           </View>
           <View>

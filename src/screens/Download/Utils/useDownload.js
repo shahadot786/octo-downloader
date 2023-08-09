@@ -26,7 +26,7 @@ export const useDownload = () => {
     }
   };
 
-  const docPath = RNFetchBlob.fs.dirs.DownloadDir;
+  const docPath = RNFetchBlob.fs.dirs.SDCardDir;
 
   const getFolderPath = fileType => {
     const folder = fileTypes[fileType]?.folder || 'Miscellaneous';
@@ -37,16 +37,16 @@ export const useDownload = () => {
     return url.substring(index + 1);
   };
   const onDownloadPressHandler = async fileType => {
-    const url = 'https://www.africau.edu/images/default/sample.pdf';
+    const url = 'https://www.nhc.noaa.gov/video/DOLLY.mp4';
     const {mime} = fileTypes[fileType] || fileTypes.text;
     const fileName = getFileNameFromUrl(url);
-    const path = `${getFolderPath(fileType)}/${fileName}.${fileType}`;
+    const path = `${getFolderPath(fileType)}/${fileName}`;
 
     try {
       await RNFetchBlob.config({
-        path: path,
         fileCache: true,
         addAndroidDownloads: {
+          path: path,
           useDownloadManager: true,
           notification: true,
           title: fileName,
@@ -62,27 +62,6 @@ export const useDownload = () => {
         })
         .then(async res => {
           console.log(res?.path(), 'download successfully');
-
-          // Get the cached path of the downloaded file
-          // const cachedFilePath = res.path();
-          // // Construct the new path in local storage
-          // const newFilePath = `${docPath}/Octodownloader/Local/${fileName}.${fileType}`;
-          // // Check if the cached file exists before moving
-          // const isCachedFileExists = await RNFetchBlob.fs.exists(
-          //   cachedFilePath,
-          // );
-
-          // if (isCachedFileExists) {
-          //   try {
-          //     // Move the file from cache to local storage
-          //     await RNFetchBlob.fs.mv(cachedFilePath, newFilePath);
-          //     console.log('File moved to local storage:', newFilePath);
-          //   } catch (moveError) {
-          //     console.log('Error moving file:', moveError);
-          //   }
-          // } else {
-          //   console.log('Cached file does not exist:', cachedFilePath);
-          // }
         });
 
       // You can do something with the downloaded file using the 'res.data' here if needed
