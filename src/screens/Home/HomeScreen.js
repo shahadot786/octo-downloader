@@ -16,7 +16,6 @@ import {useHome} from './Utils/useHome';
 
 const HomeScreen = () => {
   const {isAdShown} = useHome();
-
   return (
     <ScreenSafeAreaView style={styles.container}>
       {/* main container */}

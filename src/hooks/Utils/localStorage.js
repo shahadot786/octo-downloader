@@ -19,6 +19,14 @@ const localStorage = {
     const value = storage.getBuffer(key);
     return Promise.resolve(value);
   },
+  getBoolean: key => {
+    const value = storage.getBoolean(key);
+    return Promise.resolve(value);
+  },
+  setBoolean: (key, value) => {
+    storage.setBoolean(key, value);
+    return Promise.resolve(true);
+  },
   removeItem: key => {
     storage.delete(key);
     return Promise.resolve();

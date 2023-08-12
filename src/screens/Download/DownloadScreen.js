@@ -23,6 +23,7 @@ const DownloadScreen = () => {
     onDownloadPressHandler,
     isAdShown,
     downloadProgress,
+    btnDisabled,
   } = useDownload();
 
   return (
@@ -51,7 +52,8 @@ const DownloadScreen = () => {
             <PrimaryButton
               title={'Download'}
               background={colors.Green}
-              onPress={() => onDownloadPressHandler('audio')}
+              onPress={() => onDownloadPressHandler(selectedOption)}
+              disabled={btnDisabled}
             />
           </View>
           <View>
