@@ -11,6 +11,7 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import PrimaryButton from '../../components/atoms/buttons/PrimaryButton';
 import colors from '../../theme/constant/colors';
 import CustomProgressBar from '../../components/molecules/progressBar/CustomProgressBar';
+import {commonStyles} from '../../styles/commonStyles';
 
 const DownloadScreen = () => {
   const {
@@ -50,6 +51,10 @@ const DownloadScreen = () => {
           <View>
             <View>
               <CustomProgressBar progress={downloadProgress} />
+              <View style={[commonStyles.flexRow, {marginVertical: 20}]}>
+                <PrimaryButton title={'Cancel'} background={colors.Error} />
+                <PrimaryButton title={'Pause'} background={colors.Blue} />
+              </View>
             </View>
             <PrimaryButton
               title={'Download'}
