@@ -11,7 +11,6 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import PrimaryButton from '../../components/atoms/buttons/PrimaryButton';
 import colors from '../../theme/constant/colors';
 import CustomProgressBar from '../../components/molecules/progressBar/CustomProgressBar';
-import BigText from '../../theme/Text/BigText';
 
 const DownloadScreen = () => {
   const {
@@ -25,7 +24,7 @@ const DownloadScreen = () => {
     downloadProgress,
     btnDisabled,
   } = useDownload();
-
+  console.log(downloadProgress);
   return (
     <ScreenSafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -49,16 +48,15 @@ const DownloadScreen = () => {
             {isAdShown && <LargeBannerAd />}
           </View>
           <View>
+            <View>
+              <CustomProgressBar progress={downloadProgress} />
+            </View>
             <PrimaryButton
               title={'Download'}
               background={colors.Green}
               onPress={() => onDownloadPressHandler(selectedOption)}
               disabled={btnDisabled}
             />
-          </View>
-          <View>
-            <CustomProgressBar />
-            <BigText text={Math.floor(downloadProgress) + '%'} />
           </View>
         </Pressable>
         <BottomSpacing />

@@ -13,7 +13,7 @@ export const useDownload = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [downloadProgress, setDownloadProgress] = useState(0);
-  const [btnDisabled, setBtnDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const storagePermission = useAppSelector(state => state.storagePermission);
 
   const dispatch = useAppDispatch();
@@ -34,7 +34,11 @@ export const useDownload = () => {
   const onPasteBtnPressHandler = async () => {
     try {
       const clipboardValue = await Clipboard.getString();
-      setInputValue(clipboardValue);
+      if (inputValue === '') {
+        setInputValue(clipboardValue);
+      } else {
+        setInputValue('');
+      }
     } catch (error) {
       // console.log('Error pasting from clipboard:', error);
     }
@@ -45,7 +49,7 @@ export const useDownload = () => {
 
   const getFolderPath = fileType => {
     const folder = fileTypes[fileType]?.folder || 'Miscellaneous';
-    return `${appPath}/Octodownloader/${folder}`;
+    return `${appPath}/OctoDownloader/${folder}`;
   };
 
   const getFileNameFromUrl = url => {
@@ -77,11 +81,11 @@ export const useDownload = () => {
       return;
     }
     if (storagePermission) {
+      setLoading(true);
       const url = inputValue;
       const {mime} = fileTypes[fileType] || fileTypes.text;
       const fileName = getFileNameFromUrl(url);
       const path = `${getFolderPath(fileType)}/${fileName}`;
-      setBtnDisabled(true);
 
       try {
         await RNFetchBlob.config({
@@ -102,15 +106,15 @@ export const useDownload = () => {
             setDownloadProgress(progress);
           })
           .then(async res => {
-            console.log(res?.path(), 'download successfully');
             setDownloadProgress(0);
             setInputValue('');
-            setBtnDisabled(false);
+            setLoading(false);
           });
 
         // You can do something with the downloaded file using the 'res.data' here if needed
       } catch (error) {
         console.log('Download error:', error);
+        setLoading(false);
       }
     } else {
       Alert.alert(
@@ -140,6 +144,6 @@ export const useDownload = () => {
     isAdShown,
     onDownloadPressHandler,
     downloadProgress,
-    btnDisabled,
+    loading,
   };
 };
