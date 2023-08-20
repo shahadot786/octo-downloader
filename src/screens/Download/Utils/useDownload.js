@@ -13,10 +13,13 @@ export const useDownload = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [downloadProgress, setDownloadProgress] = useState(0);
+  const [currentSize, setCurrentSize] = useState(0);
+  const [totalSize, setTotalSize] = useState(0);
   const [loading, setLoading] = useState(false);
   const storagePermission = useAppSelector(state => state.storagePermission);
 
   const dispatch = useAppDispatch();
+
   const handleSelectOption = value => {
     setSelectedOption(value);
   };
@@ -88,6 +91,7 @@ export const useDownload = () => {
       const path = `${getFolderPath(fileType)}/${fileName}`;
 
       try {
+        // Configure the download
         await RNFetchBlob.config({
           fileCache: true,
           addAndroidDownloads: {
@@ -102,18 +106,23 @@ export const useDownload = () => {
         })
           .fetch('GET', url)
           .progress((received, total) => {
-            const progress = (received / total) * 100;
+            const progress = received / total;
+            setCurrentSize(received);
+            setTotalSize(total);
             setDownloadProgress(progress);
+            setInputValue('');
+            setSelectedOption('');
           })
           .then(async res => {
             setDownloadProgress(0);
             setInputValue('');
+            setSelectedOption('');
             setLoading(false);
           });
-
-        // You can do something with the downloaded file using the 'res.data' here if needed
       } catch (error) {
-        console.log('Download error:', error);
+        setDownloadProgress(0);
+        setInputValue('');
+        setSelectedOption('');
         setLoading(false);
       }
     } else {
@@ -144,6 +153,8 @@ export const useDownload = () => {
     isAdShown,
     onDownloadPressHandler,
     downloadProgress,
+    currentSize,
+    totalSize,
     loading,
   };
 };

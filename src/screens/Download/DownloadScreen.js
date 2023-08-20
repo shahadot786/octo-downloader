@@ -10,8 +10,7 @@ import LargeBannerAd from '../../hooks/Ads/Banner/LargeBannerAd';
 import BottomSpacing from '../../theme/Global/BottomSpacing';
 import PrimaryButton from '../../components/atoms/buttons/PrimaryButton';
 import colors from '../../theme/constant/colors';
-import CustomProgressBar from '../../components/molecules/progressBar/CustomProgressBar';
-import {commonStyles} from '../../styles/commonStyles';
+import CustomProgressBar from '../../components/atoms/progress/CustomProgressBar';
 
 const DownloadScreen = () => {
   const {
@@ -23,9 +22,10 @@ const DownloadScreen = () => {
     onDownloadPressHandler,
     isAdShown,
     downloadProgress,
-    btnDisabled,
+    currentSize,
+    totalSize,
+    loading,
   } = useDownload();
-  console.log(downloadProgress);
   return (
     <ScreenSafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -49,19 +49,31 @@ const DownloadScreen = () => {
             {isAdShown && <LargeBannerAd />}
           </View>
           <View>
-            <View>
-              <CustomProgressBar progress={downloadProgress} />
-              <View style={[commonStyles.flexRow, {marginVertical: 20}]}>
-                <PrimaryButton title={'Cancel'} background={colors.Error} />
-                <PrimaryButton title={'Pause'} background={colors.Blue} />
+            {loading === true && (
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 5,
+                  paddingTop: 15,
+                  borderColor: colors.Grey,
+                  marginBottom: 15,
+                  marginHorizontal: 15,
+                }}>
+                <CustomProgressBar
+                  progress={downloadProgress}
+                  currentSize={currentSize}
+                  totalSize={totalSize}
+                />
               </View>
-            </View>
-            <PrimaryButton
-              title={'Download'}
-              background={colors.Green}
-              onPress={() => onDownloadPressHandler(selectedOption)}
-              disabled={btnDisabled}
-            />
+            )}
+            {loading === false && (
+              <PrimaryButton
+                title={'Download'}
+                background={colors.Green}
+                onPress={() => onDownloadPressHandler(selectedOption)}
+                disabled={loading}
+              />
+            )}
           </View>
         </Pressable>
         <BottomSpacing />

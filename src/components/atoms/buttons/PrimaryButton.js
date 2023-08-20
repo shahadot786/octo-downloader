@@ -23,7 +23,7 @@ const PrimaryButton = ({
       activeOpacity={0.6}
       style={({pressed}) => [
         {
-          backgroundColor: pressed ? background : background,
+          backgroundColor: disabled ? colors.Grey : background,
           minWidth: minWidth ? minWidth : '30%',
           opacity: pressed ? 0.7 : 1,
           paddingVertical: paddingVertical ? paddingVertical : '3%',
