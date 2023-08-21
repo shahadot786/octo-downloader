@@ -1,7 +1,7 @@
 import mobileAds from 'react-native-google-mobile-ads';
 import {useFirebase} from '../Firebase/useFirebase';
 import {keyStrings} from '../Firebase/keyStrings';
-import {useEffect} from 'react';
+import {useEffect, useMemo} from 'react';
 import {useAppDispatch} from '../../store/store';
 import {
   setMovies,
@@ -21,15 +21,17 @@ export const useSplash = () => {
   );
 
   const dispatch = useAppDispatch();
-  // initial google ad
-  const initialGoogleAds = () => {
-    mobileAds()
-      .initialize()
-      .then(() => {
-        // Initialization complete!
-        // console.log(adapterStatuses);
-      });
-  };
+
+  const initialGoogleAds = useMemo(() => {
+    return () => {
+      mobileAds()
+        .initialize()
+        .then(() => {
+          // Initialization complete!
+        });
+    };
+  }, []);
+
   useEffect(() => {
     initialGoogleAds();
   }, []);
@@ -42,19 +44,14 @@ export const useSplash = () => {
         versionName: versionData?.version?.versionName,
       }),
     );
-  }, [dispatch, versionData]);
-  useEffect(() => {
     dispatch(setMovies(moviesData?.movies));
-  }, [dispatch, moviesData]);
-
-  useEffect(() => {
     dispatch(
       setPromotion({
         imageUrl: promotionData?.promotion?.image,
         message: promotionData?.promotion?.message,
       }),
     );
-  }, [dispatch, promotionData]);
+  }, [dispatch, versionData, moviesData, promotionData]);
 
   return {versionLoading, moviesLoading, promotionLoading};
 };
