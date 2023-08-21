@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import NetInfo from '@react-native-community/netinfo';
 
-const useNetInfo = () => {
+const useConnectionCheck = () => {
   const [netInfoState, setNetInfoState] = useState(null);
 
   useEffect(() => {
@@ -30,4 +30,4 @@ const useNetInfo = () => {
   return netInfoState;
 };
 
-export default useNetInfo;
+export default useConnectionCheck;

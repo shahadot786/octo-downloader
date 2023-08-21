@@ -10,8 +10,7 @@ import LargeBannerAd from '../../hooks/Ads/Banner/LargeBannerAd';
 import BottomSpacing from '../../theme/Global/BottomSpacing';
 import PrimaryButton from '../../components/atoms/buttons/PrimaryButton';
 import colors from '../../theme/constant/colors';
-import CustomProgressBar from '../../components/molecules/progressBar/CustomProgressBar';
-import {useAppSelector} from '../../store/store';
+import CustomProgressBar from '../../components/atoms/progress/CustomProgressBar';
 
 const DownloadScreen = () => {
   const {
@@ -21,10 +20,12 @@ const DownloadScreen = () => {
     onPasteBtnPressHandler,
     inputValue,
     onDownloadPressHandler,
+    isAdShown,
+    downloadProgress,
+    currentSize,
+    totalSize,
+    loading,
   } = useDownload();
-
-  const {isAdShown} = useAppSelector(state => state.ads);
-
   return (
     <ScreenSafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -48,14 +49,31 @@ const DownloadScreen = () => {
             {isAdShown && <LargeBannerAd />}
           </View>
           <View>
-            <PrimaryButton
-              title={'Download'}
-              background={colors.Green}
-              onPress={onDownloadPressHandler}
-            />
-          </View>
-          <View>
-            <CustomProgressBar />
+            {loading === true && (
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 5,
+                  paddingTop: 15,
+                  borderColor: colors.Grey,
+                  marginBottom: 15,
+                  marginHorizontal: 15,
+                }}>
+                <CustomProgressBar
+                  progress={downloadProgress}
+                  currentSize={currentSize}
+                  totalSize={totalSize}
+                />
+              </View>
+            )}
+            {loading === false && (
+              <PrimaryButton
+                title={'Download'}
+                background={colors.Green}
+                onPress={() => onDownloadPressHandler(selectedOption)}
+                disabled={loading}
+              />
+            )}
           </View>
         </Pressable>
         <BottomSpacing />

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
@@ -7,9 +8,7 @@ import CustomHeader from '../components/common/CustomHeader';
 import MovieScreen from '../screens/Movie/MovieScreen';
 import SplashScreen from '../screens/Splash/SplashScreen';
 import {useSplash} from '../hooks/Utils/useSplash';
-
 const Stack = createNativeStackNavigator();
-
 // bottom navigation
 function BottomTabs() {
   return <BottomNav />;
@@ -42,7 +41,7 @@ const MainStack = () => {
           name={strings.MovieScreen}
           component={MovieScreen}
           options={({navigation}) => ({
-            header: (
+            header: props => (
               <CustomHeaderHandler
                 title={'Update Movies'}
                 navigation={navigation}

@@ -1,11 +1,12 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
+import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 
 const MovieScreen = () => {
   return (
-    <View>
-      <Text>MovieScreen</Text>
-    </View>
+    <ScreenSafeAreaView>
+      <View />
+    </ScreenSafeAreaView>
   );
 };
 

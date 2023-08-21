@@ -2,9 +2,6 @@ import {PERMISSIONS, requestMultiple, RESULTS} from 'react-native-permissions';
 
 export const checkPermissions = async permissions => {
   try {
-    // if (Platform.OS === 'ios') {
-    //   return true;
-    // } else {
     const requiredPermissions = permissions.filter(
       permission =>
         permission.toString() !== PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,

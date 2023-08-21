@@ -47,7 +47,10 @@ const CustomTextInput = props => {
               {opacity: pressed ? 0.7 : 1},
               styles.pasteBtn,
             ]}>
-            <DescriptionText text={'Paste'} textStyle={{color: colors.White}} />
+            <DescriptionText
+              text={props.value ? 'Clear' : 'Paste'}
+              textStyle={{color: colors.White}}
+            />
           </Pressable>
         )}
       </View>

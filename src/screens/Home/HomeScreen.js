@@ -12,11 +12,10 @@ import BannerAds from '../../hooks/Ads/Banner/BannerAds';
 import HomePromotion from '../../components/molecules/cards/promotion/HomePromotion';
 import BottomSpacing from '../../theme/Global/BottomSpacing';
 import AppUpdateModal from '../../components/templates/modal/AppUpdateModal';
-import {useAppSelector} from '../../store/store';
+import {useHome} from './Utils/useHome';
 
 const HomeScreen = () => {
-  const {isAdShown} = useAppSelector(state => state.ads);
-
+  const {isAdShown} = useHome();
   return (
     <ScreenSafeAreaView style={styles.container}>
       {/* main container */}

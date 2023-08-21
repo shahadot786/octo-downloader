@@ -5,12 +5,14 @@ import linkSlice from './slices/links/linkSlice';
 import themeSlice from './slices/themeSlice/themeSlice';
 import firebaseSlice from './slices/firebase/firebaseSlice';
 import adSlice from './slices/ad/adSlice';
+import storagePermissionSlice from './slices/storage/storagePermissionSlice';
 
 const appReducer = combineReducers({
   link: linkSlice,
   theme: themeSlice,
   firebase: firebaseSlice,
   ads: adSlice,
+  storagePermission: storagePermissionSlice,
 });
 
 const RootReducer = (state, action) => {

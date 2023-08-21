@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, View, Pressable, ActivityIndicator} from 'react-native';
 import React from 'react';
 import TitleText from '../../../theme/Text/TitleText';
@@ -22,7 +23,7 @@ const PrimaryButton = ({
       activeOpacity={0.6}
       style={({pressed}) => [
         {
-          backgroundColor: pressed ? background : background,
+          backgroundColor: disabled ? colors.Grey : background,
           minWidth: minWidth ? minWidth : '30%',
           opacity: pressed ? 0.7 : 1,
           paddingVertical: paddingVertical ? paddingVertical : '3%',
@@ -32,13 +33,12 @@ const PrimaryButton = ({
       <View style={styles.btnView}>
         <TitleText
           text={title}
-          textStyle={[
-            {
-              color: initialMode ? colors.Black : colors.White,
-              textAlign: textAlign,
-            },
-            ...styles.btnText,
-          ]}
+          textStyle={{
+            color: initialMode ? colors.Black : colors.White,
+            textAlign: textAlign,
+            fontWeight: 500,
+            textTransform: 'capitalize',
+          }}
         />
         {loading && (
           <ActivityIndicator
@@ -63,9 +63,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-  },
-  btnText: {
-    fontWeight: 500,
-    textTransform: 'capitalize',
   },
 });
