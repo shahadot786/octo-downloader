@@ -32,19 +32,24 @@ const DownloadScreen = () => {
         <Pressable
           style={{flex: 1, marginHorizontal: 15}}
           onPress={() => Keyboard.dismiss()}>
-          <CustomTextInput
-            containerStyle={{marginVertical: 5}}
-            placeholder={'Please paste the url here..'}
-            onChangeText={onChangeInputText}
-            onPasteBtnPressHandler={onPasteBtnPressHandler}
-            value={inputValue}
-          />
-          <CustomDropdown
-            options={options}
-            onSelect={handleSelectOption}
-            selectedValue={selectedOption}
-            placeholder="Select a type"
-          />
+          {loading === false && (
+            <View>
+              <CustomTextInput
+                containerStyle={{marginVertical: 5}}
+                placeholder={'Please paste the url here..'}
+                onChangeText={onChangeInputText}
+                onPasteBtnPressHandler={onPasteBtnPressHandler}
+                value={inputValue}
+              />
+              <CustomDropdown
+                options={options}
+                onSelect={handleSelectOption}
+                selectedValue={selectedOption}
+                placeholder="Select a type"
+              />
+            </View>
+          )}
+
           <View style={{marginVertical: 10, alignItems: 'center'}}>
             {isAdShown && <LargeBannerAd />}
           </View>
@@ -75,6 +80,11 @@ const DownloadScreen = () => {
               />
             )}
           </View>
+          {loading === true && (
+            <View style={{marginVertical: 10, alignItems: 'center'}}>
+              {isAdShown && <LargeBannerAd />}
+            </View>
+          )}
         </Pressable>
         <BottomSpacing />
         <BottomSpacing />

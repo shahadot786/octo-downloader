@@ -2,18 +2,19 @@ const appPath = '/storage/emulated/0/Download'; //sd card path
 // const internalPath = '/data/user/0/Download'; // internal path
 
 export const options = [
-  {label: 'Video', value: 'video'},
-  {label: 'Pdf', value: 'pdf'},
-  {label: 'Image', value: 'image'},
-  {label: 'Zip', value: 'zip'},
   {label: 'Audio', value: 'audio'},
+  {label: 'Video', value: 'video'},
+  {label: 'Software', value: 'software'},
+  {label: 'Image', value: 'image'},
+  {label: 'Pdf', value: 'pdf'},
+  {label: 'Zip', value: 'zip'},
   {label: 'Text', value: 'text'},
   // Add more options as needed
 ];
 // Constants for different file types and their corresponding folders
 export const fileTypes = {
   video: {
-    folder: 'Videos',
+    folder: 'Video',
     mime: 'video/mp4',
   },
   audio: {
@@ -21,20 +22,24 @@ export const fileTypes = {
     mime: 'audio/mpeg',
   },
   image: {
-    folder: 'Images',
+    folder: 'Image',
     mime: 'image/jpeg',
   },
   pdf: {
-    folder: 'PDFs',
+    folder: 'PDF',
     mime: 'application/pdf',
   },
   zip: {
-    folder: 'Zips',
+    folder: 'Zip',
     mime: 'application/zip',
   },
   text: {
-    folder: 'Texts',
+    folder: 'Text',
     mime: 'text/plain',
+  },
+  software: {
+    folder: 'Software',
+    mime: 'application/octet-stream',
   },
 };
 
@@ -51,4 +56,13 @@ export const getFileNameFromUrl = url => {
   // Replace remaining spaces with underscores
   filename = filename.replace(/\s+/g, '_');
   return filename;
+};
+
+export const getFileTypeFromUrl = url => {
+  // Extract the file extension from the URL
+  const parts = url.split('.');
+  if (parts.length > 1) {
+    return parts[parts.length - 1].toLowerCase();
+  }
+  return '';
 };

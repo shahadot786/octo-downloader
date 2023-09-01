@@ -8,6 +8,7 @@ import CustomHeader from '../components/common/CustomHeader';
 import MovieScreen from '../screens/Movie/MovieScreen';
 import SplashScreen from '../screens/Splash/SplashScreen';
 import {useSplash} from '../hooks/Utils/useSplash';
+import GalleryViewerScreen from '../screens/Gallery/GalleryViewerScreen';
 const Stack = createNativeStackNavigator();
 // bottom navigation
 function BottomTabs() {
@@ -46,6 +47,15 @@ const MainStack = () => {
                 title={'Update Movies'}
                 navigation={navigation}
               />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name={strings.GalleryViewerScreen}
+          component={GalleryViewerScreen}
+          options={({navigation}) => ({
+            header: props => (
+              <CustomHeaderHandler title={'Gallery'} navigation={navigation} />
             ),
           })}
         />

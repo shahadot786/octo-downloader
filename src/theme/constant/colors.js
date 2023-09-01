@@ -11,5 +11,7 @@ const colors = {
   Yellow: '#F2BE22',
   SoftBlack: '#1b1b1d',
   SoftWhite: '#e4e1e1',
+  Purple: '#892e85',
+  Cyan: '#0882a8',
 };
 export default colors;

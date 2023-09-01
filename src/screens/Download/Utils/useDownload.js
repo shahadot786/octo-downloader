@@ -9,13 +9,14 @@ import localStorage from '../../../hooks/Utils/localStorage';
 import {useToast} from 'react-native-toast-notifications';
 import useConnectionCheck from '../../../hooks/Network/useConnectionCheck';
 import {toastNotification} from '../../../utils/constants';
+import {useRewardedAd} from '../../../hooks/Ads/Rewarded/useRewardedAd';
 
 const STORAGE_PERMISSION_KEY = '@StoragePermission';
 
 export const useDownload = () => {
   const {isAdShown} = useAppSelector(state => state.ads);
   const storagePermission = useAppSelector(state => state.storagePermission);
-
+  const {loaded, showRewardedAd} = useRewardedAd();
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [downloadProgress, setDownloadProgress] = useState(0);
@@ -54,6 +55,51 @@ export const useDownload = () => {
     }
   }, [inputValue]);
 
+  const downloadFile = async (url, path, mime, fileType) => {
+    try {
+      await RNFetchBlob.config({
+        fileCache: true,
+        addAndroidDownloads: {
+          path: path,
+          useDownloadManager: true,
+          notification: true,
+          title: getFileNameFromUrl(url),
+          description: `${getFileNameFromUrl(url)} is downloading...`,
+          mime: mime,
+          mediaScannable: true,
+        },
+      })
+        .fetch('GET', url)
+        .progress((received, total) => {
+          const progress = received / total;
+          setCurrentSize(received);
+          setTotalSize(total);
+          setDownloadProgress(progress);
+          setInputValue('');
+          setSelectedOption('');
+        })
+        .then(async res => {
+          setDownloadProgress(0);
+          setInputValue('');
+          setSelectedOption('');
+          setLoading(false);
+          toast.show(
+            `Download ${fileType} Successfully.`,
+            toastNotification('success'),
+          );
+        });
+    } catch (error) {
+      setDownloadProgress(0);
+      setInputValue('');
+      setSelectedOption('');
+      setLoading(false);
+      toast.show(
+        'Download Error. Please try again.',
+        toastNotification('danger'),
+      );
+    }
+  };
+
   const onDownloadPressHandler = async fileType => {
     if (inputValue === '') {
       toast.show('Please enter the url first.', toastNotification('danger'));
@@ -69,49 +115,11 @@ export const useDownload = () => {
         const {mime} = fileTypes[fileType] || fileTypes.text;
         const fileName = getFileNameFromUrl(url);
         const path = `${getFolderPath(fileType)}/${fileName}`;
-
-        try {
-          // Configure the download
-          await RNFetchBlob.config({
-            fileCache: true,
-            addAndroidDownloads: {
-              path: path,
-              useDownloadManager: true,
-              notification: true,
-              title: fileName,
-              description: `${fileName} is downloading...`,
-              mime: mime,
-              mediaScannable: true,
-            },
-          })
-            .fetch('GET', url)
-            .progress((received, total) => {
-              const progress = received / total;
-              setCurrentSize(received);
-              setTotalSize(total);
-              setDownloadProgress(progress);
-              setInputValue('');
-              setSelectedOption('');
-            })
-            .then(async res => {
-              setDownloadProgress(0);
-              setInputValue('');
-              setSelectedOption('');
-              setLoading(false);
-              toast.show(
-                `Download ${fileType} Successfully.`,
-                toastNotification('success'),
-              );
-            });
-        } catch (error) {
-          setDownloadProgress(0);
-          setInputValue('');
-          setSelectedOption('');
-          setLoading(false);
-          toast.show(
-            'Download Error. Please try again.',
-            toastNotification('danger'),
-          );
+        if (!loaded) {
+          downloadFile(url, path, mime, fileType);
+        } else {
+          downloadFile(url, path, mime, fileType);
+          showRewardedAd();
         }
       } else {
         Alert.alert(

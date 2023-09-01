@@ -3,5 +3,6 @@ const strings = {
   SplashScreen: 'SplashScreen',
   BottomTabScreen: 'BottomTabScreen',
   MovieScreen: 'MovieScreen',
+  GalleryViewerScreen: 'GalleryViewerScreen',
 };
 export default strings;

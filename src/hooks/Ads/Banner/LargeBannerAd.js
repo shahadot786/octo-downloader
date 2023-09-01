@@ -1,6 +1,10 @@
 import React from 'react';
 import {BannerAd, BannerAdSize, TestIds} from 'react-native-google-mobile-ads';
 
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+
 const LargeBannerAd = () => {
   return (
     <BannerAd
@@ -8,7 +12,7 @@ const LargeBannerAd = () => {
         requestNonPersonalizedAdsOnly: true,
       }}
       size={BannerAdSize.MEDIUM_RECTANGLE}
-      unitId={TestIds.BANNER}
+      unitId={adUnitId}
     />
   );
 };
