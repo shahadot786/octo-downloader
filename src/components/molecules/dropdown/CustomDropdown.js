@@ -35,7 +35,7 @@ const CustomDropdown = ({options, onSelect, selectedValue, placeholder}) => {
               style={({pressed}) => [{opacity: pressed ? 0.7 : 1}]}
               onPress={() => handleSelect(item.value)}>
               <DescriptionText
-                text={item.label}
+                text={item.value}
                 textStyle={{
                   color: initialMode ? colors.Black : colors.White,
                   paddingVertical: 8,

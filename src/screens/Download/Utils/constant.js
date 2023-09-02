@@ -1,44 +1,41 @@
 const appPath = '/storage/emulated/0/Download'; //sd card path
 // const internalPath = '/data/user/0/Download'; // internal path
-
 export const options = [
-  {label: 'Audio', value: 'audio'},
-  {label: 'Video', value: 'video'},
-  {label: 'Software', value: 'software'},
-  {label: 'Image', value: 'image'},
-  {label: 'Pdf', value: 'pdf'},
-  {label: 'Zip', value: 'zip'},
-  {label: 'Text', value: 'text'},
-  // Add more options as needed
+  {folder: 'Audio', value: 'audio'},
+  {folder: 'Video', value: 'video'},
+  {folder: 'Software', value: 'software'},
+  {folder: 'Image', value: 'image'},
+  {folder: 'Pdf', value: 'pdf'},
+  {folder: 'Zip', value: 'zip'},
+  {folder: 'Text', value: 'text'},
 ];
-// Constants for different file types and their corresponding folders
 export const fileTypes = {
   video: {
-    folder: 'Video',
+    folder: 'video',
     mime: 'video/mp4',
   },
   audio: {
-    folder: 'Audio',
+    folder: 'audio',
     mime: 'audio/mpeg',
   },
   image: {
-    folder: 'Image',
+    folder: 'image',
     mime: 'image/jpeg',
   },
   pdf: {
-    folder: 'PDF',
+    folder: 'pdf',
     mime: 'application/pdf',
   },
   zip: {
-    folder: 'Zip',
+    folder: 'zip',
     mime: 'application/zip',
   },
   text: {
-    folder: 'Text',
+    folder: 'text',
     mime: 'text/plain',
   },
   software: {
-    folder: 'Software',
+    folder: 'software',
     mime: 'application/octet-stream',
   },
 };
@@ -65,4 +62,14 @@ export const getFileTypeFromUrl = url => {
     return parts[parts.length - 1].toLowerCase();
   }
   return '';
+};
+
+export const fileExtensions = {
+  video: ['mp4', 'avi', 'mkv', 'mov', 'wmv', 'flv', 'webm'],
+  audio: ['mp3', 'ogg', 'wav', 'flac', 'aac'],
+  image: ['jpeg', 'png', 'gif', 'bmp'],
+  pdf: ['pdf', 'xpdf', 'postscript'],
+  zip: ['standard', 'x7z', 'rar', 'tar', 'gzip'],
+  text: ['plain', 'csv', 'html', 'xml', 'css', 'javascript'],
+  software: ['octetStream', 'exe', 'dmg', 'deb', 'rpm'],
 };

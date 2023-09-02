@@ -3,7 +3,13 @@ import {Alert, Linking} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import RNFetchBlob from 'react-native-blob-util';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
-import {fileTypes, getFileNameFromUrl, getFolderPath} from './constant';
+import {
+  fileExtensions,
+  fileTypes,
+  getFileNameFromUrl,
+  getFileTypeFromUrl,
+  getFolderPath,
+} from './constant';
 import {setPermission} from '../../../store/slices/storage/storagePermissionSlice';
 import localStorage from '../../../hooks/Utils/localStorage';
 import {useToast} from 'react-native-toast-notifications';
@@ -102,43 +108,72 @@ export const useDownload = () => {
 
   const onDownloadPressHandler = async fileType => {
     if (inputValue === '') {
-      toast.show('Please enter the url first.', toastNotification('danger'));
+      toast.show('Please enter the URL first.', toastNotification('danger'));
       return;
     } else if (fileType === '') {
       toast.show('Please select a file type.', toastNotification('danger'));
       return;
     }
-    if (netInfoState.isConnected) {
-      if (storagePermission) {
-        setLoading(true);
-        const url = inputValue;
-        const {mime} = fileTypes[fileType] || fileTypes.text;
-        const fileName = getFileNameFromUrl(url);
-        const path = `${getFolderPath(fileType)}/${fileName}`;
-        if (!loaded) {
-          downloadFile(url, path, mime, fileType);
+    const urlFileType = getFileTypeFromUrl(inputValue);
+    if (urlFileType) {
+      const selectedFileType = fileTypes[fileType];
+      if (selectedFileType) {
+        const extension = fileExtensions[fileType];
+        // Check if the URL's file extension is in the list of video file extensions
+        if (extension.includes(urlFileType.toLowerCase())) {
+          // It's a valid video file URL, you can proceed with downloading
+          if (netInfoState.isConnected) {
+            // Rest of your download logic here
+            if (storagePermission) {
+              setLoading(true);
+              const url = inputValue;
+              const mime = selectedFileType?.mime || fileTypes.text;
+              const fileName = getFileNameFromUrl(url);
+              const path = `${getFolderPath(fileType)}/${fileName}`;
+              if (!loaded) {
+                downloadFile(url, path, mime, fileType);
+              } else {
+                downloadFile(url, path, mime, fileType);
+                if (isAdShown === true) {
+                  showRewardedAd();
+                }
+              }
+            } else {
+              Alert.alert(
+                'Storage Permission',
+                'OctoDownloader needs access to your storage in order to save files.',
+                [
+                  {
+                    text: 'Cancel',
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'Settings',
+                    onPress: () => openAppSettings(),
+                  },
+                ],
+              );
+            }
+          } else {
+            toast.show(
+              'Network is not available!!',
+              toastNotification('normal'),
+            );
+          }
         } else {
-          downloadFile(url, path, mime, fileType);
-          showRewardedAd();
+          toast.show(
+            'Invalid file type for the selected option.',
+            toastNotification('danger'),
+          );
         }
       } else {
-        Alert.alert(
-          'Storage Permission',
-          'OctoDownloader needs access to your storage in order to save files.',
-          [
-            {
-              text: 'Cancel',
-              style: 'cancel',
-            },
-            {
-              text: 'Settings',
-              onPress: () => openAppSettings(),
-            },
-          ],
-        );
+        toast.show('Invalid selected file type.', toastNotification('danger'));
       }
     } else {
-      toast.show('Network is not available!!', toastNotification('normal'));
+      toast.show(
+        'Invalid URL. Please enter a valid URL.',
+        toastNotification('danger'),
+      );
     }
   };
 
