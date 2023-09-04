@@ -11,7 +11,7 @@ import strings from '../../theme/constant/strings';
 
 const GalleryScreen = ({navigation}) => {
   const onItemPressHandler = type => {
-    navigation.navigate(strings.GalleryViewerScreen, {data: type});
+    navigation.navigate(strings.GalleryViewerScreen, {type: type});
   };
   return (
     <ScreenSafeAreaView style={styles.container}>

@@ -1,13 +1,22 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
 import React from 'react';
-import TitleText from '../../theme/Text/TitleText';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
+import {useGallery} from './Utils/useGallery';
+import Item from './Item';
+import BottomSpacing from '../../theme/Global/BottomSpacing';
 
 const GalleryViewerScreen = ({route}) => {
-  const {data} = route.params;
+  const {type} = route.params;
+  const {dirData} = useGallery(type);
+
   return (
     <ScreenSafeAreaView>
-      <TitleText text={data} />
+      <FlatList
+        data={dirData}
+        renderItem={({item}) => <Item title={item?.name} path={item?.path} />}
+        keyExtractor={item => item.mtime}
+        ListFooterComponent={<BottomSpacing />}
+      />
     </ScreenSafeAreaView>
   );
 };

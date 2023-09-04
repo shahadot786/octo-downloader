@@ -67,9 +67,9 @@ export const getFileTypeFromUrl = url => {
 export const fileExtensions = {
   video: ['mp4', 'avi', 'mkv', 'mov', 'wmv', 'flv', 'webm'],
   audio: ['mp3', 'ogg', 'wav', 'flac', 'aac'],
-  image: ['jpeg', 'png', 'gif', 'bmp'],
+  image: ['jpeg', 'png', 'gif', 'bmp', 'jpg', 'tif'],
   pdf: ['pdf', 'xpdf', 'postscript'],
-  zip: ['standard', 'x7z', 'rar', 'tar', 'gzip'],
-  text: ['plain', 'csv', 'html', 'xml', 'css', 'javascript'],
+  zip: ['standard', 'x7z', 'rar', 'tar', 'gzip', 'zip'],
+  text: ['plain', 'csv', 'html', 'xml', 'css', 'javascript', 'txt'],
   software: ['octetStream', 'exe', 'dmg', 'deb', 'rpm'],
 };
