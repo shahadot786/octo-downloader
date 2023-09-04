@@ -1,21 +1,24 @@
-import {StyleSheet, Image, View} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import TitleText from '../../theme/Text/TitleText';
+import GalleryImageCard from '../../components/molecules/cards/gallery/GalleryImageCard';
 
-const Item = ({title, path}) => {
+const Item = ({title, path, mtime, size, type}) => {
   return (
-    <View>
-      {/* <TitleText text={title} /> */}
-      <Image
-        source={{uri: `file://${path}`}}
-        // width={400}
-        height={250}
-        resizeMode="cover"
-      />
+    <View style={styles.container}>
+      {/* Image */}
+      {type === 'image' && (
+        <GalleryImageCard title={title} path={path} mtime={mtime} size={size} />
+      )}
     </View>
   );
 };
 
 export default Item;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    marginVertical: 5,
+    marginHorizontal: 15,
+  },
+});
