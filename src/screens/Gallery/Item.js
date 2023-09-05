@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import GalleryImageCard from '../../components/molecules/cards/gallery/GalleryImageCard';
