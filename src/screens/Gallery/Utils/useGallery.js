@@ -6,6 +6,7 @@ const basePath = '/storage/emulated/0/Download/OctoDownloader/';
 export const useGallery = type => {
   const [dirData, setDirData] = useState();
   const [loading, setLoading] = useState(false);
+  const [sortData, setSortData] = useState([]);
 
   const getDirData = () => {
     setLoading(true);
@@ -24,5 +25,29 @@ export const useGallery = type => {
     getDirData();
   }, [type]);
 
-  return {dirData, loading};
+  useEffect(() => {
+    if (!dirData || dirData.length === 0) {
+      setLoading(true);
+    } else {
+      const sortedData = dirData.slice();
+      sortedData.sort((a, b) => {
+        if (a.mtime === undefined && b.mtime === undefined) {
+          return 0;
+        }
+        if (a.mtime === undefined) {
+          return 1;
+        }
+        if (b.mtime === undefined) {
+          return -1;
+        }
+        const dateA = new Date(a.mtime);
+        const dateB = new Date(b.mtime);
+        return dateB - dateA;
+      });
+      setSortData(sortedData);
+      setLoading(false);
+    }
+  }, [dirData]);
+
+  return {sortData, loading};
 };

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {FlatList, View} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import {useGallery} from './Utils/useGallery';
 import Item from './Item';
@@ -8,47 +8,18 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import AnimatedLottieView from 'lottie-react-native';
 import LoaderModal from '../../components/common/LoaderModal';
 
-const GalleryViewerScreen = ({route}) => {
-  const [sortData, setSortData] = useState([]);
+const GalleryViewerScreen = ({route, navigation}) => {
   const {type} = route.params;
-  const {dirData, loading} = useGallery(type);
-
-  useEffect(() => {
-    if (!dirData || dirData.length === 0) {
-    } else {
-      const sortedData = dirData.slice();
-      sortedData.sort((a, b) => {
-        if (a.mtime === undefined && b.mtime === undefined) {
-          return 0;
-        }
-        if (a.mtime === undefined) {
-          return 1;
-        }
-        if (b.mtime === undefined) {
-          return -1;
-        }
-        const dateA = new Date(a.mtime);
-        const dateB = new Date(b.mtime);
-        return dateB - dateA;
-      });
-      setSortData(sortedData);
-    }
-  }, [dirData]);
+  const {sortData, loading} = useGallery(type);
 
   return (
     <ScreenSafeAreaView>
       <LoaderModal visible={loading} />
-      {dirData?.length > 0 && dirData !== undefined ? (
+      {sortData?.length > 0 && sortData !== undefined ? (
         <FlatList
           data={sortData}
           renderItem={({item}) => (
-            <Item
-              title={item?.name}
-              path={item?.path}
-              mtime={item?.mtime}
-              size={item?.size}
-              type={type}
-            />
+            <Item data={item} type={type} navigation={navigation} />
           )}
           keyExtractor={item => item.mtime}
           showsVerticalScrollIndicator={false}
@@ -60,7 +31,6 @@ const GalleryViewerScreen = ({route}) => {
             autoPlay
             loop
             source={require('../../assets/no_data.json')}
-            // style={{height: 100}}
           />
         </View>
       )}
