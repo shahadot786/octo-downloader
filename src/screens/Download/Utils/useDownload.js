@@ -15,14 +15,14 @@ import localStorage from '../../../hooks/Utils/localStorage';
 import {useToast} from 'react-native-toast-notifications';
 import useConnectionCheck from '../../../hooks/Network/useConnectionCheck';
 import {toastNotification} from '../../../utils/constants';
-import {useRewardedAd} from '../../../hooks/Ads/Rewarded/useRewardedAd';
+import useRewardAd from '../../../hooks/Ads/Rewarded/useRewardedAd';
 
 const STORAGE_PERMISSION_KEY = '@StoragePermission';
 
 export const useDownload = () => {
   const {isAdShown} = useAppSelector(state => state.ads);
   const storagePermission = useAppSelector(state => state.storagePermission);
-  const {loaded, showRewardedAd} = useRewardedAd();
+  const {isLoading, play, openAdInspector} = useRewardAd();
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [downloadProgress, setDownloadProgress] = useState(0);
@@ -119,23 +119,22 @@ export const useDownload = () => {
       const selectedFileType = fileTypes[fileType];
       if (selectedFileType) {
         const extension = fileExtensions[fileType];
-        // Check if the URL's file extension is in the list of video file extensions
+
         if (extension.includes(urlFileType.toLowerCase())) {
-          // It's a valid video file URL, you can proceed with downloading
           if (netInfoState.isConnected) {
-            // Rest of your download logic here
             if (storagePermission) {
               setLoading(true);
               const url = inputValue;
               const mime = selectedFileType?.mime || fileTypes.text;
               const fileName = getFileNameFromUrl(url);
               const path = `${getFolderPath(fileType)}/${fileName}`;
-              if (loaded === false) {
+              if (isLoading) {
                 downloadFile(url, path, mime, fileType);
               } else {
                 downloadFile(url, path, mime, fileType);
                 if (isAdShown === true) {
-                  showRewardedAd();
+                  play();
+                  // openAdInspector();
                 }
               }
             } else {

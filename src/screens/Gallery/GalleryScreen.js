@@ -8,16 +8,37 @@ import GalleryItem from '../../components/molecules/cards/gallery/GalleryItem';
 import {commonStyles} from '../../styles/commonStyles';
 import colors from '../../theme/constant/colors';
 import strings from '../../theme/constant/strings';
+import {useAppSelector} from '../../store/store';
+import BannerAds from '../../hooks/Ads/Banner/BannerAds';
+import useInterstitialAd from '../../hooks/Ads/Interstitials/useInterstitialAd';
+import LoaderModal from '../../components/common/LoaderModal';
 
 const GalleryScreen = ({navigation}) => {
+  const {isAdShown} = useAppSelector(state => state.ads);
+  const {play, isLoading, openAdInspector} = useInterstitialAd();
   const onItemPressHandler = type => {
+    // openAdInspector();
+    if (isAdShown) {
+      play();
+    }
     navigation.navigate(strings.GalleryViewerScreen, {type: type});
   };
   return (
     <ScreenSafeAreaView style={styles.container}>
+      <LoaderModal visible={isLoading} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{marginVertical: '5%', marginHorizontal: 15}}>
           <BigText text={'Gallery'} />
+          {isAdShown && (
+            <View
+              style={{
+                marginVertical: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <BannerAds />
+            </View>
+          )}
           <View
             style={[
               commonStyles.flexRow,

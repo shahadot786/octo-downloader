@@ -6,7 +6,7 @@ import strings from '../../../theme/constant/strings';
 const basePath = '/storage/emulated/0/Download/OctoDownloader/';
 export const useGallery = type => {
   const [dirData, setDirData] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [sortData, setSortData] = useState([]);
 
   const onItemPressHandler = (navigation, data, itemType) => {
@@ -17,11 +17,16 @@ export const useGallery = type => {
   };
 
   const onDeletePressHandler = path => {
-    RNFS.unlink(path);
+    RNFS.unlink(path)
+      .then(() => {
+        getDirData();
+      })
+      .catch(error => {
+        console.log('Error deleting file:', error);
+      });
   };
 
   const getDirData = () => {
-    setLoading(true);
     RNFS.readDir(basePath + type)
       .then(result => {
         setDirData(result);
@@ -35,7 +40,7 @@ export const useGallery = type => {
 
   useEffect(() => {
     getDirData();
-  }, [type, dirData]);
+  }, [type]);
 
   useEffect(() => {
     if (!dirData || dirData.length === 0) {
