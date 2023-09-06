@@ -63,6 +63,7 @@ const MainStack = () => {
         <Stack.Screen
           name={strings.ItemViewerScreen}
           component={ItemViewerScreen}
+          // options={{headerShown: false}}
           options={({navigation}) => ({
             header: props => (
               <CustomHeaderHandler title={'Details'} navigation={navigation} />

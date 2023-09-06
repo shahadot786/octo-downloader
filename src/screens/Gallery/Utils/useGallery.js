@@ -1,12 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useState, useEffect} from 'react';
 import RNFS from 'react-native-fs';
+import strings from '../../../theme/constant/strings';
 
 const basePath = '/storage/emulated/0/Download/OctoDownloader/';
 export const useGallery = type => {
   const [dirData, setDirData] = useState();
   const [loading, setLoading] = useState(false);
   const [sortData, setSortData] = useState([]);
+
+  const onItemPressHandler = (navigation, data, itemType) => {
+    navigation.navigate(strings.ItemViewerScreen, {
+      path: data?.path,
+      type: itemType,
+    });
+  };
+
+  const onDeletePressHandler = path => {
+    RNFS.unlink(path);
+  };
 
   const getDirData = () => {
     setLoading(true);
@@ -23,7 +35,7 @@ export const useGallery = type => {
 
   useEffect(() => {
     getDirData();
-  }, [type]);
+  }, [type, dirData]);
 
   useEffect(() => {
     if (!dirData || dirData.length === 0) {
@@ -49,5 +61,5 @@ export const useGallery = type => {
     }
   }, [dirData]);
 
-  return {sortData, loading};
+  return {sortData, loading, onItemPressHandler, onDeletePressHandler};
 };

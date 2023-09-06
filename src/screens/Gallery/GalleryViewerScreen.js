@@ -14,7 +14,9 @@ const GalleryViewerScreen = ({route, navigation}) => {
 
   return (
     <ScreenSafeAreaView>
-      <LoaderModal visible={loading} />
+      {sortData?.length > 0 && sortData !== undefined && (
+        <LoaderModal visible={loading} />
+      )}
       {sortData?.length > 0 && sortData !== undefined ? (
         <FlatList
           data={sortData}

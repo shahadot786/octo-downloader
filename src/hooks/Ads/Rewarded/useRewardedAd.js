@@ -46,6 +46,8 @@ export function useRewardedAd() {
     showRewardedAd: () => {
       if (rewarded) {
         rewarded.show();
+      } else {
+        return null;
       }
     },
   };

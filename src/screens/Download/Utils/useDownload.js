@@ -132,7 +132,6 @@ export const useDownload = () => {
               const path = `${getFolderPath(fileType)}/${fileName}`;
               if (loaded === false) {
                 downloadFile(url, path, mime, fileType);
-                console.log('loaded file');
               } else {
                 downloadFile(url, path, mime, fileType);
                 if (isAdShown === true) {

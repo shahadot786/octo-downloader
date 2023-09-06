@@ -13,6 +13,7 @@
     "@notifee/react-native": "^7.8.0",
     "@react-native-clipboard/clipboard": "^1.11.2",
     "@react-native-community/netinfo": "^9.4.1",
+    "@react-native-community/slider": "^4.4.3",
     "@react-native-firebase/app": "^18.2.0",
     "@react-native-firebase/firestore": "^18.2.0",
     "@react-native/metro-config": "^0.72.9",

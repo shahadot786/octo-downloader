@@ -71,5 +71,5 @@ export const fileExtensions = {
   pdf: ['pdf', 'xpdf', 'postscript'],
   zip: ['standard', 'x7z', 'rar', 'tar', 'gzip', 'zip'],
   text: ['plain', 'csv', 'html', 'xml', 'css', 'javascript', 'txt'],
-  software: ['octetStream', 'exe', 'dmg', 'deb', 'rpm'],
+  software: ['octetStream', 'exe', 'dmg', 'deb', 'rpm', 'msi', 'apk'],
 };
