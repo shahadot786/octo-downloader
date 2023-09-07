@@ -7,7 +7,7 @@ import strings from '../theme/constant/strings';
 import CustomHeader from '../components/common/CustomHeader';
 import MovieScreen from '../screens/Movie/MovieScreen';
 import SplashScreen from '../screens/Splash/SplashScreen';
-import {useSplash} from '../hooks/Utils/useSplash';
+import {useSplash} from '../screens/Splash/Utils/useSplash';
 import GalleryViewerScreen from '../screens/Gallery/GalleryViewerScreen';
 import ItemViewerScreen from '../screens/Gallery/ItemViewerScreen';
 const Stack = createNativeStackNavigator();
@@ -21,19 +21,30 @@ function CustomHeaderHandler(props) {
 }
 
 const MainStack = () => {
-  const {versionLoading, moviesLoading, promotionLoading} = useSplash();
+  const {
+    versionLoading,
+    moviesLoading,
+    promotionLoading,
+    audioLoading,
+    softwareLoading,
+    zipLoading,
+  } = useSplash();
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {(versionLoading || moviesLoading || promotionLoading) && (
+        {(versionLoading ||
+          moviesLoading ||
+          promotionLoading ||
+          audioLoading ||
+          softwareLoading ||
+          zipLoading) && (
           <Stack.Screen
             name={strings.SplashScreen}
             component={SplashScreen}
             options={{headerShown: false}}
           />
         )}
-        {/* Pass the BottomTabs component as the component prop */}
         <Stack.Screen
           name={strings.BottomTabScreen}
           component={BottomTabs}
@@ -54,20 +65,12 @@ const MainStack = () => {
         <Stack.Screen
           name={strings.GalleryViewerScreen}
           component={GalleryViewerScreen}
-          options={({navigation}) => ({
-            header: props => (
-              <CustomHeaderHandler title={'Gallery'} navigation={navigation} />
-            ),
-          })}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name={strings.ItemViewerScreen}
           component={ItemViewerScreen}
-          options={({navigation}) => ({
-            header: props => (
-              <CustomHeaderHandler title={'Details'} navigation={navigation} />
-            ),
-          })}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

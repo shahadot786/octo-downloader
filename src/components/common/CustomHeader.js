@@ -35,5 +35,6 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     color: colors.White,
+    textTransform: 'capitalize',
   },
 });

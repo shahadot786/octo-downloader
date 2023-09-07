@@ -6,4 +6,7 @@ export const keyStrings = {
   videosDoc: 'dGvED9ejGQ06ptIjbbXlVideos',
   pdfDocs: '8wGyOGrL5N5CNysCoVr4PDF',
   versionDoc: 'vNgr610Rm1VXzCfMTBCbAppUpdate',
+  zipDoc: '3zwaMk7YzZNktKlWKZtoZip',
+  softwareDoc: '94tHjXeo9VkLI33d7CIUSoftware',
+  audioDoc: 'd5ps5D6MzZzBbh2CJ8QaAudio',
 };

@@ -1,29 +1,43 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import RNFS from 'react-native-fs';
+import strings from '../../../theme/constant/strings';
 
 const basePath = '/storage/emulated/0/Download/OctoDownloader/';
 export const useGallery = type => {
   const [dirData, setDirData] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [sortData, setSortData] = useState([]);
 
-  const getDirData = () => {
-    setLoading(true);
+  const onItemPressHandler = (navigation, data, itemType) => {
+    navigation.navigate(strings.ItemViewerScreen, {
+      data: data,
+      type: itemType,
+    });
+  };
+
+  const onDeletePressHandler = useCallback(path => {
+    RNFS.unlink(path)
+      .then(() => {
+        getDirData();
+      })
+      .catch(e => {});
+  }, []);
+
+  const getDirData = useCallback(() => {
     RNFS.readDir(basePath + type)
       .then(result => {
         setDirData(result);
         setLoading(false);
       })
-      .catch(error => {
-        console.log('Error reading directory:', error);
+      .catch(e => {
         setLoading(false);
       });
-  };
+  }, [type]);
 
   useEffect(() => {
     getDirData();
-  }, [type]);
+  }, [type, dirData]);
 
   useEffect(() => {
     if (!dirData || dirData.length === 0) {
@@ -49,5 +63,5 @@ export const useGallery = type => {
     }
   }, [dirData]);
 
-  return {sortData, loading};
+  return {sortData, loading, onItemPressHandler, onDeletePressHandler};
 };

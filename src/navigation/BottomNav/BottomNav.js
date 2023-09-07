@@ -15,6 +15,7 @@ import GalleryScreen from '../../screens/Gallery/GalleryScreen';
 import DownloadScreen from '../../screens/Download/DownloadScreen';
 import VideoScreen from '../../screens/Video/VideoScreen';
 import useTheme from '../../hooks/theme/useTheme';
+import strings from '../../theme/constant/strings';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +41,7 @@ const BottomNav = () => {
         tabBarInactiveTintColor: colors.Grey,
       }}>
       <Tab.Screen
-        name="Home"
+        name={strings.HomeTabScreen}
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
@@ -55,7 +56,7 @@ const BottomNav = () => {
         }}
       />
       <Tab.Screen
-        name="Galley"
+        name={strings.GalleryTabScreen}
         component={GalleryScreen}
         options={{
           tabBarLabel: 'Gallery',
@@ -70,7 +71,7 @@ const BottomNav = () => {
         }}
       />
       <Tab.Screen
-        name="Download"
+        name={strings.DownloadTabScreen}
         component={DownloadScreen}
         options={{
           tabBarLabel: 'Download',
@@ -84,7 +85,7 @@ const BottomNav = () => {
       />
 
       <Tab.Screen
-        name="VIDEO"
+        name={strings.VideoTabScreen}
         component={VideoScreen}
         options={{
           tabBarLabel: 'VIDEO',
@@ -118,7 +119,7 @@ const BottomNav = () => {
         }}
       /> */}
       <Tab.Screen
-        name="Settings"
+        name={strings.SettingsTabScreen}
         component={SettingsScreen}
         options={{
           tabBarLabel: 'Settings',
