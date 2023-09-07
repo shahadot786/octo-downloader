@@ -61,7 +61,11 @@ const Item = ({data, type, navigation}) => {
           )}
           {/* software */}
           {type === 'software' && (
-            <MaterialIcon name={'file-copy'} size={60} color="#fff" />
+            <MaterialIcon
+              name={'settings-applications'}
+              size={60}
+              color="#fff"
+            />
           )}
           {/* Image */}
           {type === 'image' && (

@@ -11,8 +11,7 @@ export const useGallery = type => {
 
   const onItemPressHandler = (navigation, data, itemType) => {
     navigation.navigate(strings.ItemViewerScreen, {
-      path: data?.path,
-      name: data?.name,
+      data: data,
       type: itemType,
     });
   };
