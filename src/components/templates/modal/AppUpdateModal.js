@@ -16,7 +16,7 @@ const AppUpdateModal = () => {
   let appVersion = DeviceInfo.getVersion();
   const {version} = useAppSelector(state => state.firebase);
   const modalVisibleHandler = () => {
-    if (version.versionName !== appVersion) {
+    if (version?.versionName !== appVersion) {
       setShowModal(true);
     } else {
       setShowModal(false);
@@ -41,8 +41,8 @@ const AppUpdateModal = () => {
   return (
     <View>
       <MiddleModal
-        crossIcon
-        header={version.title}
+        crossIcon={version?.isForceUpdate === false}
+        header={version?.title}
         isModalVisible={showModal}
         setIsModalVisible={setShowModal}
         onBlur={undefined}
@@ -54,7 +54,7 @@ const AppUpdateModal = () => {
             alignItems: 'center',
             paddingHorizontal: '5%',
           }}>
-          <TitleText text={version.message} textStyle={styles.text} />
+          <TitleText text={version?.message} textStyle={styles.text} />
           <IOSButton
             onSelect={buttonPressHandler}
             containerStyle={styles.containerStyle}

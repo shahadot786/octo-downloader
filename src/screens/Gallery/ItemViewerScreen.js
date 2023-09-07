@@ -6,12 +6,22 @@ import metrics from '../../theme/constant/metrics';
 import Pdf from 'react-native-pdf';
 import {useAppSelector} from '../../store/store';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
+import CustomHeader from '../../components/common/CustomHeader';
 
-const ItemViewerScreen = ({route}) => {
-  const {path, type} = route.params;
+const ItemViewerScreen = ({route, navigation}) => {
+  const {path, name, type} = route.params;
   const {isAdShown} = useAppSelector(state => state.ads);
+  let truncatedFilename = '';
+  const formattedFilename = name.split('.')[0].replace(/_/g, ' ');
+  if (formattedFilename.length > 35) {
+    truncatedFilename = formattedFilename.substring(0, 35) + '...';
+  } else {
+    truncatedFilename = formattedFilename;
+  }
+
   return (
     <ScreenSafeAreaView>
+      <CustomHeader title={truncatedFilename} navigation={navigation} />
       <View style={{flex: 1}}>
         {/* image */}
         {type === 'image' && (

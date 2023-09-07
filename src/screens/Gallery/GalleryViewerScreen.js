@@ -9,6 +9,7 @@ import AnimatedLottieView from 'lottie-react-native';
 import LoaderModal from '../../components/common/LoaderModal';
 import {useAppSelector} from '../../store/store';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
+import CustomHeader from '../../components/common/CustomHeader';
 
 const GalleryViewerScreen = ({route, navigation}) => {
   const {type} = route.params;
@@ -20,7 +21,7 @@ const GalleryViewerScreen = ({route, navigation}) => {
       {sortData?.length > 0 && sortData !== undefined && (
         <LoaderModal visible={loading} />
       )}
-
+      <CustomHeader title={type} navigation={navigation} />
       {sortData?.length > 0 && sortData !== undefined ? (
         <FlatList
           data={sortData}
