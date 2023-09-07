@@ -29,7 +29,7 @@ const useInterstitialAd = () => {
     setIsLoading(false);
   };
 
-  const play = () => {
+  const playInterstitialAd = () => {
     try {
       destroy();
       setIsLoading(true);
@@ -77,7 +77,7 @@ const useInterstitialAd = () => {
   return {
     isLoading,
     isLoaded,
-    play,
+    playInterstitialAd,
     openAdInspector,
   };
 };

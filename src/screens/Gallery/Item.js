@@ -113,11 +113,11 @@ const Item = ({data, type, navigation}) => {
         <Pressable
           style={({pressed}) => [{opacity: pressed ? 0.7 : 1}]}
           onPress={() => onDeletePressHandler(data?.path)}>
-          {/* <MaterialCommunityIcons
+          <MaterialCommunityIcons
             name={'trash-can'}
             size={20}
             color={colors.Primary}
-          /> */}
+          />
         </Pressable>
       </Pressable>
     </View>

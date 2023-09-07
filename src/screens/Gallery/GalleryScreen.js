@@ -15,11 +15,11 @@ import LoaderModal from '../../components/common/LoaderModal';
 
 const GalleryScreen = ({navigation}) => {
   const {isAdShown} = useAppSelector(state => state.ads);
-  const {play, isLoading, openAdInspector} = useInterstitialAd();
+  const {playInterstitialAd, isLoading, openAdInspector} = useInterstitialAd();
   const onItemPressHandler = type => {
     // openAdInspector();
     if (isAdShown) {
-      play();
+      playInterstitialAd();
     }
     navigation.navigate(strings.GalleryViewerScreen, {type: type});
   };

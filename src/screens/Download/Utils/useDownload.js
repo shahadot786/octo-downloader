@@ -22,7 +22,7 @@ const STORAGE_PERMISSION_KEY = '@StoragePermission';
 export const useDownload = () => {
   const {isAdShown} = useAppSelector(state => state.ads);
   const storagePermission = useAppSelector(state => state.storagePermission);
-  const {isLoading, play, openAdInspector} = useRewardAd();
+  const {isLoading, playRewardedAd, openAdInspector} = useRewardAd();
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [downloadProgress, setDownloadProgress] = useState(0);
@@ -133,7 +133,7 @@ export const useDownload = () => {
               } else {
                 downloadFile(url, path, mime, fileType);
                 if (isAdShown === true) {
-                  play();
+                  playRewardedAd();
                   // openAdInspector();
                 }
               }

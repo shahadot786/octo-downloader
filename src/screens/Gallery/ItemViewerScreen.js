@@ -15,10 +15,10 @@ const ItemViewerScreen = ({route}) => {
       <View style={{flex: 1}}>
         {/* image */}
         {type === 'image' && (
-          <View style={{flex: 1, alignItems: 'center'}}>
+          <View style={{flex: 1, alignItems: 'center', marginVertical: 10}}>
             <Image
               source={{uri: `file://${path}`}}
-              height={metrics.screenHeight - 200}
+              height={metrics.screenHeight - 150}
               width={metrics.screenWidth}
               resizeMode="contain"
             />

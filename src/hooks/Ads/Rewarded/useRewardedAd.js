@@ -28,7 +28,7 @@ const useRewardAd = () => {
     setIsLoading(false);
   };
 
-  const play = () => {
+  const playRewardedAd = () => {
     try {
       destroy();
       setIsLoading(true);
@@ -77,7 +77,7 @@ const useRewardAd = () => {
   return {
     isLoading,
     isLoaded,
-    play,
+    playRewardedAd,
     openAdInspector,
   };
 };

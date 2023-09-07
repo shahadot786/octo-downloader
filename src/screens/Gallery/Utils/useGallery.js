@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import RNFS from 'react-native-fs';
 import strings from '../../../theme/constant/strings';
 
@@ -16,31 +16,28 @@ export const useGallery = type => {
     });
   };
 
-  const onDeletePressHandler = path => {
+  const onDeletePressHandler = useCallback(path => {
     RNFS.unlink(path)
       .then(() => {
         getDirData();
       })
-      .catch(error => {
-        console.log('Error deleting file:', error);
-      });
-  };
+      .catch(e => {});
+  }, []);
 
-  const getDirData = () => {
+  const getDirData = useCallback(() => {
     RNFS.readDir(basePath + type)
       .then(result => {
         setDirData(result);
         setLoading(false);
       })
-      .catch(error => {
-        console.log('Error reading directory:', error);
+      .catch(e => {
         setLoading(false);
       });
-  };
+  }, [type]);
 
   useEffect(() => {
     getDirData();
-  }, [type]);
+  }, [type, dirData]);
 
   useEffect(() => {
     if (!dirData || dirData.length === 0) {
