@@ -2,20 +2,21 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Image, Pressable, StyleSheet, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import colors from '../../theme/constant/colors';
-import metrics from '../../theme/constant/metrics';
-import DescriptionText from '../../theme/Text/DescriptionText';
-import formatTimestamp from '../../utils/formatTimestamp';
-import formatBytes from '../../utils/formatBytes';
+import colors from '../../../theme/constant/colors';
+import metrics from '../../../theme/constant/metrics';
+import DescriptionText from '../../../theme/Text/DescriptionText';
+import formatTimestamp from '../../../utils/formatTimestamp';
+import formatBytes from '../../../utils/formatBytes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PdfThumbnail from 'react-native-pdf-thumbnail';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useGallery} from './Utils/useGallery';
+import {useGallery} from './useGallery';
+import LoaderModal from '../../../components/common/LoaderModal';
 
 const Item = ({data, type, navigation}) => {
   const [pdfThumbnailUri, setPdfThumbnailUri] = useState(null);
-  const {onItemPressHandler, onDeletePressHandler} = useGallery();
+  const {onItemPressHandler, onDeletePressHandler, isLoading} = useGallery();
 
   useEffect(() => {
     if (type === 'pdf') {
@@ -30,6 +31,7 @@ const Item = ({data, type, navigation}) => {
 
   return (
     <View style={styles.container}>
+      <LoaderModal visible={isLoading} />
       <Pressable
         onPress={() => onItemPressHandler(navigation, data, type)}
         style={({pressed}) => [

@@ -3,7 +3,7 @@ import {FlatList, View} from 'react-native';
 import React from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import {useGallery} from './Utils/useGallery';
-import Item from './Item';
+import Item from './Utils/Item';
 import BottomSpacing from '../../theme/Global/BottomSpacing';
 import AnimatedLottieView from 'lottie-react-native';
 import LoaderModal from '../../components/common/LoaderModal';

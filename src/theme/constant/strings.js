@@ -10,5 +10,6 @@ const strings = {
   MovieScreen: 'MovieScreen',
   GalleryViewerScreen: 'GalleryViewerScreen',
   ItemViewerScreen: 'ItemViewerScreen',
+  SaveLinkScreen: 'SaveLinkScreen',
 };
 export default strings;

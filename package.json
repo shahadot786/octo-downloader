@@ -22,7 +22,9 @@
     "@react-navigation/native-stack": "^6.9.13",
     "@reduxjs/toolkit": "^1.9.5",
     "expo": "^49.0.0",
+    "expo-av": "^13.4.1",
     "expo-media-library": "^15.4.1",
+    "expo-screen-orientation": "^6.0.5",
     "lottie-ios": "3.4.0",
     "lottie-react-native": "^5.1.6",
     "react": "18.2.0",
@@ -42,7 +44,6 @@
     "react-native-toast-message": "^2.1.6",
     "react-native-toast-notifications": "^3.3.1",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-video": "^5.2.1",
     "react-redux": "^8.1.1",
     "typescript": "^5.1.6"
   },

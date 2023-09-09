@@ -45,11 +45,11 @@ const DownloadScreen = () => {
                 options={options}
                 onSelect={handleSelectOption}
                 selectedValue={selectedOption}
-                placeholder="Select a type"
+                placeholder="Select a file type"
               />
             </View>
           )}
-
+          {/* MREc Ad */}
           <View style={{marginVertical: 10, alignItems: 'center'}}>
             {isAdShown && <LargeBannerAd />}
           </View>
@@ -80,6 +80,7 @@ const DownloadScreen = () => {
               />
             )}
           </View>
+          {/* MREc Ad */}
           {loading === true && (
             <View style={{marginVertical: 10, alignItems: 'center'}}>
               {isAdShown && <LargeBannerAd />}

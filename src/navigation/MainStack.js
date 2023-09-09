@@ -10,6 +10,7 @@ import SplashScreen from '../screens/Splash/SplashScreen';
 import {useSplash} from '../screens/Splash/Utils/useSplash';
 import GalleryViewerScreen from '../screens/Gallery/GalleryViewerScreen';
 import ItemViewerScreen from '../screens/Gallery/ItemViewerScreen';
+import SaveLinkScreen from '../screens/SaveLink/SaveLinkScreen';
 const Stack = createNativeStackNavigator();
 // bottom navigation
 function BottomTabs() {
@@ -70,6 +71,11 @@ const MainStack = () => {
         <Stack.Screen
           name={strings.ItemViewerScreen}
           component={ItemViewerScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={strings.SaveLinkScreen}
+          component={SaveLinkScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

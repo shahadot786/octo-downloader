@@ -14,6 +14,8 @@ import BigText from '../../theme/Text/BigText';
 import DescriptionText from '../../theme/Text/DescriptionText';
 import formatBytes from '../../utils/formatBytes';
 import formatTimestamp from '../../utils/formatTimestamp';
+import AudioPlayer from '../Player/Audio/AudioPlayer';
+import VideoPlayer from '../Player/Video/VideoPlayer';
 
 const renderActivityIndicator = progress => {
   const percentage = Math.floor(progress * 100) + '%';
@@ -32,7 +34,7 @@ const ItemDetails = ({title, time, size, iconName}) => (
       {justifyContent: 'center', alignItems: 'center'},
     ]}>
     <View style={styles.iconContainer}>
-      <MaterialIcon name={iconName} size={100} color="#fff" />
+      <MaterialIcon name={iconName} size={140} color="#fff" />
     </View>
     <TitleText text={title} />
     <DescriptionText text={`Download at: ${formatTimestamp(time)}`} />
@@ -45,6 +47,7 @@ const ItemViewerScreen = ({route, navigation}) => {
   const {isAdShown} = useAppSelector(state => state.ads);
   const [numberOfPages, setNumberOfPages] = useState();
   const [currentPage, setCurrentPage] = useState();
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   let truncatedFilename = '';
   const formattedFilename = data?.name.split('.')[0].replace(/_/g, ' ');
@@ -56,8 +59,20 @@ const ItemViewerScreen = ({route, navigation}) => {
 
   return (
     <ScreenSafeAreaView>
-      <CustomHeader title={truncatedFilename} navigation={navigation} />
+      {!isFullScreen && (
+        <CustomHeader title={truncatedFilename} navigation={navigation} />
+      )}
       <View style={styles.container}>
+        {type === 'audio' && <AudioPlayer data={data} autoPlay={true} />}
+        {type === 'video' && (
+          <VideoPlayer
+            data={data}
+            autoPlay={true}
+            navigation={navigation}
+            isFullScreen={isFullScreen}
+            setIsFullScreen={setIsFullScreen}
+          />
+        )}
         {type === 'software' && (
           <ItemDetails
             iconName={'settings-applications'}
@@ -112,7 +127,7 @@ const ItemViewerScreen = ({route, navigation}) => {
           />
         )}
       </View>
-      {isAdShown && (
+      {isAdShown && !isFullScreen && (
         <View style={styles.adContainer}>
           <BannerAds />
         </View>

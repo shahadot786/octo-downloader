@@ -2,14 +2,27 @@
 import {useState, useEffect, useCallback} from 'react';
 import RNFS from 'react-native-fs';
 import strings from '../../../theme/constant/strings';
+import {useAppSelector} from '../../../store/store';
+import useInterstitialAd from '../../../hooks/Ads/Interstitials/useInterstitialAd';
 
 const basePath = '/storage/emulated/0/Download/OctoDownloader/';
+let _count = 0;
+
 export const useGallery = type => {
   const [dirData, setDirData] = useState();
   const [loading, setLoading] = useState(true);
   const [sortData, setSortData] = useState([]);
+  const {isAdShown} = useAppSelector(state => state.ads);
+  const {playInterstitialAd, isLoading} = useInterstitialAd();
 
   const onItemPressHandler = (navigation, data, itemType) => {
+    _count++;
+    if (isAdShown) {
+      if (_count % 2 === 0) {
+        playInterstitialAd();
+      }
+    }
+    console.log(_count);
     navigation.navigate(strings.ItemViewerScreen, {
       data: data,
       type: itemType,
@@ -63,5 +76,11 @@ export const useGallery = type => {
     }
   }, [dirData]);
 
-  return {sortData, loading, onItemPressHandler, onDeletePressHandler};
+  return {
+    sortData,
+    loading,
+    onItemPressHandler,
+    onDeletePressHandler,
+    isLoading,
+  };
 };
