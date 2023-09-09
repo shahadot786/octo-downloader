@@ -1,9 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Image, StyleSheet, View, ActivityIndicator} from 'react-native';
 import React, {useState} from 'react';
+import {ActivityIndicator, Image, StyleSheet, View} from 'react-native';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Pdf from 'react-native-pdf';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import metrics from '../../theme/constant/metrics';
-import Pdf from 'react-native-pdf';
 import {useAppSelector} from '../../store/store';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
 import CustomHeader from '../../components/common/CustomHeader';
@@ -11,34 +12,33 @@ import colors from '../../theme/constant/colors';
 import TitleText from '../../theme/Text/TitleText';
 import BigText from '../../theme/Text/BigText';
 import DescriptionText from '../../theme/Text/DescriptionText';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import formatBytes from '../../utils/formatBytes';
 import formatTimestamp from '../../utils/formatTimestamp';
 
 const renderActivityIndicator = progress => {
   const percentage = Math.floor(progress * 100) + '%';
   return (
-    <View style={{alignItems: 'center', justifyContent: 'center', gap: 10}}>
+    <View style={styles.activityIndicatorContainer}>
       <ActivityIndicator size={'large'} color={colors.Primary} />
       <TitleText text={percentage} />
     </View>
   );
 };
 
-const ItemDetails = ({title, time, size, iconName}) => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      {/* icon */}
+const ItemDetails = ({title, time, size, iconName}) => (
+  <View
+    style={[
+      styles.container,
+      {justifyContent: 'center', alignItems: 'center'},
+    ]}>
+    <View style={styles.iconContainer}>
       <MaterialIcon name={iconName} size={100} color="#fff" />
-      {/* title */}
-      <TitleText text={title} />
-      {/* time */}
-      <DescriptionText text={`Download at: ${formatTimestamp(time)}`} />
-      {/*size  */}
-      <DescriptionText text={`Size: ${formatBytes(size)}`} />
     </View>
-  );
-};
+    <TitleText text={title} />
+    <DescriptionText text={`Download at: ${formatTimestamp(time)}`} />
+    <DescriptionText text={`Size: ${formatBytes(size)}`} />
+  </View>
+);
 
 const ItemViewerScreen = ({route, navigation}) => {
   const {data, type} = route.params;
@@ -57,10 +57,7 @@ const ItemViewerScreen = ({route, navigation}) => {
   return (
     <ScreenSafeAreaView>
       <CustomHeader title={truncatedFilename} navigation={navigation} />
-      <View style={{flex: 1}}>
-        {/* audio */}
-        {/* video */}
-        {/* software */}
+      <View style={styles.container}>
         {type === 'software' && (
           <ItemDetails
             iconName={'settings-applications'}
@@ -69,9 +66,8 @@ const ItemViewerScreen = ({route, navigation}) => {
             size={data?.size}
           />
         )}
-        {/* image */}
         {type === 'image' && (
-          <View style={{flex: 1, alignItems: 'center', marginVertical: 10}}>
+          <View style={styles.iconContainer}>
             <Image
               source={{uri: `file://${data?.path}`}}
               height={metrics.screenHeight - 150}
@@ -80,42 +76,25 @@ const ItemViewerScreen = ({route, navigation}) => {
             />
           </View>
         )}
-        {/* pdf */}
         {type === 'pdf' && (
           <>
             <Pdf
               trustAllCerts={false}
               source={{uri: `file://${data?.path}`}}
-              onLoadComplete={pages => {
-                setNumberOfPages(pages);
-              }}
-              onPageChanged={page => {
-                setCurrentPage(page);
-              }}
-              onError={error => {}}
-              onPressLink={uri => {}}
+              onLoadComplete={setNumberOfPages}
+              onPageChanged={setCurrentPage}
+              onError={() => {}}
+              onPressLink={() => {}}
               style={styles.pdf}
               showsVerticalScrollIndicator={true}
               fitWidth={true}
-              renderActivityIndicator={progress =>
-                renderActivityIndicator(progress)
-              }
+              renderActivityIndicator={renderActivityIndicator}
             />
-            <View
-              style={{
-                position: 'absolute',
-                backgroundColor: colors.Primary,
-                flexDirection: 'row',
-                bottom: 80,
-                left: '40%',
-                paddingHorizontal: 10,
-                borderRadius: 10,
-              }}>
+            <View style={styles.pageNumberContainer}>
               <BigText text={`${currentPage} / ${numberOfPages}`} />
             </View>
           </>
         )}
-        {/* zip */}
         {type === 'zip' && (
           <ItemDetails
             iconName={'library-books'}
@@ -124,7 +103,6 @@ const ItemViewerScreen = ({route, navigation}) => {
             size={data?.size}
           />
         )}
-        {/* text */}
         {type === 'text' && (
           <ItemDetails
             iconName={'text-snippet'}
@@ -135,12 +113,7 @@ const ItemViewerScreen = ({route, navigation}) => {
         )}
       </View>
       {isAdShown && (
-        <View
-          style={{
-            marginVertical: 5,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+        <View style={styles.adContainer}>
           <BannerAds />
         </View>
       )}
@@ -151,9 +124,35 @@ const ItemViewerScreen = ({route, navigation}) => {
 export default ItemViewerScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  activityIndicatorContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+  },
+  iconContainer: {
+    alignItems: 'center',
+    marginVertical: 10,
+  },
   pdf: {
     flex: 1,
     height: metrics.screenHeight,
     width: metrics.screenWidth,
+  },
+  pageNumberContainer: {
+    position: 'absolute',
+    backgroundColor: colors.Primary,
+    flexDirection: 'row',
+    bottom: 10,
+    left: '40%',
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  adContainer: {
+    marginVertical: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

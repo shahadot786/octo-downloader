@@ -1,5 +1,6 @@
 const appPath = '/storage/emulated/0/Download'; //sd card path
 // const internalPath = '/data/user/0/Download'; // internal path
+// options
 export const options = [
   {folder: 'Audio', value: 'audio'},
   {folder: 'Video', value: 'video'},
@@ -9,6 +10,7 @@ export const options = [
   {folder: 'Zip', value: 'zip'},
   {folder: 'Text', value: 'text'},
 ];
+// file types
 export const fileTypes = {
   video: {
     folder: 'video',
@@ -39,12 +41,12 @@ export const fileTypes = {
     mime: 'application/octet-stream',
   },
 };
-
+//get the folder path
 export const getFolderPath = fileType => {
   const folder = fileTypes[fileType]?.folder || 'Miscellaneous';
   return `${appPath}/OctoDownloader/${folder}`;
 };
-
+//get the file name from the url path
 export const getFileNameFromUrl = url => {
   const index = url.lastIndexOf('/');
   let filename = url.substring(index + 1);
@@ -55,15 +57,15 @@ export const getFileNameFromUrl = url => {
   return filename;
 };
 
+// Extract the file extension from the URL
 export const getFileTypeFromUrl = url => {
-  // Extract the file extension from the URL
   const parts = url.split('.');
   if (parts.length > 1) {
     return parts[parts.length - 1].toLowerCase();
   }
   return '';
 };
-
+//check if the file type is different from the file type
 export const fileExtensions = {
   video: ['mp4', 'avi', 'mkv', 'mov', 'wmv', 'flv', 'webm'],
   audio: ['mp3', 'ogg', 'wav', 'flac', 'aac'],
@@ -72,4 +74,10 @@ export const fileExtensions = {
   zip: ['standard', 'x7z', 'rar', 'tar', 'gzip', 'zip'],
   text: ['plain', 'csv', 'html', 'xml', 'css', 'javascript', 'txt'],
   software: ['octetStream', 'exe', 'dmg', 'deb', 'rpm', 'msi', 'apk'],
+};
+
+// Function to validate a URL
+export const validateURL = url => {
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  return urlPattern.test(url);
 };

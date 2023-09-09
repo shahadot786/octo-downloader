@@ -9,6 +9,7 @@ import {
   getFileNameFromUrl,
   getFileTypeFromUrl,
   getFolderPath,
+  validateURL,
 } from './constant';
 import {setPermission} from '../../../store/slices/storage/storagePermissionSlice';
 import localStorage from '../../../hooks/Utils/localStorage';
@@ -22,7 +23,7 @@ const STORAGE_PERMISSION_KEY = '@StoragePermission';
 export const useDownload = () => {
   const {isAdShown} = useAppSelector(state => state.ads);
   const storagePermission = useAppSelector(state => state.storagePermission);
-  const {isLoading, playRewardedAd, openAdInspector} = useRewardAd();
+  const {isLoading, playRewardedAd} = useRewardAd();
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [downloadProgress, setDownloadProgress] = useState(0);
@@ -51,13 +52,9 @@ export const useDownload = () => {
   const onPasteBtnPressHandler = useCallback(async () => {
     try {
       const clipboardValue = await Clipboard.getString();
-      if (inputValue === '') {
-        setInputValue(clipboardValue);
-      } else {
-        setInputValue('');
-      }
+      setInputValue(inputValue === '' ? clipboardValue : '');
     } catch (error) {
-      // console.log('Error pasting from clipboard:', error);
+      // Handle clipboard error
     }
   }, [inputValue]);
 
@@ -114,59 +111,67 @@ export const useDownload = () => {
       toast.show('Please select a file type.', toastNotification('danger'));
       return;
     }
-    const urlFileType = getFileTypeFromUrl(inputValue);
-    if (urlFileType) {
-      const selectedFileType = fileTypes[fileType];
-      if (selectedFileType) {
-        const extension = fileExtensions[fileType];
-
-        if (extension.includes(urlFileType.toLowerCase())) {
-          if (netInfoState.isConnected) {
-            if (storagePermission) {
-              setLoading(true);
-              const url = inputValue;
-              const mime = selectedFileType?.mime || fileTypes.text;
-              const fileName = getFileNameFromUrl(url);
-              const path = `${getFolderPath(fileType)}/${fileName}`;
-              if (isLoading) {
-                downloadFile(url, path, mime, fileType);
-              } else {
-                downloadFile(url, path, mime, fileType);
-                if (isAdShown === true) {
-                  playRewardedAd();
-                  // openAdInspector();
+    if (validateURL(inputValue)) {
+      const urlFileType = getFileTypeFromUrl(inputValue);
+      if (urlFileType) {
+        const selectedFileType = fileTypes[fileType];
+        if (selectedFileType) {
+          const extension = fileExtensions[fileType];
+          if (extension.includes(urlFileType.toLowerCase())) {
+            if (netInfoState.isConnected) {
+              if (storagePermission) {
+                setLoading(true);
+                const url = inputValue;
+                const mime = selectedFileType?.mime || fileTypes.text;
+                const fileName = getFileNameFromUrl(url);
+                const path = `${getFolderPath(fileType)}/${fileName}`;
+                if (isLoading) {
+                  downloadFile(url, path, mime, fileType);
+                } else {
+                  downloadFile(url, path, mime, fileType);
+                  if (isAdShown === true) {
+                    playRewardedAd();
+                  }
                 }
+              } else {
+                Alert.alert(
+                  'Storage Permission',
+                  'OctoDownloader needs access to your storage in order to save files.',
+                  [
+                    {
+                      text: 'Cancel',
+                      style: 'cancel',
+                    },
+                    {
+                      text: 'Settings',
+                      onPress: () => openAppSettings(),
+                    },
+                  ],
+                );
               }
             } else {
-              Alert.alert(
-                'Storage Permission',
-                'OctoDownloader needs access to your storage in order to save files.',
-                [
-                  {
-                    text: 'Cancel',
-                    style: 'cancel',
-                  },
-                  {
-                    text: 'Settings',
-                    onPress: () => openAppSettings(),
-                  },
-                ],
+              toast.show(
+                'Network is not available!!',
+                toastNotification('normal'),
               );
             }
           } else {
             toast.show(
-              'Network is not available!!',
-              toastNotification('normal'),
+              'Invalid file type for the selected option.',
+              toastNotification('danger'),
             );
           }
         } else {
           toast.show(
-            'Invalid file type for the selected option.',
+            'Selected file type is invalid!',
             toastNotification('danger'),
           );
         }
       } else {
-        toast.show('Invalid selected file type.', toastNotification('danger'));
+        toast.show(
+          'Invalid File Type. Please select a valid file type.',
+          toastNotification('danger'),
+        );
       }
     } else {
       toast.show(
