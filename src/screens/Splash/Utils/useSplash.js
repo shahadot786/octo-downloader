@@ -16,6 +16,7 @@ import {
   setZip,
 } from '../../../store/slices/firebase/firebaseSlice';
 import {setIsAdPriority, setIsAdShown} from '../../../store/slices/ad/adSlice';
+import AppLovinMAX from 'react-native-applovin-max';
 
 export const useSplash = () => {
   const {data: versionData, loading: versionLoading} = useFirebase(
@@ -45,6 +46,21 @@ export const useSplash = () => {
 
   const dispatch = useAppDispatch();
 
+  const initialApplovinAds = useMemo(() => {
+    return () => {
+      AppLovinMAX.initialize(
+        '1zWIpgA5ypdhsOvsw5LkOKHivpN2aMwgH0qMm77xmphANnQtbfRSXZTnCvCC_R3fvEXiz37ehgP2UVgypc0MCF',
+      )
+        .then(configuration => {
+          // SDK is initialized, start loading ads
+          console.log(configuration, 'start loading ads');
+        })
+        .catch(error => {
+          // Failed to initialize SDK
+        });
+    };
+  }, []);
+
   const initialGoogleAds = useMemo(() => {
     return () => {
       mobileAds()
@@ -57,6 +73,7 @@ export const useSplash = () => {
 
   useEffect(() => {
     initialGoogleAds();
+    initialApplovinAds();
   }, []);
 
   useEffect(() => {

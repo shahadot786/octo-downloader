@@ -3,7 +3,7 @@ import {BannerAd, BannerAdSize, TestIds} from 'react-native-google-mobile-ads';
 
 const adUnitId = __DEV__
   ? TestIds.BANNER
-  : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+  : 'ca-app-pub-1183995713269973/3124871763';
 
 const LargeBannerAd = () => {
   return (
