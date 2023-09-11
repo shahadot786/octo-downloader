@@ -29,6 +29,10 @@ const MainStack = () => {
     audioLoading,
     softwareLoading,
     zipLoading,
+    adsLoading,
+    videoLoading,
+    imageLoading,
+    pdfLoading,
   } = useSplash();
 
   return (
@@ -39,6 +43,10 @@ const MainStack = () => {
           promotionLoading ||
           audioLoading ||
           softwareLoading ||
+          adsLoading ||
+          videoLoading ||
+          imageLoading ||
+          pdfLoading ||
           zipLoading) && (
           <Stack.Screen
             name={strings.SplashScreen}

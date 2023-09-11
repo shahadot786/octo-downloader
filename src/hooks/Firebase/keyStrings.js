@@ -9,4 +9,5 @@ export const keyStrings = {
   zipDoc: '3zwaMk7YzZNktKlWKZtoZip',
   softwareDoc: '94tHjXeo9VkLI33d7CIUSoftware',
   audioDoc: 'd5ps5D6MzZzBbh2CJ8QaAudio',
+  adsDoc: 'wkUUZ30tLHRyWD5T7BEMADs',
 };

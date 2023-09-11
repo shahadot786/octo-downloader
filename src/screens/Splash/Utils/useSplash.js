@@ -6,12 +6,20 @@ import {useEffect, useMemo} from 'react';
 import {useAppDispatch} from '../../../store/store';
 import {
   setAudio,
+  setImages,
   setMovies,
+  setPdf,
   setPromotion,
   setSoftware,
   setVersion,
+  setVideos,
   setZip,
 } from '../../../store/slices/firebase/firebaseSlice';
+import {
+  setIsAdPriority,
+  setIsAdShown,
+  setIsPremium,
+} from '../../../store/slices/ad/adSlice';
 
 export const useSplash = () => {
   const {data: versionData, loading: versionLoading} = useFirebase(
@@ -30,6 +38,14 @@ export const useSplash = () => {
     keyStrings.softwareDoc,
   );
   const {data: zipData, loading: zipLoading} = useFirebase(keyStrings.zipDoc);
+  const {data: videoData, loading: videoLoading} = useFirebase(
+    keyStrings.videosDoc,
+  );
+  const {data: imageData, loading: imageLoading} = useFirebase(
+    keyStrings.imagesDoc,
+  );
+  const {data: pdfData, loading: pdfLoading} = useFirebase(keyStrings.pdfDocs);
+  const {data: adsData, loading: adsLoading} = useFirebase(keyStrings.adsDoc);
 
   const dispatch = useAppDispatch();
 
@@ -48,6 +64,13 @@ export const useSplash = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(setMovies(moviesData?.movies));
+    dispatch(setAudio(audioData?.audio));
+    dispatch(setSoftware(softwareData?.software));
+    dispatch(setZip(zipData?.zip));
+    dispatch(setVideos(videoData?.videos));
+    dispatch(setImages(imageData?.images));
+    dispatch(setPdf(pdfData?.pdf));
     dispatch(
       setVersion({
         message: versionData?.version?.message,
@@ -56,14 +79,15 @@ export const useSplash = () => {
         isForceUpdate: versionData?.version?.isForceUpdate,
       }),
     );
-    dispatch(setMovies(moviesData?.movies));
-    dispatch(setAudio(audioData?.audio));
-    dispatch(setSoftware(softwareData?.software));
-    dispatch(setZip(zipData?.zip));
+    dispatch(setIsAdShown(adsData?.ads?.isAdsShown));
+    dispatch(setIsAdPriority(adsData?.ads?.isAdPriority));
+    dispatch(setIsPremium(adsData?.ads?.isPremium));
     dispatch(
       setPromotion({
         imageUrl: promotionData?.promotion?.image,
         message: promotionData?.promotion?.message,
+        uri: promotionData?.promotion?.uri,
+        title: promotionData?.promotion?.title,
       }),
     );
   }, [
@@ -74,6 +98,10 @@ export const useSplash = () => {
     audioData,
     softwareData,
     zipData,
+    adsData,
+    videoData,
+    pdfData,
+    imageData,
   ]);
 
   return {
@@ -83,5 +111,9 @@ export const useSplash = () => {
     audioLoading,
     softwareLoading,
     zipLoading,
+    adsLoading,
+    videoLoading,
+    imageLoading,
+    pdfLoading,
   };
 };

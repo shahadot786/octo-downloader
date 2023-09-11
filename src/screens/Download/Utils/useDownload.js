@@ -21,9 +21,9 @@ import useRewardAd from '../../../hooks/Ads/Rewarded/useRewardedAd';
 const STORAGE_PERMISSION_KEY = '@StoragePermission';
 
 export const useDownload = () => {
-  const {isAdShown} = useAppSelector(state => state.ads);
+  const {isAdShown, isAdPriority} = useAppSelector(state => state.ads);
   const storagePermission = useAppSelector(state => state.storagePermission);
-  const {isLoading, playRewardedAd} = useRewardAd();
+  const {playRewardedAd} = useRewardAd();
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [downloadProgress, setDownloadProgress] = useState(0);
@@ -120,18 +120,17 @@ export const useDownload = () => {
           if (extension.includes(urlFileType.toLowerCase())) {
             if (netInfoState.isConnected) {
               if (storagePermission) {
-                setLoading(true);
                 const url = inputValue;
                 const mime = selectedFileType?.mime || fileTypes.text;
                 const fileName = getFileNameFromUrl(url);
                 const path = `${getFolderPath(fileType)}/${fileName}`;
-                if (isLoading) {
+                if (isAdShown === true) {
+                  setLoading(true);
+                  playRewardedAd();
                   downloadFile(url, path, mime, fileType);
                 } else {
+                  setLoading(true);
                   downloadFile(url, path, mime, fileType);
-                  if (isAdShown === true) {
-                    playRewardedAd();
-                  }
                 }
               } else {
                 Alert.alert(
@@ -188,6 +187,7 @@ export const useDownload = () => {
     onPasteBtnPressHandler,
     inputValue,
     isAdShown,
+    isAdPriority,
     onDownloadPressHandler,
     downloadProgress,
     currentSize,

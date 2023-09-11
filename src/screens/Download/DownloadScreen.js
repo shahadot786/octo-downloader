@@ -11,6 +11,7 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import PrimaryButton from '../../components/atoms/buttons/PrimaryButton';
 import colors from '../../theme/constant/colors';
 import CustomProgressBar from '../../components/atoms/progress/CustomProgressBar';
+import LoaderModal from '../../components/common/LoaderModal';
 
 const DownloadScreen = () => {
   const {
@@ -21,6 +22,7 @@ const DownloadScreen = () => {
     inputValue,
     onDownloadPressHandler,
     isAdShown,
+    isAdPriority,
     downloadProgress,
     currentSize,
     totalSize,
@@ -83,7 +85,7 @@ const DownloadScreen = () => {
           {/* MREc Ad */}
           {loading === true && (
             <View style={{marginVertical: 10, alignItems: 'center'}}>
-              {isAdShown && <LargeBannerAd />}
+              {isAdPriority && <LargeBannerAd />}
             </View>
           )}
         </Pressable>
