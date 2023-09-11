@@ -11,7 +11,6 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import PrimaryButton from '../../components/atoms/buttons/PrimaryButton';
 import colors from '../../theme/constant/colors';
 import CustomProgressBar from '../../components/atoms/progress/CustomProgressBar';
-import LoaderModal from '../../components/common/LoaderModal';
 
 const DownloadScreen = () => {
   const {
@@ -32,7 +31,10 @@ const DownloadScreen = () => {
     <ScreenSafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Pressable
-          style={{flex: 1, marginHorizontal: 15}}
+          style={{
+            flex: 1,
+            marginHorizontal: 15,
+          }}
           onPress={() => Keyboard.dismiss()}>
           {loading === false && (
             <View>

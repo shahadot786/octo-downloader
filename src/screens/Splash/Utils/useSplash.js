@@ -15,11 +15,7 @@ import {
   setVideos,
   setZip,
 } from '../../../store/slices/firebase/firebaseSlice';
-import {
-  setIsAdPriority,
-  setIsAdShown,
-  setIsPremium,
-} from '../../../store/slices/ad/adSlice';
+import {setIsAdPriority, setIsAdShown} from '../../../store/slices/ad/adSlice';
 
 export const useSplash = () => {
   const {data: versionData, loading: versionLoading} = useFirebase(
@@ -81,7 +77,6 @@ export const useSplash = () => {
     );
     dispatch(setIsAdShown(adsData?.ads?.isAdsShown));
     dispatch(setIsAdPriority(adsData?.ads?.isAdPriority));
-    dispatch(setIsPremium(adsData?.ads?.isPremium));
     dispatch(
       setPromotion({
         imageUrl: promotionData?.promotion?.image,

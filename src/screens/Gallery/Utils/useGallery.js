@@ -12,17 +12,19 @@ export const useGallery = type => {
   const [dirData, setDirData] = useState();
   const [loading, setLoading] = useState(true);
   const [sortData, setSortData] = useState([]);
-  const {isAdShown} = useAppSelector(state => state.ads);
+  const {isAdPriority} = useAppSelector(state => state.ads);
   const {playInterstitialAd, isLoading} = useInterstitialAd();
 
   const onItemPressHandler = (navigation, data, itemType) => {
     _count++;
-    if (isAdShown) {
-      if (_count % 2 === 0) {
+    if (isAdPriority) {
+      if (_count % 3 === 0 && _count <= 9) {
         playInterstitialAd();
       }
+      if (_count === 10) {
+        _count = 0;
+      }
     }
-    console.log(_count);
     navigation.navigate(strings.ItemViewerScreen, {
       data: data,
       type: itemType,
