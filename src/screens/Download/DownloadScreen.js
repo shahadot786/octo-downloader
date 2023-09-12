@@ -39,7 +39,7 @@ const DownloadScreen = () => {
           }}
           onPress={() => Keyboard.dismiss()}>
           {loading === false && (
-            <View>
+            <View style={{marginVertical: 10}}>
               <CustomTextInput
                 containerStyle={{marginVertical: 5}}
                 placeholder={'Please paste the url here..'}

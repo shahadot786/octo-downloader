@@ -16,7 +16,6 @@ export const useGallery = type => {
   const {isAdPriority, isApplovin} = useAppSelector(state => state.ads);
   const {isInterstitialReady, showInterstitial} = useApplovinInterstitialAd();
   const {playInterstitialAd, isLoading} = useInterstitialAd();
-
   const onItemPressHandler = (navigation, data, itemType) => {
     _count++;
     if (isAdPriority) {

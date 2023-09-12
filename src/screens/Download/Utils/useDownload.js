@@ -18,7 +18,6 @@ import useConnectionCheck from '../../../hooks/Network/useConnectionCheck';
 import {toastNotification} from '../../../utils/constants';
 import useRewardAd from '../../../hooks/Ads/Rewarded/useRewardedAd';
 import useApplovinRewardedAd from '../../../hooks/Ads/Rewarded/useApplovinRewardedAd';
-import {useRewardedInterstitialAd} from 'react-native-google-mobile-ads';
 
 const STORAGE_PERMISSION_KEY = '@StoragePermission';
 
