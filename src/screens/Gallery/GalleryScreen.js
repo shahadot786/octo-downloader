@@ -12,19 +12,34 @@ import {useAppSelector} from '../../store/store';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
 import useInterstitialAd from '../../hooks/Ads/Interstitials/useInterstitialAd';
 import LoaderModal from '../../components/common/LoaderModal';
+import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
+import useApplovinInterstitialAd from '../../hooks/Ads/Interstitials/useApplovinInterstitialAd';
 
 const GalleryScreen = ({navigation}) => {
-  const {isAdShown} = useAppSelector(state => state.ads);
+  const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
   const {playInterstitialAd, isLoading} = useInterstitialAd();
+  const {isInterstitialReady, showInterstitial} = useApplovinInterstitialAd();
   let _count = 0;
   const onItemPressHandler = type => {
     _count++;
     if (isAdShown) {
       if (_count % 2 === 0) {
-        playInterstitialAd();
+        if (isApplovin) {
+          if (isInterstitialReady) {
+            handleShowInterstitial();
+          } else {
+            playInterstitialAd();
+          }
+        } else {
+          playInterstitialAd();
+        }
       }
     }
     navigation.navigate(strings.GalleryViewerScreen, {type: type});
+  };
+
+  const handleShowInterstitial = async () => {
+    await showInterstitial();
   };
   return (
     <ScreenSafeAreaView style={styles.container}>
@@ -39,7 +54,7 @@ const GalleryScreen = ({navigation}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <BannerAds />
+              {isApplovin ? <ApplovinBannerAd /> : <BannerAds />}
             </View>
           )}
           <View

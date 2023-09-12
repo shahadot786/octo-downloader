@@ -17,13 +17,18 @@ import {useToast} from 'react-native-toast-notifications';
 import useConnectionCheck from '../../../hooks/Network/useConnectionCheck';
 import {toastNotification} from '../../../utils/constants';
 import useRewardAd from '../../../hooks/Ads/Rewarded/useRewardedAd';
+import useApplovinRewardedAd from '../../../hooks/Ads/Rewarded/useApplovinRewardedAd';
+import {useRewardedInterstitialAd} from 'react-native-google-mobile-ads';
 
 const STORAGE_PERMISSION_KEY = '@StoragePermission';
 
 export const useDownload = () => {
-  const {isAdShown, isAdPriority} = useAppSelector(state => state.ads);
+  const {isAdShown, isAdPriority, isApplovin} = useAppSelector(
+    state => state.ads,
+  );
   const storagePermission = useAppSelector(state => state.storagePermission);
   const {playRewardedAd} = useRewardAd();
+  const {isRewardedAdReady, showRewardedAd} = useApplovinRewardedAd();
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [downloadProgress, setDownloadProgress] = useState(0);
@@ -126,7 +131,15 @@ export const useDownload = () => {
                 const path = `${getFolderPath(fileType)}/${fileName}`;
                 if (isAdShown === true) {
                   setLoading(true);
-                  playRewardedAd();
+                  if (isApplovin) {
+                    if (isRewardedAdReady) {
+                      await showRewardedAd();
+                    } else {
+                      playRewardedAd();
+                    }
+                  } else {
+                    playRewardedAd();
+                  }
                   downloadFile(url, path, mime, fileType);
                 } else {
                   setLoading(true);
@@ -188,6 +201,7 @@ export const useDownload = () => {
     inputValue,
     isAdShown,
     isAdPriority,
+    isApplovin,
     onDownloadPressHandler,
     downloadProgress,
     currentSize,

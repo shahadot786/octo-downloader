@@ -98,11 +98,13 @@ const VideoPlayer = ({
         <View
           style={{
             position: 'absolute',
-            bottom: 10,
+            bottom: 0,
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             gap: 10,
+            backgroundColor: '#75757533',
+            borderRadius: 10,
           }}>
           <TouchableOpacity
             activeOpacity={0.6}

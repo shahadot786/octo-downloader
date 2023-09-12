@@ -15,7 +15,11 @@ import {
   setVideos,
   setZip,
 } from '../../../store/slices/firebase/firebaseSlice';
-import {setIsAdPriority, setIsAdShown} from '../../../store/slices/ad/adSlice';
+import {
+  setIsAdPriority,
+  setIsAdShown,
+  setIsApplovin,
+} from '../../../store/slices/ad/adSlice';
 import AppLovinMAX from 'react-native-applovin-max';
 
 export const useSplash = () => {
@@ -53,7 +57,7 @@ export const useSplash = () => {
       )
         .then(configuration => {
           // SDK is initialized, start loading ads
-          console.log(configuration, 'start loading ads');
+          // console.log(configuration, 'start loading ads');
         })
         .catch(error => {
           // Failed to initialize SDK
@@ -94,6 +98,7 @@ export const useSplash = () => {
     );
     dispatch(setIsAdShown(adsData?.ads?.isAdsShown));
     dispatch(setIsAdPriority(adsData?.ads?.isAdPriority));
+    dispatch(setIsApplovin(adsData?.ads?.isApplovin));
     dispatch(
       setPromotion({
         imageUrl: promotionData?.promotion?.image,

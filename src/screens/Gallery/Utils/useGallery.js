@@ -4,6 +4,7 @@ import RNFS from 'react-native-fs';
 import strings from '../../../theme/constant/strings';
 import {useAppSelector} from '../../../store/store';
 import useInterstitialAd from '../../../hooks/Ads/Interstitials/useInterstitialAd';
+import useApplovinInterstitialAd from '../../../hooks/Ads/Interstitials/useApplovinInterstitialAd';
 
 const basePath = '/storage/emulated/0/Download/OctoDownloader/';
 let _count = 0;
@@ -12,23 +13,32 @@ export const useGallery = type => {
   const [dirData, setDirData] = useState();
   const [loading, setLoading] = useState(true);
   const [sortData, setSortData] = useState([]);
-  const {isAdPriority} = useAppSelector(state => state.ads);
+  const {isAdPriority, isApplovin} = useAppSelector(state => state.ads);
+  const {isInterstitialReady, showInterstitial} = useApplovinInterstitialAd();
   const {playInterstitialAd, isLoading} = useInterstitialAd();
 
   const onItemPressHandler = (navigation, data, itemType) => {
     _count++;
     if (isAdPriority) {
-      if (_count % 3 === 0 && _count <= 9) {
-        playInterstitialAd();
-      }
-      if (_count === 10) {
-        _count = 0;
+      if (_count % 2 === 0) {
+        if (isApplovin) {
+          if (isInterstitialReady) {
+            handleShowInterstitial();
+          } else {
+            playInterstitialAd();
+          }
+        } else {
+          playInterstitialAd();
+        }
       }
     }
     navigation.navigate(strings.ItemViewerScreen, {
       data: data,
       type: itemType,
     });
+  };
+  const handleShowInterstitial = async () => {
+    await showInterstitial();
   };
 
   const onDeletePressHandler = useCallback(path => {

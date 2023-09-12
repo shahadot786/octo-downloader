@@ -10,11 +10,13 @@ import LoaderModal from '../../components/common/LoaderModal';
 import {useAppSelector} from '../../store/store';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
 import CustomHeader from '../../components/common/CustomHeader';
+import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
+import NativeAdView from '../../hooks/Ads/Native/NativeAdView';
 
 const GalleryViewerScreen = ({route, navigation}) => {
   const {type} = route.params;
   const {sortData, loading} = useGallery(type);
-  const {isAdShown} = useAppSelector(state => state.ads);
+  const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
 
   return (
     <ScreenSafeAreaView>
@@ -31,6 +33,7 @@ const GalleryViewerScreen = ({route, navigation}) => {
           keyExtractor={item => item.mtime}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={<BottomSpacing />}
+          // ListHeaderComponent={<NativeAdView />}
         />
       ) : (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -49,7 +52,7 @@ const GalleryViewerScreen = ({route, navigation}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <BannerAds />
+          {isApplovin ? <ApplovinBannerAd /> : <BannerAds />}
         </View>
       )}
     </ScreenSafeAreaView>

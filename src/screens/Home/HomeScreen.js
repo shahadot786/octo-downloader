@@ -13,9 +13,11 @@ import HomePromotion from '../../components/molecules/cards/promotion/HomePromot
 import BottomSpacing from '../../theme/Global/BottomSpacing';
 import AppUpdateModal from '../../components/templates/modal/AppUpdateModal';
 import {useHome} from './Utils/useHome';
+import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
 
 const HomeScreen = () => {
-  const {isAdShown} = useHome();
+  const {isAdShown, isApplovin} = useHome();
+
   return (
     <ScreenSafeAreaView style={styles.container}>
       {/* main container */}
@@ -45,7 +47,7 @@ const HomeScreen = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <BannerAds />
+              {isApplovin ? <ApplovinBannerAd /> : <BannerAds />}
             </View>
           )}
           <ScrollView

@@ -11,6 +11,7 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import PrimaryButton from '../../components/atoms/buttons/PrimaryButton';
 import colors from '../../theme/constant/colors';
 import CustomProgressBar from '../../components/atoms/progress/CustomProgressBar';
+import ApplovinMREcAd from '../../hooks/Ads/Banner/ApplovinMREcAd';
 
 const DownloadScreen = () => {
   const {
@@ -22,6 +23,7 @@ const DownloadScreen = () => {
     onDownloadPressHandler,
     isAdShown,
     isAdPriority,
+    isApplovin,
     downloadProgress,
     currentSize,
     totalSize,
@@ -54,9 +56,11 @@ const DownloadScreen = () => {
             </View>
           )}
           {/* MREc Ad */}
-          <View style={{marginVertical: 10, alignItems: 'center'}}>
-            {isAdShown && <LargeBannerAd />}
-          </View>
+          {isAdShown && (
+            <View style={{marginVertical: 10, alignItems: 'center'}}>
+              {isApplovin ? <ApplovinMREcAd /> : <LargeBannerAd />}
+            </View>
+          )}
           <View>
             {loading === true && (
               <View
@@ -86,9 +90,13 @@ const DownloadScreen = () => {
           </View>
           {/* MREc Ad */}
           {loading === true && (
-            <View style={{marginVertical: 10, alignItems: 'center'}}>
-              {isAdPriority && <LargeBannerAd />}
-            </View>
+            <>
+              {isAdPriority && (
+                <View style={{marginVertical: 10, alignItems: 'center'}}>
+                  {isApplovin ? <ApplovinMREcAd /> : <LargeBannerAd />}
+                </View>
+              )}
+            </>
           )}
         </Pressable>
         <BottomSpacing />
