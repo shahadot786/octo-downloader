@@ -13,7 +13,7 @@ import colors from '../../../theme/constant/colors';
 
 const VideoPlayer = ({
   data,
-  autoPlay = false,
+  autoPlay = true,
   navigation,
   isFullScreen,
   setIsFullScreen,
@@ -114,13 +114,13 @@ const VideoPlayer = ({
               <MaterialIcon
                 name={'pause-circle-filled'}
                 size={40}
-                color="#fff"
+                color={colors.Primary}
               />
             ) : (
               <MaterialIcon
                 name={'play-circle-filled'}
                 size={40}
-                color="#fff"
+                color={colors.Primary}
               />
             )}
           </TouchableOpacity>
@@ -142,9 +142,17 @@ const VideoPlayer = ({
             style={styles.fullScreenButton}
             onPress={toggleFullScreen}>
             {isFullScreen ? (
-              <MaterialIcon name={'fullscreen-exit'} size={35} color="#fff" />
+              <MaterialIcon
+                name={'fullscreen-exit'}
+                size={35}
+                color={colors.Primary}
+              />
             ) : (
-              <MaterialIcon name={'fullscreen'} size={35} color="#fff" />
+              <MaterialIcon
+                name={'fullscreen'}
+                size={35}
+                color={colors.Primary}
+              />
             )}
           </TouchableOpacity>
         </View>

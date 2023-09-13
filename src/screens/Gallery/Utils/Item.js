@@ -13,8 +13,10 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useGallery} from './useGallery';
 import LoaderModal from '../../../components/common/LoaderModal';
+import useTheme from '../../../hooks/theme/useTheme';
 
 const Item = ({data, type, navigation}) => {
+  const {initialMode} = useTheme();
   const [pdfThumbnailUri, setPdfThumbnailUri] = useState(null);
   const {onItemPressHandler, onDeletePressHandler, isLoading} = useGallery();
 
@@ -100,7 +102,7 @@ const Item = ({data, type, navigation}) => {
                 left: 40,
                 position: 'absolute',
               }}>
-              <Ionicons name={'play-circle'} size={30} color="#fff" />
+              <Ionicons name={'play-circle'} size={30} color={colors.Primary} />
             </View>
           )}
         </View>
@@ -116,7 +118,7 @@ const Item = ({data, type, navigation}) => {
           />
           <DescriptionText text={`Size: ${formatBytes(data?.size)}`} />
         </View>
-        <Pressable
+        {/* <Pressable
           style={({pressed}) => [{opacity: pressed ? 0.7 : 1}]}
           onPress={() => onDeletePressHandler(data?.path)}>
           <MaterialCommunityIcons
@@ -124,7 +126,7 @@ const Item = ({data, type, navigation}) => {
             size={20}
             color={colors.Primary}
           />
-        </Pressable>
+        </Pressable> */}
       </Pressable>
     </View>
   );
