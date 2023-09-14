@@ -11,6 +11,7 @@ import {useSplash} from '../screens/Splash/Utils/useSplash';
 import GalleryViewerScreen from '../screens/Gallery/GalleryViewerScreen';
 import ItemViewerScreen from '../screens/Gallery/ItemViewerScreen';
 import SaveLinkScreen from '../screens/SaveLink/SaveLinkScreen';
+import {LogBox} from 'react-native';
 const Stack = createNativeStackNavigator();
 // bottom navigation
 function BottomTabs() {
@@ -34,6 +35,7 @@ const MainStack = () => {
     imageLoading,
     pdfLoading,
   } = useSplash();
+  LogBox.ignoreLogs(['new NativeEventEmitter']);
 
   return (
     <NavigationContainer>

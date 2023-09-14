@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const initialState = {
   isAdShown: false,
   isAdPriority: false,
+  isApplovin: false,
 };
 
 const adSlice = createSlice({
@@ -15,9 +16,12 @@ const adSlice = createSlice({
     setIsAdPriority: (state, action) => {
       state.isAdPriority = action.payload;
     },
+    setIsApplovin: (state, action) => {
+      state.isApplovin = action.payload;
+    },
   },
 });
 
-export const {setIsAdShown, setIsAdPriority} = adSlice.actions;
+export const {setIsAdShown, setIsAdPriority, setIsApplovin} = adSlice.actions;
 
 export default adSlice.reducer;

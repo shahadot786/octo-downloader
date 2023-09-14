@@ -16,6 +16,7 @@ import formatBytes from '../../utils/formatBytes';
 import formatTimestamp from '../../utils/formatTimestamp';
 import AudioPlayer from '../Player/Audio/AudioPlayer';
 import VideoPlayer from '../Player/Video/VideoPlayer';
+import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
 
 const renderActivityIndicator = progress => {
   const percentage = Math.floor(progress * 100) + '%';
@@ -44,7 +45,7 @@ const ItemDetails = ({title, time, size, iconName}) => (
 
 const ItemViewerScreen = ({route, navigation}) => {
   const {data, type} = route.params;
-  const {isAdShown} = useAppSelector(state => state.ads);
+  const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
   const [numberOfPages, setNumberOfPages] = useState();
   const [currentPage, setCurrentPage] = useState();
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -129,7 +130,7 @@ const ItemViewerScreen = ({route, navigation}) => {
       </View>
       {isAdShown && !isFullScreen && (
         <View style={styles.adContainer}>
-          <BannerAds />
+          {isApplovin ? <ApplovinBannerAd /> : <BannerAds />}
         </View>
       )}
     </ScreenSafeAreaView>

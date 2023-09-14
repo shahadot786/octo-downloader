@@ -37,4 +37,10 @@ export const commonStyles = StyleSheet.create({
     height:
       metrics.screenWidth <= 380 ? 50 : metrics.screenWidth <= 600 ? 60 : 70,
   },
+  bigImageSize: {
+    width:
+      metrics.screenWidth <= 380 ? 100 : metrics.screenWidth <= 600 ? 120 : 140,
+    height:
+      metrics.screenWidth <= 380 ? 100 : metrics.screenWidth <= 600 ? 120 : 140,
+  },
 });

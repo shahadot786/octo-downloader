@@ -5,7 +5,7 @@ import {toastNotification} from '../../../utils/constants';
 import {useAppSelector} from '../../../store/store';
 
 export const useHome = () => {
-  const {isAdShown} = useAppSelector(state => state.ads);
+  const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
   const toast = useToast();
   const netInfoState = useConnectionCheck();
 
@@ -19,5 +19,5 @@ export const useHome = () => {
     }
   }, [netInfoState, toast]);
 
-  return {isAdShown};
+  return {isAdShown, isApplovin};
 };

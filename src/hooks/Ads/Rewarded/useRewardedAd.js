@@ -7,7 +7,7 @@ import MobileAds, {
 
 const adUnitId = __DEV__
   ? TestIds.REWARDED
-  : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+  : 'ca-app-pub-1183995713269973/2905627330';
 
 const useRewardAd = () => {
   const [isLoaded, setIsLoaded] = useState(false);
