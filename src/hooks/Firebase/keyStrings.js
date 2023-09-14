@@ -10,4 +10,6 @@ export const keyStrings = {
   softwareDoc: '94tHjXeo9VkLI33d7CIUSoftware',
   audioDoc: 'd5ps5D6MzZzBbh2CJ8QaAudio',
   adsDoc: 'wkUUZ30tLHRyWD5T7BEMADs',
+  requestDoc: 'VdzPGRAFaZfChnNQYCe4(Request)',
+  saveLinkDoc: '7579KB32KVVGXQlxmSzp(saveLinks)',
 };

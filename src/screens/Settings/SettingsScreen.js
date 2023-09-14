@@ -7,29 +7,33 @@ import {
   Pressable,
   Switch,
 } from 'react-native';
-import React, {useState} from 'react';
-import useTheme from '../../hooks/theme/useTheme';
+import React from 'react';
 import {commonStyles} from '../../styles/commonStyles';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import images from '../../theme/constant/images';
 import BottomSpacing from '../../theme/Global/BottomSpacing';
 import BigText from '../../theme/Text/BigText';
 import DescriptionText from '../../theme/Text/DescriptionText';
-import DeviceInfo from 'react-native-device-info';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../theme/constant/colors';
 import TitleText from '../../theme/Text/TitleText';
 import metrics from '../../theme/constant/metrics';
 import {data} from './Utils/constant';
+import {useSettings} from './Utils/useSettings';
+import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
+import BannerAds from '../../hooks/Ads/Banner/BannerAds';
 
-const SettingsScreen = () => {
-  const {toggleTheme, initialMode} = useTheme();
-  let version = DeviceInfo.getVersion();
-  const [isEnabled, setIsEnabled] = useState(true);
-  const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
-    toggleTheme();
-  };
+const SettingsScreen = ({navigation}) => {
+  const {
+    initialMode,
+    isEnabled,
+    toggleSwitch,
+    version,
+    onItemPressHandler,
+    isAdShown,
+    isApplovin,
+  } = useSettings(navigation);
+
   return (
     <ScreenSafeAreaView style={commonStyles.justifyAlignCenter}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -78,6 +82,7 @@ const SettingsScreen = () => {
             {data.map((item, index) => {
               return (
                 <Pressable
+                  onPress={() => onItemPressHandler(item?.onPress)}
                   key={index.toString()}
                   style={({pressed}) => [
                     styles.items,
@@ -110,6 +115,16 @@ const SettingsScreen = () => {
             })}
           </View>
         </View>
+        {isAdShown && (
+          <View
+            style={{
+              marginVertical: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            {isApplovin ? <ApplovinBannerAd /> : <BannerAds />}
+          </View>
+        )}
         <BottomSpacing />
       </ScrollView>
     </ScreenSafeAreaView>

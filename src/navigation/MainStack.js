@@ -12,6 +12,8 @@ import GalleryViewerScreen from '../screens/Gallery/GalleryViewerScreen';
 import ItemViewerScreen from '../screens/Gallery/ItemViewerScreen';
 import SaveLinkScreen from '../screens/SaveLink/SaveLinkScreen';
 import {LogBox} from 'react-native';
+import SettingsDetailsScreen from '../screens/SettingsDetails/SettingsDetailsScreen';
+
 const Stack = createNativeStackNavigator();
 // bottom navigation
 function BottomTabs() {
@@ -86,6 +88,11 @@ const MainStack = () => {
         <Stack.Screen
           name={strings.SaveLinkScreen}
           component={SaveLinkScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={strings.SettingsDetailsScreen}
+          component={SettingsDetailsScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

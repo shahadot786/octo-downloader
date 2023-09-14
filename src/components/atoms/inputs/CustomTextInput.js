@@ -40,18 +40,22 @@ const CustomTextInput = props => {
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
-        {!isFocused && (
-          <Pressable
-            onPress={() => props.onPasteBtnPressHandler()}
-            style={({pressed}) => [
-              {opacity: pressed ? 0.7 : 1},
-              styles.pasteBtn,
-            ]}>
-            <DescriptionText
-              text={props.value ? 'Clear' : 'Paste'}
-              textStyle={{color: colors.White}}
-            />
-          </Pressable>
+        {(props.onPasteBtnPressHandler || props.isPaste) && (
+          <>
+            {!isFocused && (
+              <Pressable
+                onPress={() => props.onPasteBtnPressHandler()}
+                style={({pressed}) => [
+                  {opacity: pressed ? 0.7 : 1},
+                  styles.pasteBtn,
+                ]}>
+                <DescriptionText
+                  text={props.value ? 'Clear' : 'Paste'}
+                  textStyle={{color: colors.White}}
+                />
+              </Pressable>
+            )}
+          </>
         )}
       </View>
     </View>

@@ -13,12 +13,12 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useGallery} from './useGallery';
 import LoaderModal from '../../../components/common/LoaderModal';
-import useTheme from '../../../hooks/theme/useTheme';
+// import useTheme from '../../../hooks/theme/useTheme';
 
 const Item = ({data, type, navigation}) => {
-  const {initialMode} = useTheme();
+  // const {initialMode} = useTheme();
   const [pdfThumbnailUri, setPdfThumbnailUri] = useState(null);
-  const {onItemPressHandler, onDeletePressHandler, isLoading} = useGallery();
+  const {onItemPressHandler, isLoading} = useGallery();
 
   useEffect(() => {
     if (type === 'pdf') {
