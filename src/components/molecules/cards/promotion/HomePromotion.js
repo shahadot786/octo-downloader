@@ -15,7 +15,7 @@ const HomePromotion = () => {
   const navigation = useNavigation();
   const {promotion} = useAppSelector(state => state.firebase);
   const onPressHandler = () => {
-    navigation.navigate(strings.VideoTabScreen);
+    navigation.navigate(strings.DownloadTabScreen);
   };
   const {initialMode} = useTheme();
   return (

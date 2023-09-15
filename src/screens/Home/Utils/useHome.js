@@ -3,11 +3,18 @@ import useConnectionCheck from '../../../hooks/Network/useConnectionCheck';
 import {useEffect} from 'react';
 import {toastNotification} from '../../../utils/constants';
 import {useAppSelector} from '../../../store/store';
+import useBackButtonHandler from '../../../hooks/Utils/useBackButtonHandler';
 
-export const useHome = () => {
+export const useHome = navigation => {
   const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
   const toast = useToast();
   const netInfoState = useConnectionCheck();
+  const {
+    isModalVisible,
+    setIsModalVisible,
+    exitAppPressHandler,
+    cancelPressHandler,
+  } = useBackButtonHandler(navigation);
 
   useEffect(() => {
     if (netInfoState === null) {
@@ -19,5 +26,12 @@ export const useHome = () => {
     }
   }, [netInfoState, toast]);
 
-  return {isAdShown, isApplovin};
+  return {
+    isAdShown,
+    isApplovin,
+    isModalVisible,
+    setIsModalVisible,
+    exitAppPressHandler,
+    cancelPressHandler,
+  };
 };

@@ -1,18 +1,18 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import BottomNav from './BottomNav/BottomNav';
 import strings from '../theme/constant/strings';
-import CustomHeader from '../components/common/CustomHeader';
-import MovieScreen from '../screens/Movie/MovieScreen';
+// import CustomHeader from '../components/common/CustomHeader';
 import SplashScreen from '../screens/Splash/SplashScreen';
 import {useSplash} from '../screens/Splash/Utils/useSplash';
 import GalleryViewerScreen from '../screens/Gallery/GalleryViewerScreen';
 import ItemViewerScreen from '../screens/Gallery/ItemViewerScreen';
 import SaveLinkScreen from '../screens/SaveLink/SaveLinkScreen';
-import {LogBox} from 'react-native';
 import SettingsDetailsScreen from '../screens/SettingsDetails/SettingsDetailsScreen';
+import {LogBox} from 'react-native';
+import HomeItemListScreen from '../screens/HomeItemList/HomeItemListScreen';
+import HomeItemListDetailsScreen from '../screens/HomeItemListDetails/HomeItemListDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 // bottom navigation
@@ -20,9 +20,9 @@ function BottomTabs() {
   return <BottomNav />;
 }
 //custom header for navigation
-function CustomHeaderHandler(props) {
-  return <CustomHeader title={props.title} navigation={props.navigation} />;
-}
+// function CustomHeaderHandler(props) {
+//   return <CustomHeader title={props.title} navigation={props.navigation} />;
+// }
 
 const MainStack = () => {
   const {
@@ -63,7 +63,7 @@ const MainStack = () => {
           component={BottomTabs}
           options={{headerShown: false}}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name={strings.MovieScreen}
           component={MovieScreen}
           options={({navigation}) => ({
@@ -74,7 +74,7 @@ const MainStack = () => {
               />
             ),
           })}
-        />
+        /> */}
         <Stack.Screen
           name={strings.GalleryViewerScreen}
           component={GalleryViewerScreen}
@@ -93,6 +93,16 @@ const MainStack = () => {
         <Stack.Screen
           name={strings.SettingsDetailsScreen}
           component={SettingsDetailsScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={strings.HomeItemListScreen}
+          component={HomeItemListScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={strings.HomeItemListDetailsScreen}
+          component={HomeItemListDetailsScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

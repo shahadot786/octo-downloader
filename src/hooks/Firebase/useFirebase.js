@@ -13,20 +13,28 @@ export const useFirebase = docId => {
     const netInfoState = await NetInfo.fetch();
     if (netInfoState.isConnected) {
       try {
-        const tempData = await firestore()
-          .collection(keyStrings.collection)
-          .doc(docId)
-          .get();
+        const docRef = firestore().collection(keyStrings.collection).doc(docId);
 
-        setData(tempData?._data);
-        //set data to local storage
-        try {
-          await localStorage.setItem(docId, JSON.stringify(tempData?._data));
-        } catch (error) {
-          /* empty */
-        }
+        // Subscribe to real-time updates
+        const unsubscribe = docRef.onSnapshot(snapshot => {
+          if (snapshot.exists) {
+            const tempData = snapshot.data();
+            setData(tempData);
+            // Set data to local storage
+            try {
+              localStorage.setItem(docId, JSON.stringify(tempData));
+            } catch (error) {
+              /* Handle local storage error */
+            }
+          }
+        });
+
+        return () => {
+          // Unsubscribe from real-time updates when the component unmounts
+          unsubscribe();
+        };
       } catch (error) {
-        /* empty */
+        /* Handle Firestore error */
       } finally {
         setLoading(false);
       }

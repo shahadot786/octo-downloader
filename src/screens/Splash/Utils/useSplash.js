@@ -94,6 +94,9 @@ export const useSplash = () => {
         title: versionData?.version?.title,
         versionName: versionData?.version?.versionName,
         isForceUpdate: versionData?.version?.isForceUpdate,
+        appPrivacyUrl: versionData?.version?.appPrivacyUrl,
+        appShareMessage: versionData?.version?.appShareMessage,
+        appUrl: versionData?.version?.appUrl,
       }),
     );
     dispatch(setIsAdShown(adsData?.ads?.isAdsShown));

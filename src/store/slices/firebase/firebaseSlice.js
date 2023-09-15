@@ -8,7 +8,15 @@ const initialState = {
   audio: [],
   zip: [],
   pdf: [],
-  version: {message: '', title: '', versionName: '', isForceUpdate: false},
+  version: {
+    message: '',
+    title: '',
+    versionName: '',
+    isForceUpdate: false,
+    appPrivacyUrl: '',
+    appShareMessage: '',
+    appUrl: '',
+  },
   promotion: {imageUrl: '', message: ''},
 };
 
@@ -38,11 +46,22 @@ const firebaseSlice = createSlice({
       state.zip = action.payload;
     },
     setVersion: (state, action) => {
-      const {message, title, versionName, isForceUpdate} = action.payload;
+      const {
+        message,
+        title,
+        versionName,
+        isForceUpdate,
+        appPrivacyUrl,
+        appShareMessage,
+        appUrl,
+      } = action.payload;
       state.version.message = message;
       state.version.title = title;
       state.version.versionName = versionName;
       state.version.isForceUpdate = isForceUpdate;
+      state.version.appPrivacyUrl = appPrivacyUrl;
+      state.version.appShareMessage = appShareMessage;
+      state.version.appUrl = appUrl;
     },
     setPromotion: (state, action) => {
       const {imageUrl, message} = action.payload;

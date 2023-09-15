@@ -14,9 +14,17 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import AppUpdateModal from '../../components/templates/modal/AppUpdateModal';
 import {useHome} from './Utils/useHome';
 import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
+import AppExitModal from '../../components/templates/modal/AppExitModal';
 
-const HomeScreen = () => {
-  const {isAdShown, isApplovin} = useHome();
+const HomeScreen = ({navigation}) => {
+  const {
+    isAdShown,
+    isApplovin,
+    isModalVisible,
+    setIsModalVisible,
+    exitAppPressHandler,
+    cancelPressHandler,
+  } = useHome(navigation);
 
   return (
     <ScreenSafeAreaView style={styles.container}>
@@ -122,6 +130,12 @@ const HomeScreen = () => {
           </ScrollView>
         </View>
         <AppUpdateModal />
+        <AppExitModal
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+          exitAppPressHandler={exitAppPressHandler}
+          cancelPressHandler={cancelPressHandler}
+        />
       </View>
     </ScreenSafeAreaView>
   );

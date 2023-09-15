@@ -5,7 +5,6 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from '../../screens/Home/HomeScreen';
 import TabButton from './atoms/TabButton';
@@ -14,7 +13,6 @@ import colors from '../../theme/constant/colors';
 import {commonStyles} from '../../styles/commonStyles';
 import GalleryScreen from '../../screens/Gallery/GalleryScreen';
 import DownloadScreen from '../../screens/Download/DownloadScreen';
-import VideoScreen from '../../screens/Video/VideoScreen';
 import useTheme from '../../hooks/theme/useTheme';
 import strings from '../../theme/constant/strings';
 import ProScreen from '../../screens/Pro/ProScreen';
@@ -85,22 +83,6 @@ const BottomNav = () => {
           tabBarButton: props => <TabButton {...props} />,
         }}
       />
-
-      {/* <Tab.Screen
-        name={strings.VideoTabScreen}
-        component={VideoScreen}
-        options={{
-          tabBarLabel: 'VIDEO',
-          tabBarIcon: ({color}) => (
-            <View style={commonStyles.justifyAlignCenter}>
-              <MaterialIcons name="video-library" color={color} size={20} />
-              <Text style={{color: color, fontSize: 12, marginTop: 2}}>
-                VIDEO
-              </Text>
-            </View>
-          ),
-        }}
-      /> */}
       <Tab.Screen
         name={strings.ProScreenTab}
         component={ProScreen}

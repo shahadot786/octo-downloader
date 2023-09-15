@@ -3,25 +3,34 @@ import useTheme from '../../../hooks/theme/useTheme';
 import DeviceInfo from 'react-native-device-info';
 import strings from '../../../theme/constant/strings';
 import {useAppSelector} from '../../../store/store';
-import useCustomShare from '../../../hooks/Utils/useCustomShare';
+import useShareStaticURL from '../../../hooks/Utils/useShareStaticURL';
+import useOpenLink from '../../../hooks/Utils/useOpenLink';
 
 export const useSettings = navigation => {
   const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
-  const {shareUrl} = useCustomShare();
+  const {version} = useAppSelector(state => state.firebase);
   const {toggleTheme, initialMode} = useTheme();
-  let version = DeviceInfo.getVersion();
+  const shareURL = useShareStaticURL();
+  const openLink = useOpenLink();
+  let appVersion = DeviceInfo.getVersion();
   const [isEnabled, setIsEnabled] = useState(true);
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
     toggleTheme();
   };
   const handleShare = () => {
-    const urlToShare = strings.AppUrl;
-    shareUrl(urlToShare);
+    shareURL(
+      version?.appUrl,
+      'Discover Octo Downloader',
+      version?.appShareMessage,
+    );
   };
+
   const onItemPressHandler = type => {
     if (type === 'Share with Friends') {
       handleShare();
+    } else if (type === 'Rate Now') {
+      openLink(version?.appUrl);
     } else {
       navigation.navigate(strings.SettingsDetailsScreen, {type: type});
     }
@@ -31,7 +40,7 @@ export const useSettings = navigation => {
     initialMode,
     isEnabled,
     toggleSwitch,
-    version,
+    appVersion,
     onItemPressHandler,
     isAdShown,
     isApplovin,

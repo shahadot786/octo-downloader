@@ -7,8 +7,10 @@ import {keyStrings} from '../../../hooks/Firebase/keyStrings';
 import strings from '../../../theme/constant/strings';
 
 export const useSettingDetails = navigation => {
+  const {version} = useAppSelector(state => state.firebase);
   const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState('');
   const [titleValue, setTitleValue] = useState('');
   const [detailsValue, setDetailsValue] = useState('');
@@ -67,5 +69,8 @@ export const useSettingDetails = navigation => {
     isApplovin,
     onSendRequestPressHandler,
     isLoading,
+    loading,
+    setLoading,
+    version,
   };
 };
