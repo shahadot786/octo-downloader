@@ -40,7 +40,7 @@ const CustomTextInput = props => {
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
-        {(props.onPasteBtnPressHandler || props.isPaste) && (
+        {props.onPasteBtnPressHandler && (
           <>
             {!isFocused && (
               <Pressable

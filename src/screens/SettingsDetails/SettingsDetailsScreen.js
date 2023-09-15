@@ -28,6 +28,7 @@ const SettingsDetailsScreen = ({route, navigation}) => {
     loading,
     setLoading,
     version,
+    onPasteBtnPressHandler,
   } = useSettingDetails(navigation);
 
   return (
@@ -73,11 +74,11 @@ const SettingsDetailsScreen = ({route, navigation}) => {
                 titleValue={titleValue}
                 detailsValue={detailsValue}
                 onSendRequestPressHandler={() =>
-                  onSendRequestPressHandler(keyStrings.saveLinkDoc)
+                  onSendRequestPressHandler(keyStrings.saveLinkDoc, 'save')
                 }
                 isLoading={isLoading}
                 titleText={'Please write or paste the url...'}
-                isPaste={true}
+                onPasteBtnPressHandler={onPasteBtnPressHandler}
                 btnText={'Save Link'}
               />
             )}

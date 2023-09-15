@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useRef, useState, useEffect} from 'react';
 import {View, StyleSheet, TouchableOpacity, Pressable} from 'react-native';
@@ -13,29 +12,26 @@ import colors from '../../../theme/constant/colors';
 
 const VideoPlayer = ({
   data,
-  autoPlay = true,
+  autoPlay,
   navigation,
   isFullScreen,
   setIsFullScreen,
 }) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
-
   const [duration, setDuration] = useState(null);
   const [position, setPosition] = useState(0);
   const [controls, setControls] = useState(true);
 
-  const playVideo = async () => {
-    if (videoRef.current) {
-      await videoRef.current.loadAsync({uri: `file://${data?.path}`});
-      await videoRef.current.playAsync();
-      setIsPlaying(true);
-    }
-  };
-
   useEffect(() => {
     if (autoPlay) {
-      playVideo();
+      videoRef.current.setOnPlaybackStatusUpdate(async status => {
+        if (!status.isLoaded) {
+          return;
+        }
+        await videoRef.current.playAsync();
+        setIsPlaying(true);
+      });
     }
   }, [autoPlay]);
 
@@ -78,9 +74,13 @@ const VideoPlayer = ({
     setIsFullScreen(!isFullScreen);
   };
 
-  const seekTo = p => {
+  const seekTo = async p => {
     if (videoRef.current) {
-      videoRef.current.setPositionAsync(p);
+      const status = await videoRef.current.getStatusAsync();
+      if (status.isLoaded) {
+        await videoRef.current.setPositionAsync(p);
+        setPosition(p);
+      }
     }
   };
 

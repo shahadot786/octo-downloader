@@ -50,10 +50,12 @@ export const getFolderPath = fileType => {
 export const getFileNameFromUrl = url => {
   const index = url.lastIndexOf('/');
   let filename = url.substring(index + 1);
-  // Replace %20 with underscores
-  filename = filename.replace(/%20/g, '_');
-  // Replace remaining spaces with underscores
-  filename = filename.replace(/\s+/g, '_');
+  // Replace %20 with space
+  filename = filename.replace(/%20/g, ' ');
+  // Replace remaining spaces with space
+  filename = filename.replace(/\s+/g, ' ');
+  //Replace remaining percent characters with space
+  filename = filename.replace(/%/g, ' ');
   return filename;
 };
 

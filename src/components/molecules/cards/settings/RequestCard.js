@@ -18,7 +18,7 @@ const RequestCard = ({
   isLoading,
   onSendRequestPressHandler,
   titleText,
-  isPaste,
+  onPasteBtnPressHandler,
   btnText,
 }) => {
   return (
@@ -34,7 +34,7 @@ const RequestCard = ({
         placeholder={titleText}
         onChangeText={onChangeTitleText}
         value={titleValue}
-        isPaste={isPaste}
+        onPasteBtnPressHandler={onPasteBtnPressHandler}
       />
       <CustomTextInput
         containerStyle={{marginVertical: 5}}

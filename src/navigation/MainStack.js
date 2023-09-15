@@ -1,9 +1,10 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import BottomNav from './BottomNav/BottomNav';
 import strings from '../theme/constant/strings';
-// import CustomHeader from '../components/common/CustomHeader';
+import CustomHeader from '../components/common/CustomHeader';
 import SplashScreen from '../screens/Splash/SplashScreen';
 import {useSplash} from '../screens/Splash/Utils/useSplash';
 import GalleryViewerScreen from '../screens/Gallery/GalleryViewerScreen';
@@ -20,9 +21,9 @@ function BottomTabs() {
   return <BottomNav />;
 }
 //custom header for navigation
-// function CustomHeaderHandler(props) {
-//   return <CustomHeader title={props.title} navigation={props.navigation} />;
-// }
+function CustomHeaderHandler(props) {
+  return <CustomHeader title={props.title} navigation={props.navigation} />;
+}
 
 const MainStack = () => {
   const {
@@ -63,18 +64,7 @@ const MainStack = () => {
           component={BottomTabs}
           options={{headerShown: false}}
         />
-        {/* <Stack.Screen
-          name={strings.MovieScreen}
-          component={MovieScreen}
-          options={({navigation}) => ({
-            header: props => (
-              <CustomHeaderHandler
-                title={'Update Movies'}
-                navigation={navigation}
-              />
-            ),
-          })}
-        /> */}
+
         <Stack.Screen
           name={strings.GalleryViewerScreen}
           component={GalleryViewerScreen}
@@ -88,7 +78,14 @@ const MainStack = () => {
         <Stack.Screen
           name={strings.SaveLinkScreen}
           component={SaveLinkScreen}
-          options={{headerShown: false}}
+          options={({navigation}) => ({
+            header: props => (
+              <CustomHeaderHandler
+                title={'Saved Links'}
+                navigation={navigation}
+              />
+            ),
+          })}
         />
         <Stack.Screen
           name={strings.SettingsDetailsScreen}
