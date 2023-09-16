@@ -12,6 +12,7 @@ import PrimaryButton from '../../components/atoms/buttons/PrimaryButton';
 import colors from '../../theme/constant/colors';
 import CustomProgressBar from '../../components/atoms/progress/CustomProgressBar';
 import ApplovinMREcAd from '../../hooks/Ads/Banner/ApplovinMREcAd';
+import BigText from '../../theme/Text/BigText';
 
 const DownloadScreen = () => {
   const {
@@ -32,6 +33,10 @@ const DownloadScreen = () => {
   return (
     <ScreenSafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <BigText
+          text={'Download'}
+          textStyle={{marginHorizontal: 15, marginTop: 20}}
+        />
         <Pressable
           style={{
             flex: 1,

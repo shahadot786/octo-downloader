@@ -29,11 +29,12 @@ const AudioPlayer = ({data, autoPlay = false}) => {
     if (sound.current) {
       sound.current.unloadAsync();
     }
-
+    let sourceUri = data?.path ? `file://${data.path}` : data?.url;
     const {sound: newSound} = await Audio.Sound.createAsync(
-      {uri: `file://${data?.path}`},
+      {uri: sourceUri},
       {shouldPlay: autoPlay},
     );
+
     sound.current = newSound;
 
     const {durationMillis} = await newSound.getStatusAsync();
@@ -72,7 +73,8 @@ const AudioPlayer = ({data, autoPlay = false}) => {
   }, []);
 
   let truncatedFilename = '';
-  const formattedFilename = data?.name.split('.')[0].replace(/_/g, ' ');
+  const audioFile = data?.name ? data?.name : data?.title;
+  const formattedFilename = audioFile?.split('.')[0].replace(/_/g, ' ');
   if (formattedFilename.length > 30) {
     truncatedFilename = formattedFilename.substring(0, 30) + '...';
   } else {

@@ -10,6 +10,13 @@ export const options = [
   {folder: 'Zip', value: 'zip'},
   {folder: 'Text', value: 'text'},
 ];
+// options for save
+export const saveOptions = [
+  {folder: 'Audio', value: 'audio'},
+  {folder: 'Video', value: 'video'},
+  {folder: 'Image', value: 'image'},
+  {folder: 'Pdf', value: 'pdf'},
+];
 // file types
 export const fileTypes = {
   video: {

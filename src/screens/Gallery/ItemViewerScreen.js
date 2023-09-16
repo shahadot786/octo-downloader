@@ -51,17 +51,20 @@ const ItemViewerScreen = ({route, navigation}) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   let truncatedFilename = '';
-  const formattedFilename = data?.name.split('.')[0].replace(/_/g, ' ');
-  if (formattedFilename.length > 30) {
+  const formattedFilename = data?.name?.split('.')[0]?.replace(/_/g, ' ');
+  if (formattedFilename && formattedFilename.length > 30) {
     truncatedFilename = formattedFilename.substring(0, 30) + '...';
-  } else {
+  } else if (formattedFilename) {
     truncatedFilename = formattedFilename;
   }
 
   return (
     <ScreenSafeAreaView>
       {!isFullScreen && (
-        <CustomHeader title={truncatedFilename} navigation={navigation} />
+        <CustomHeader
+          title={truncatedFilename || 'Item Details'}
+          navigation={navigation}
+        />
       )}
       <View style={styles.container}>
         {type === 'audio' && <AudioPlayer data={data} autoPlay={true} />}
@@ -85,7 +88,9 @@ const ItemViewerScreen = ({route, navigation}) => {
         {type === 'image' && (
           <View style={styles.iconContainer}>
             <Image
-              source={{uri: `file://${data?.path}`}}
+              source={{
+                uri: data?.path ? `file://${data.path}` : data?.url || '',
+              }}
               height={metrics.screenHeight - 150}
               width={metrics.screenWidth}
               resizeMode="contain"
@@ -96,7 +101,9 @@ const ItemViewerScreen = ({route, navigation}) => {
           <>
             <Pdf
               trustAllCerts={false}
-              source={{uri: `file://${data?.path}`}}
+              source={{
+                uri: data?.path ? `file://${data.path}` : data?.url || '',
+              }}
               onLoadComplete={setNumberOfPages}
               onPageChanged={setCurrentPage}
               onError={() => {}}
@@ -106,9 +113,11 @@ const ItemViewerScreen = ({route, navigation}) => {
               fitWidth={true}
               renderActivityIndicator={renderActivityIndicator}
             />
-            <View style={styles.pageNumberContainer}>
-              <BigText text={`${currentPage} / ${numberOfPages}`} />
-            </View>
+            {currentPage && (
+              <View style={styles.pageNumberContainer}>
+                <BigText text={`${currentPage} / ${numberOfPages}`} />
+              </View>
+            )}
           </>
         )}
         {type === 'zip' && (

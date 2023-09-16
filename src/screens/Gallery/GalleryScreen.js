@@ -125,6 +125,7 @@ const GalleryScreen = ({navigation}) => {
           </View>
         </View>
         <BottomSpacing />
+        <BottomSpacing />
       </ScrollView>
     </ScreenSafeAreaView>
   );

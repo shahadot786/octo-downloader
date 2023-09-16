@@ -126,6 +126,7 @@ const SettingsScreen = ({navigation}) => {
           </View>
         )}
         <BottomSpacing />
+        <BottomSpacing />
       </ScrollView>
     </ScreenSafeAreaView>
   );

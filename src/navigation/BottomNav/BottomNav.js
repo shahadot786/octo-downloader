@@ -5,7 +5,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from '../../screens/Home/HomeScreen';
 import TabButton from './atoms/TabButton';
 import SettingsScreen from '../../screens/Settings/SettingsScreen';
@@ -15,7 +15,8 @@ import GalleryScreen from '../../screens/Gallery/GalleryScreen';
 import DownloadScreen from '../../screens/Download/DownloadScreen';
 import useTheme from '../../hooks/theme/useTheme';
 import strings from '../../theme/constant/strings';
-import ProScreen from '../../screens/Pro/ProScreen';
+// import ProScreen from '../../screens/Pro/ProScreen';
+import SaveLinkScreen from '../../screens/SaveLink/SaveLinkScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -83,7 +84,7 @@ const BottomNav = () => {
           tabBarButton: props => <TabButton {...props} />,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={strings.ProScreenTab}
         component={ProScreen}
         options={{
@@ -97,6 +98,21 @@ const BottomNav = () => {
               />
               <Text style={{color: color, fontSize: 12, marginTop: 2}}>
                 PRO
+              </Text>
+            </View>
+          ),
+        }}
+      /> */}
+      <Tab.Screen
+        name={strings.SaveLinkScreen}
+        component={SaveLinkScreen}
+        options={{
+          tabBarLabel: 'Save Link',
+          tabBarIcon: ({color}) => (
+            <View style={commonStyles.justifyAlignCenter}>
+              <Ionicons name="save" color={color} size={20} />
+              <Text style={{color: color, fontSize: 12, marginTop: 2}}>
+                SAVE
               </Text>
             </View>
           ),

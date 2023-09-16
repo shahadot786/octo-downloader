@@ -24,18 +24,6 @@ const VideoPlayer = ({
   const [controls, setControls] = useState(true);
 
   useEffect(() => {
-    if (autoPlay) {
-      videoRef.current.setOnPlaybackStatusUpdate(async status => {
-        if (!status.isLoaded) {
-          return;
-        }
-        await videoRef.current.playAsync();
-        setIsPlaying(true);
-      });
-    }
-  }, [autoPlay]);
-
-  useEffect(() => {
     const playbackObject = videoRef.current;
     if (playbackObject) {
       playbackObject.setOnPlaybackStatusUpdate(status => {
@@ -90,7 +78,7 @@ const VideoPlayer = ({
       style={isFullScreen ? styles.fullScreenContainer : styles.container}>
       <Video
         ref={videoRef}
-        source={{uri: `file://${data?.path}`}}
+        source={{uri: data?.path ? `file://${data.path}` : data?.url || ''}}
         resizeMode={isFullScreen ? ResizeMode.STRETCH : ResizeMode.CONTAIN}
         style={isFullScreen ? styles.fullScreenVideo : styles.video}
       />
