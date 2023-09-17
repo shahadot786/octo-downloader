@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect, useMemo, useState} from 'react';
 import mobileAds from 'react-native-google-mobile-ads';
 import {useFirebase} from '../../../hooks/Firebase/useFirebase';
 import {keyStrings} from '../../../hooks/Firebase/keyStrings';
-import {useEffect, useMemo} from 'react';
 import {useAppDispatch} from '../../../store/store';
 import {
   setAudio,
@@ -21,34 +21,24 @@ import {
   setIsApplovin,
 } from '../../../store/slices/ad/adSlice';
 import AppLovinMAX from 'react-native-applovin-max';
+import SplashScreen from '../SplashScreen';
+import {ToastProvider} from 'react-native-toast-notifications';
+import {StoragePermissionProvider} from '../../../hooks/Permission/StoragePermissionProvider';
+import Routes from '../../../navigation/Routes';
 
-export const useSplash = () => {
-  const {data: versionData, loading: versionLoading} = useFirebase(
-    keyStrings.versionDoc,
-  );
-  const {data: moviesData, loading: moviesLoading} = useFirebase(
-    keyStrings.moviesDoc,
-  );
-  const {data: promotionData, loading: promotionLoading} = useFirebase(
-    keyStrings.promotionDoc,
-  );
-  const {data: audioData, loading: audioLoading} = useFirebase(
-    keyStrings.audioDoc,
-  );
-  const {data: softwareData, loading: softwareLoading} = useFirebase(
-    keyStrings.softwareDoc,
-  );
-  const {data: zipData, loading: zipLoading} = useFirebase(keyStrings.zipDoc);
-  const {data: videoData, loading: videoLoading} = useFirebase(
-    keyStrings.videosDoc,
-  );
-  const {data: imageData, loading: imageLoading} = useFirebase(
-    keyStrings.imagesDoc,
-  );
-  const {data: pdfData, loading: pdfLoading} = useFirebase(keyStrings.pdfDocs);
-  const {data: adsData, loading: adsLoading} = useFirebase(keyStrings.adsDoc);
-
+const Splash = () => {
+  const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
+  const {data: versionData} = useFirebase(keyStrings.versionDoc);
+  const {data: moviesData} = useFirebase(keyStrings.moviesDoc);
+  const {data: promotionData} = useFirebase(keyStrings.promotionDoc);
+  const {data: audioData} = useFirebase(keyStrings.audioDoc);
+  const {data: softwareData} = useFirebase(keyStrings.softwareDoc);
+  const {data: zipData} = useFirebase(keyStrings.zipDoc);
+  const {data: videoData} = useFirebase(keyStrings.videosDoc);
+  const {data: imageData} = useFirebase(keyStrings.imagesDoc);
+  const {data: pdfData} = useFirebase(keyStrings.pdfDocs);
+  const {data: adsData} = useFirebase(keyStrings.adsDoc);
 
   const initialApplovinAds = useMemo(() => {
     return () => {
@@ -56,12 +46,9 @@ export const useSplash = () => {
         '1zWIpgA5ypdhsOvsw5LkOKHivpN2aMwgH0qMm77xmphANnQtbfRSXZTnCvCC_R3fvEXiz37ehgP2UVgypc0MCF',
       )
         .then(configuration => {
-          // SDK is initialized, start loading ads
           // console.log(configuration, 'start loading ads');
         })
-        .catch(error => {
-          // Failed to initialize SDK
-        });
+        .catch(error => {});
     };
   }, []);
 
@@ -69,11 +56,21 @@ export const useSplash = () => {
     return () => {
       mobileAds()
         .initialize()
-        .then(() => {
-          // Initialization complete!
-        });
+        .then(() => {});
     };
   }, []);
+
+  useEffect(() => {
+    let timer = null;
+    if (loading === true) {
+      timer = setTimeout(() => {
+        return setLoading(false);
+      }, 4000);
+    } else {
+      return () => clearTimeout(timer);
+    }
+    return () => clearTimeout(timer);
+  }, [loading]);
 
   useEffect(() => {
     initialGoogleAds();
@@ -92,8 +89,9 @@ export const useSplash = () => {
       setVersion({
         message: versionData?.version?.message,
         title: versionData?.version?.title,
-        versionName: versionData?.version?.versionName,
+        updateVersion: versionData?.version?.updateVersion,
         isForceUpdate: versionData?.version?.isForceUpdate,
+        isGenericUpdate: versionData?.version?.isGenericUpdate,
         appPrivacyUrl: versionData?.version?.appPrivacyUrl,
         appShareMessage: versionData?.version?.appShareMessage,
         appUrl: versionData?.version?.appUrl,
@@ -124,16 +122,17 @@ export const useSplash = () => {
     imageData,
   ]);
 
-  return {
-    versionLoading,
-    moviesLoading,
-    promotionLoading,
-    audioLoading,
-    softwareLoading,
-    zipLoading,
-    adsLoading,
-    videoLoading,
-    imageLoading,
-    pdfLoading,
-  };
+  if (loading) {
+    return <SplashScreen />;
+  } else {
+    return (
+      <ToastProvider>
+        <StoragePermissionProvider>
+          <Routes />
+        </StoragePermissionProvider>
+      </ToastProvider>
+    );
+  }
 };
+
+export default Splash;

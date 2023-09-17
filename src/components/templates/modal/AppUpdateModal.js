@@ -1,48 +1,29 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react-hooks/exhaustive-deps */
-import {StyleSheet, View, Linking} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import MiddleModal from '../../common/MiddleModal';
 import colors from '../../../theme/constant/colors';
 import TitleText from '../../../theme/Text/TitleText';
 import IOSButton from '../../atoms/buttons/IOSButton';
 import metrics from '../../../theme/constant/metrics';
 import Text_Size from '../../../theme/constant/fonts';
-import DeviceInfo from 'react-native-device-info';
-import {useAppSelector} from '../../../store/store';
+import {View, StyleSheet} from 'react-native';
+import useAppUpdateModal from '../../../hooks/Utils/useAppUpdateModal';
 
 const AppUpdateModal = () => {
-  const [showModal, setShowModal] = useState(false);
-  let appVersion = DeviceInfo.getVersion();
-  const {version} = useAppSelector(state => state.firebase);
-  const modalVisibleHandler = () => {
-    if (version?.versionName !== appVersion) {
-      setShowModal(true);
-    } else {
-      setShowModal(false);
-    }
-  };
-
-  useEffect(() => {
-    modalVisibleHandler();
-  }, [version]);
-
-  const buttonPressHandler = async () => {
-    const url =
-      'https://play.google.com/store/apps/details?id=com.octodownloader';
-    const isInstalled = await Linking.canOpenURL(url);
-    if (isInstalled) {
-      Linking.openURL(url);
-    } else {
-      // Handle the case when the app is not installed
-    }
-  };
+  const {
+    showModal,
+    setShowModal,
+    buttonPressHandler,
+    versionTitle,
+    versionMessage,
+    isForceUpdate,
+  } = useAppUpdateModal();
 
   return (
     <View>
       <MiddleModal
-        crossIcon={version?.isForceUpdate === false}
-        header={version?.title}
+        crossIcon={isForceUpdate}
+        header={versionTitle}
         isModalVisible={showModal}
         setIsModalVisible={setShowModal}
         onBlur={undefined}
@@ -54,7 +35,7 @@ const AppUpdateModal = () => {
             alignItems: 'center',
             paddingHorizontal: '5%',
           }}>
-          <TitleText text={version?.message} textStyle={styles.text} />
+          <TitleText text={versionMessage} textStyle={styles.text} />
           <IOSButton
             onSelect={buttonPressHandler}
             containerStyle={styles.containerStyle}
@@ -68,8 +49,6 @@ const AppUpdateModal = () => {
     </View>
   );
 };
-
-export default AppUpdateModal;
 
 const styles = StyleSheet.create({
   containerStyle: {
@@ -92,3 +71,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default AppUpdateModal;

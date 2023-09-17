@@ -11,8 +11,9 @@ const initialState = {
   version: {
     message: '',
     title: '',
-    versionName: '',
+    updateVersion: '',
     isForceUpdate: false,
+    isGenericUpdate: false,
     appPrivacyUrl: '',
     appShareMessage: '',
     appUrl: '',
@@ -49,16 +50,18 @@ const firebaseSlice = createSlice({
       const {
         message,
         title,
-        versionName,
+        updateVersion,
         isForceUpdate,
+        isGenericUpdate,
         appPrivacyUrl,
         appShareMessage,
         appUrl,
       } = action.payload;
       state.version.message = message;
       state.version.title = title;
-      state.version.versionName = versionName;
+      state.version.updateVersion = updateVersion;
       state.version.isForceUpdate = isForceUpdate;
+      state.version.isGenericUpdate = isGenericUpdate;
       state.version.appPrivacyUrl = appPrivacyUrl;
       state.version.appShareMessage = appShareMessage;
       state.version.appUrl = appUrl;

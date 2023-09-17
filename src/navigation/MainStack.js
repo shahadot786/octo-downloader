@@ -5,13 +5,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import BottomNav from './BottomNav/BottomNav';
 import strings from '../theme/constant/strings';
 import CustomHeader from '../components/common/CustomHeader';
-import SplashScreen from '../screens/Splash/SplashScreen';
-import {useSplash} from '../screens/Splash/Utils/useSplash';
 import GalleryViewerScreen from '../screens/Gallery/GalleryViewerScreen';
 import ItemViewerScreen from '../screens/Gallery/ItemViewerScreen';
 import SaveLinkScreen from '../screens/SaveLink/SaveLinkScreen';
 import SettingsDetailsScreen from '../screens/SettingsDetails/SettingsDetailsScreen';
-import {LogBox} from 'react-native';
 import HomeItemListScreen from '../screens/HomeItemList/HomeItemListScreen';
 import HomeItemListDetailsScreen from '../screens/HomeItemListDetails/HomeItemListDetailsScreen';
 
@@ -26,45 +23,14 @@ function CustomHeaderHandler(props) {
 }
 
 const MainStack = () => {
-  const {
-    versionLoading,
-    moviesLoading,
-    promotionLoading,
-    audioLoading,
-    softwareLoading,
-    zipLoading,
-    adsLoading,
-    videoLoading,
-    imageLoading,
-    pdfLoading,
-  } = useSplash();
-  LogBox.ignoreLogs(['new NativeEventEmitter']);
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {(versionLoading ||
-          moviesLoading ||
-          promotionLoading ||
-          audioLoading ||
-          softwareLoading ||
-          adsLoading ||
-          videoLoading ||
-          imageLoading ||
-          pdfLoading ||
-          zipLoading) && (
-          <Stack.Screen
-            name={strings.SplashScreen}
-            component={SplashScreen}
-            options={{headerShown: false}}
-          />
-        )}
         <Stack.Screen
           name={strings.BottomTabScreen}
           component={BottomTabs}
           options={{headerShown: false}}
         />
-
         <Stack.Screen
           name={strings.GalleryViewerScreen}
           component={GalleryViewerScreen}
