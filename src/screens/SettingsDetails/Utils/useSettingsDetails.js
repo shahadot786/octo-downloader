@@ -7,7 +7,14 @@ import {keyStrings} from '../../../hooks/Firebase/keyStrings';
 import strings from '../../../theme/constant/strings';
 import generateUniqueId from '../../../utils/generateUniqueId';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {getFileNameFromUrl} from '../../Download/Utils/constant';
+import {
+  fileExtensions,
+  fileTypes,
+  getFileNameFromUrl,
+  getFileTypeFromUrl,
+  validateURL,
+} from '../../Download/Utils/constant';
+import DeviceInfo from 'react-native-device-info';
 
 export const useSettingDetails = navigation => {
   const {version} = useAppSelector(state => state.firebase);
@@ -17,6 +24,7 @@ export const useSettingDetails = navigation => {
   const [selectedOption, setSelectedOption] = useState('');
   const [titleValue, setTitleValue] = useState('');
   const [detailsValue, setDetailsValue] = useState('');
+  const [uniqueId, setUniqueId] = useState();
   const toast = useToast();
 
   const handleSelectOption = useCallback(value => {
@@ -39,50 +47,100 @@ export const useSettingDetails = navigation => {
     }
   }, [titleValue]);
 
+  DeviceInfo.getUniqueId().then(uId => {
+    setUniqueId(uId);
+  });
+
   const onSendRequestPressHandler = async (docID, isSaved) => {
     let payload = {};
+
     if (selectedOption === '') {
       toast.show('Please Select an Option', toastNotification('normal'));
     } else if (titleValue === '') {
-      toast.show('Filed is required!', toastNotification('normal'));
+      toast.show('Field is required!', toastNotification('normal'));
     } else {
-      setIsLoading(true);
-      if (isSaved === 'save') {
-        const fileName = getFileNameFromUrl(titleValue);
-        payload = {
-          id: generateUniqueId(),
-          type: selectedOption,
-          title: fileName,
-          details: detailsValue,
-          url: titleValue,
-        };
-      } else {
-        payload = {
-          id: generateUniqueId(),
-          type: selectedOption,
-          title: titleValue,
-          details: detailsValue,
-        };
-      }
-      try {
-        const docRef = firestore().collection(keyStrings.collection).doc(docID);
-        const doc = await docRef.get();
-        const currentRequest = doc.data().data || [];
-        currentRequest.push(payload);
-        await docRef.update({data: currentRequest});
-        setSelectedOption('');
-        setTitleValue('');
-        setDetailsValue('');
-        toast.show('Data sent successfully.', toastNotification('success'));
-        if (isSaved === 'save') {
-          navigation.navigate(strings.SaveLinkScreen);
+      let showError = false;
+      if (isSaved) {
+        if (!validateURL(titleValue)) {
+          toast.show('Enter a valid URL', toastNotification('normal'));
+          showError = true;
         } else {
-          navigation.navigate(strings.SettingsTabScreen);
+          const urlFileType = getFileTypeFromUrl(titleValue);
+
+          if (!urlFileType) {
+            toast.show(
+              'Invalid File Type. Please select a valid file type.',
+              toastNotification('normal'),
+            );
+            showError = true;
+          } else {
+            const selectedFileType = fileTypes[selectedOption];
+
+            if (!selectedFileType) {
+              toast.show(
+                'Selected file type is invalid!',
+                toastNotification('normal'),
+              );
+              showError = true;
+            } else {
+              const extension = fileExtensions[selectedOption];
+
+              if (!extension.includes(urlFileType.toLowerCase())) {
+                toast.show(
+                  'Invalid file type for the selected option.',
+                  toastNotification('normal'),
+                );
+                showError = true;
+              }
+            }
+          }
         }
-      } catch (error) {
-        toast.show('Please try again', toastNotification('danger'));
-      } finally {
-        setIsLoading(false);
+      }
+      if (!showError) {
+        setIsLoading(true);
+        try {
+          if (isSaved) {
+            const fileName = getFileNameFromUrl(titleValue);
+
+            payload = {
+              id: generateUniqueId(),
+              type: selectedOption,
+              title: fileName,
+              details: detailsValue,
+              url: titleValue,
+              uniqueId: uniqueId,
+            };
+          } else {
+            payload = {
+              id: generateUniqueId(),
+              type: selectedOption,
+              title: titleValue,
+              details: detailsValue,
+              uniqueId: uniqueId,
+            };
+          }
+
+          const docRef = firestore()
+            .collection(keyStrings.collection)
+            .doc(docID);
+          const doc = await docRef.get();
+          const currentRequest = doc.data().data || [];
+          currentRequest.push(payload);
+          await docRef.update({data: currentRequest});
+          setSelectedOption('');
+          setTitleValue('');
+          setDetailsValue('');
+          toast.show('Data sent successfully.', toastNotification('success'));
+          if (isSaved) {
+            navigation.navigate(strings.SaveLinkScreen);
+          } else {
+            navigation.navigate(strings.SettingsTabScreen);
+          }
+        } catch (error) {
+          toast.show('Please try again', toastNotification('danger'));
+        } finally {
+          setIsLoading(false);
+        }
       }
     }
   };
