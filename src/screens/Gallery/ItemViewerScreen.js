@@ -15,7 +15,6 @@ import DescriptionText from '../../theme/Text/DescriptionText';
 import formatBytes from '../../utils/formatBytes';
 import formatTimestamp from '../../utils/formatTimestamp';
 import AudioPlayer from '../Player/Audio/AudioPlayer';
-import VideoPlayer from '../Player/Video/VideoPlayer';
 import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
 import CustomVideoPlayerV1 from '../Player/Video/CustomVideoPlayer';
 
@@ -70,13 +69,6 @@ const ItemViewerScreen = ({route, navigation}) => {
       <View style={styles.container}>
         {type === 'audio' && <AudioPlayer data={data} autoPlay={true} />}
         {type === 'video' && (
-          // <VideoPlayer
-          //   data={data}
-          //   autoPlay={true}
-          //   navigation={navigation}
-          //   isFullScreen={isFullScreen}
-          //   setIsFullScreen={setIsFullScreen}
-          // />
           <CustomVideoPlayerV1
             data={data}
             autoplay={true}
