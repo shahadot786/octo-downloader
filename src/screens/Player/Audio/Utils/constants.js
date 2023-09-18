@@ -1,11 +1,9 @@
 export const formatTime = time => {
-  const hours = Math.floor(time / 3600000);
-  const minutes = Math.floor((time % 3600000) / 60000);
-  const seconds = ((time % 60000) / 1000).toFixed(0);
+  const totalSeconds = Math.floor(time / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  const remainingMilliseconds = time % 1000;
 
-  const formattedHours = hours > 0 ? `${hours}:` : '';
-  const formattedMinutes = `${minutes < 10 ? '0' : ''}${minutes}:`;
-  const formattedSeconds = `${seconds < 10 ? '0' : ''}${seconds}`;
-
-  return `${formattedHours}${formattedMinutes}${formattedSeconds}`;
+  return `${hours}:${minutes}:${seconds}`;
 };

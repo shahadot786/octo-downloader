@@ -17,6 +17,7 @@ import formatTimestamp from '../../utils/formatTimestamp';
 import AudioPlayer from '../Player/Audio/AudioPlayer';
 import VideoPlayer from '../Player/Video/VideoPlayer';
 import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
+import CustomVideoPlayerV1 from '../Player/Video/CustomVideoPlayer';
 
 const renderActivityIndicator = progress => {
   const percentage = Math.floor(progress * 100) + '%';
@@ -69,12 +70,20 @@ const ItemViewerScreen = ({route, navigation}) => {
       <View style={styles.container}>
         {type === 'audio' && <AudioPlayer data={data} autoPlay={true} />}
         {type === 'video' && (
-          <VideoPlayer
+          // <VideoPlayer
+          //   data={data}
+          //   autoPlay={true}
+          //   navigation={navigation}
+          //   isFullScreen={isFullScreen}
+          //   setIsFullScreen={setIsFullScreen}
+          // />
+          <CustomVideoPlayerV1
             data={data}
-            autoPlay={true}
-            navigation={navigation}
+            autoplay={true}
             isFullScreen={isFullScreen}
             setIsFullScreen={setIsFullScreen}
+            repeat={true}
+            muted={true}
           />
         )}
         {type === 'software' && (
