@@ -1,12 +1,9 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useRef, useState} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableWithoutFeedback,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import Video from 'react-native-video';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,7 +14,7 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import colors from '../../../theme/constant/colors';
 import AppActivityIndicator from '../../../components/common/AppActivityIndicator';
 import TitleText from '../../../theme/Text/TitleText';
-import {formatTime} from '../Audio/Utils/constants';
+import {formatDuration} from '../Audio/Utils/constants';
 
 const CustomVideoPlayerV1 = ({
   data,
@@ -31,8 +28,8 @@ const CustomVideoPlayerV1 = ({
   setIsFullScreen,
 }) => {
   const [isPlaying, setIsPlaying] = useState(autoplay);
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
+  const [videoDuration, setVideoDuration] = useState(0);
+  const [videoCurrentTime, setVideoCurrentTime] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isMuted, setIsMuted] = useState(muted);
   const [hideControl, setHideControl] = useState(false);
@@ -49,12 +46,12 @@ const CustomVideoPlayerV1 = ({
     // } else if (orientation == 'portrait') {
     //   setVideoHeight(screenHeight / 2);
     // }
-    setDuration(duration);
+    setVideoDuration(duration);
     setIsLoading(false);
   };
   //handle progress
   const handleProgress = ({currentTime}) => {
-    setCurrentTime(currentTime);
+    setVideoCurrentTime(currentTime);
   };
 
   const toggleFullScreen = async () => {
@@ -81,7 +78,7 @@ const CustomVideoPlayerV1 = ({
   //handle video duration slider
   const handleSliderChange = value => {
     videoPlayer.current.seek(value);
-    setCurrentTime(value);
+    setVideoCurrentTime(value);
   };
   //hide video controller
   const handleHideControl = () => {
@@ -108,8 +105,6 @@ const CustomVideoPlayerV1 = ({
     }
   };
 
-  console.log({currentTime});
-  //   console.log({duration});
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback
@@ -195,24 +190,18 @@ const CustomVideoPlayerV1 = ({
         <>
           {!isLoading && (
             <View style={styles.controls}>
-              {/* <Text style={styles.time}>
-                {Math.floor(currentTime / 60)}:
-                {('0' + Math.floor(currentTime % 60)).slice(-2)} /{' '}
-                {Math.floor(duration / 60)}:
-                {('0' + Math.floor(duration % 60)).slice(-2)}
-              </Text> */}
-              <TitleText text={formatTime(duration)} />
+              {/* <TitleText text={formatDuration(videoDuration)} /> */}
               <Slider
                 style={styles.slider}
                 minimumValue={0}
-                maximumValue={duration}
-                value={currentTime}
+                maximumValue={videoDuration}
+                value={videoCurrentTime}
                 onValueChange={handleSliderChange}
                 minimumTrackTintColor={colors.Primary}
                 maximumTrackTintColor="white"
                 thumbTintColor="white"
               />
-              <TitleText text={currentTime} />
+              {/* <TitleText text={formatDuration(videoCurrentTime)} /> */}
               <TouchableWithoutFeedback onPress={handleMutePress}>
                 <View style={styles.volumeButton}>
                   {isMuted ? (

@@ -1,9 +1,11 @@
-export const formatTime = time => {
-  const totalSeconds = Math.floor(time / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-  const remainingMilliseconds = time % 1000;
+export function formatDuration(durationInSeconds) {
+  const hours = Math.floor(durationInSeconds / 3600);
+  const minutes = Math.floor((durationInSeconds % 3600) / 60);
+  const seconds = ('0' + Math.floor(durationInSeconds % 60)).slice(-2);
 
-  return `${hours}:${minutes}:${seconds}`;
-};
+  if (hours > 0) {
+    return `${hours}:${('0' + minutes).slice(-2)}:${seconds}`;
+  } else {
+    return `${minutes}:${seconds}`;
+  }
+}
