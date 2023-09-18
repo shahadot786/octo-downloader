@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "68274690772",
+    "project_id": "octo-downloader",
+    "storage_bucket": "octo-downloader.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68274690772:android:b51d85a521f143a2857941",
+        "android_client_info": {
+          "package_name": "com.octodownloader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68274690772-qt0k5o72aiu6k4qpbrgnfekmb21ug2kn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.octodownloader",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "68274690772-edt1egh8v80ptkeuh6dp4spk2vq56gcc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIYmwfraXkfTbHJk85jH_PBqzSFXurLfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68274690772-edt1egh8v80ptkeuh6dp4spk2vq56gcc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

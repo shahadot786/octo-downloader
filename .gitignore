@@ -21,7 +21,6 @@ DerivedData
 *.ipa
 *.xcuserstate
 .bundle
-.vscode
 
 
 # Android/IntelliJ
@@ -62,3 +61,8 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+
+# Expo
+.expo
+dist/
+web-build/
