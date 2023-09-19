@@ -66,7 +66,6 @@ const ItemViewerScreen = ({route, navigation}) => {
         />
       )}
       <View style={styles.container}>
-        {/* {type === 'audio' && <AudioPlayer data={data} autoPlay={true} />} */}
         {(type === 'video' || type === 'audio') && (
           <CustomVideoPlayerV1
             data={data}
@@ -75,6 +74,7 @@ const ItemViewerScreen = ({route, navigation}) => {
             setIsFullScreen={setIsFullScreen}
             repeat={true}
             muted={true}
+            type={type}
           />
         )}
         {type === 'software' && (

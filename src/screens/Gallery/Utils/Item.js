@@ -13,10 +13,10 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useGallery} from './useGallery';
 import LoaderModal from '../../../components/common/LoaderModal';
-// import useTheme from '../../../hooks/theme/useTheme';
+import useTheme from '../../../hooks/theme/useTheme';
 
 const Item = ({data, type, navigation}) => {
-  // const {initialMode} = useTheme();
+  const {initialMode} = useTheme();
   const [pdfThumbnailUri, setPdfThumbnailUri] = useState(null);
   const {onItemPressHandler, isLoading} = useGallery();
 
@@ -53,7 +53,11 @@ const Item = ({data, type, navigation}) => {
           }}>
           {/* audio */}
           {type === 'audio' && (
-            <MaterialIcon name={'audiotrack'} size={60} color="#fff" />
+            <MaterialIcon
+              name={'audiotrack'}
+              size={60}
+              color={initialMode ? colors.White : colors.Black}
+            />
           )}
           {/* video */}
           {type === 'video' && (
@@ -68,7 +72,7 @@ const Item = ({data, type, navigation}) => {
             <MaterialIcon
               name={'settings-applications'}
               size={60}
-              color="#fff"
+              color={initialMode ? colors.White : colors.Black}
             />
           )}
           {/* Image */}
@@ -89,11 +93,19 @@ const Item = ({data, type, navigation}) => {
           )}
           {/* zip */}
           {type === 'zip' && (
-            <MaterialCommunityIcons name={'zip-box'} size={60} color="#fff" />
+            <MaterialCommunityIcons
+              name={'zip-box'}
+              size={60}
+              color={initialMode ? colors.White : colors.Black}
+            />
           )}
           {/* text */}
           {type === 'text' && (
-            <MaterialIcon name={'text-snippet'} size={60} color="#fff" />
+            <MaterialIcon
+              name={'text-snippet'}
+              size={60}
+              color={initialMode ? colors.White : colors.Black}
+            />
           )}
           {type === 'video' && (
             <View

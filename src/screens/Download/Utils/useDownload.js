@@ -21,15 +21,15 @@ import useApplovinRewardedAd from '../../../hooks/Ads/Rewarded/useApplovinReward
 
 const STORAGE_PERMISSION_KEY = '@StoragePermission';
 
-export const useDownload = () => {
+export const useDownload = data => {
   const {isAdShown, isAdPriority, isApplovin} = useAppSelector(
     state => state.ads,
   );
   const storagePermission = useAppSelector(state => state.storagePermission);
   const {playRewardedAd} = useRewardAd();
   const {isRewardedAdReady, showRewardedAd} = useApplovinRewardedAd();
-  const [selectedOption, setSelectedOption] = useState('');
-  const [inputValue, setInputValue] = useState('');
+  const [selectedOption, setSelectedOption] = useState(data?.type);
+  const [inputValue, setInputValue] = useState(data?.url);
   const [downloadProgress, setDownloadProgress] = useState(0);
   const [currentSize, setCurrentSize] = useState(0);
   const [totalSize, setTotalSize] = useState(0);
@@ -38,7 +38,6 @@ export const useDownload = () => {
   const dispatch = useAppDispatch();
   const toast = useToast();
   const netInfoState = useConnectionCheck();
-
   const handleSelectOption = useCallback(value => {
     setSelectedOption(value);
   }, []);
