@@ -1,15 +1,17 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import BottomNav from './BottomNav/BottomNav';
 import strings from '../theme/constant/strings';
-// import CustomHeader from '../components/common/CustomHeader';
+import CustomHeader from '../components/common/CustomHeader';
 import GalleryViewerScreen from '../screens/Gallery/GalleryViewerScreen';
 import ItemViewerScreen from '../screens/Gallery/ItemViewerScreen';
 import SaveLinkScreen from '../screens/SaveLink/SaveLinkScreen';
 import SettingsDetailsScreen from '../screens/SettingsDetails/SettingsDetailsScreen';
 import HomeItemListScreen from '../screens/HomeItemList/HomeItemListScreen';
 import HomeItemListDetailsScreen from '../screens/HomeItemListDetails/HomeItemListDetailsScreen';
+import CloudDownloadScreen from '../screens/Download/CloudDownloadScreen';
 
 const Stack = createNativeStackNavigator();
 // bottom navigation
@@ -17,9 +19,9 @@ function BottomTabs() {
   return <BottomNav />;
 }
 //custom header for navigation
-// function CustomHeaderHandler(props) {
-//   return <CustomHeader title={props.title} navigation={props.navigation} />;
-// }
+function CustomHeaderHandler(props) {
+  return <CustomHeader title={props.title} navigation={props.navigation} />;
+}
 
 const MainStack = () => {
   return (
@@ -67,6 +69,15 @@ const MainStack = () => {
           name={strings.HomeItemListDetailsScreen}
           component={HomeItemListDetailsScreen}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={strings.CloudDownloadScreen}
+          component={CloudDownloadScreen}
+          options={({navigation}) => ({
+            header: props => (
+              <CustomHeaderHandler title={'Download'} navigation={navigation} />
+            ),
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>

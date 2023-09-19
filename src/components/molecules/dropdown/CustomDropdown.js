@@ -28,7 +28,9 @@ const CustomDropdown = ({options, onSelect, selectedValue, placeholder}) => {
             backgroundColor: initialMode ? colors.Grey : colors.SoftBlack,
           },
         ]}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled={true}>
           {options.map(item => (
             <Pressable
               key={item.value}

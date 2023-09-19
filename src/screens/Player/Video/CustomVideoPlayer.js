@@ -1,9 +1,10 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
   TouchableWithoutFeedback,
-  TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import Video from 'react-native-video';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -14,7 +15,8 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import colors from '../../../theme/constant/colors';
 import AppActivityIndicator from '../../../components/common/AppActivityIndicator';
 import TitleText from '../../../theme/Text/TitleText';
-import {formatDuration} from '../Audio/Utils/constants';
+import {formatDuration} from './Utils/constants';
+import AnimatedLottieView from 'lottie-react-native';
 
 const CustomVideoPlayerV1 = ({
   data,
@@ -26,13 +28,14 @@ const CustomVideoPlayerV1 = ({
   repeat,
   isFullScreen,
   setIsFullScreen,
+  type,
 }) => {
   const [isPlaying, setIsPlaying] = useState(autoplay);
   const [videoDuration, setVideoDuration] = useState(0);
   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isMuted, setIsMuted] = useState(muted);
-  const [hideControl, setHideControl] = useState(false);
+  const [hideControl, setHideControl] = useState(true);
   //   const [videoHeight, setVideoHeight] = useState();
   const videoPlayer = useRef(null);
 
@@ -105,9 +108,18 @@ const CustomVideoPlayerV1 = ({
     }
   };
 
+  let truncatedFilename = '';
+  const audioFile = data?.name ? data?.name : data?.title;
+  const formattedFilename = audioFile?.split('.')[0].replace(/_/g, ' ');
+  if (formattedFilename.length > 40) {
+    truncatedFilename = formattedFilename.substring(0, 40) + '...';
+  } else {
+    truncatedFilename = formattedFilename;
+  }
+
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback
+      <Pressable
         onPress={handleHideControl}
         style={isFullScreen ? styles.fullScreenContainer : styles.container}>
         <Video
@@ -136,46 +148,41 @@ const CustomVideoPlayerV1 = ({
           poster={thumbnail}
           posterResizeMode={'contain'}
         />
-      </TouchableWithoutFeedback>
+        {type === 'audio' && (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: colors.Grey,
+              padding: 10,
+              margin: 10,
+              borderRadius: 10,
+              position: 'absolute',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <AnimatedLottieView
+              autoPlay
+              loop
+              source={require('../../../assets/music.json')}
+              style={styles.loaderStyle}
+            />
+            <TitleText text={truncatedFilename} />
+          </View>
+        )}
+      </Pressable>
       {/* end video player */}
       {!isLoading && (
         <>
           {playBtn && (
-            <TouchableOpacity
+            <TouchableWithoutFeedback
               onPress={isPlayBtnPressed}
-              activeOpacity={0.6}
               style={styles.playPauseButton}>
               <Ionicons
                 name="play-circle-outline"
                 size={60}
                 color={colors.Primary}
               />
-            </TouchableOpacity>
-          )}
-        </>
-      )}
-      {hideControl && (
-        <>
-          {!isLoading && (
-            <>
-              <TouchableWithoutFeedback onPress={handlePlayPause}>
-                <View style={styles.playPauseButton}>
-                  {isPlaying ? (
-                    <Ionicons
-                      name="pause-circle-outline"
-                      size={60}
-                      color={colors.Primary}
-                    />
-                  ) : (
-                    <Ionicons
-                      name="play-circle-outline"
-                      size={60}
-                      color={colors.Primary}
-                    />
-                  )}
-                </View>
-              </TouchableWithoutFeedback>
-            </>
+            </TouchableWithoutFeedback>
           )}
         </>
       )}
@@ -190,7 +197,24 @@ const CustomVideoPlayerV1 = ({
         <>
           {!isLoading && (
             <View style={styles.controls}>
-              {/* <TitleText text={formatDuration(videoDuration)} /> */}
+              <TouchableWithoutFeedback onPress={handlePlayPause}>
+                <View style={styles.playPauseButton}>
+                  {isPlaying ? (
+                    <Ionicons
+                      name="pause-circle-outline"
+                      size={30}
+                      color={colors.Primary}
+                    />
+                  ) : (
+                    <Ionicons
+                      name="play-circle-outline"
+                      size={30}
+                      color={colors.Primary}
+                    />
+                  )}
+                </View>
+              </TouchableWithoutFeedback>
+              <TitleText text={formatDuration(videoDuration)} />
               <Slider
                 style={styles.slider}
                 minimumValue={0}
@@ -201,7 +225,7 @@ const CustomVideoPlayerV1 = ({
                 maximumTrackTintColor="white"
                 thumbTintColor="white"
               />
-              {/* <TitleText text={formatDuration(videoCurrentTime)} /> */}
+              <TitleText text={formatDuration(videoCurrentTime)} />
               <TouchableWithoutFeedback onPress={handleMutePress}>
                 <View style={styles.volumeButton}>
                   {isMuted ? (
@@ -219,24 +243,25 @@ const CustomVideoPlayerV1 = ({
                   )}
                 </View>
               </TouchableWithoutFeedback>
-              <TouchableOpacity
-                activeOpacity={0.6}
-                style={styles.fullScreenButton}
-                onPress={toggleFullScreen}>
-                {isFullScreen ? (
-                  <MaterialIcon
-                    name={'fullscreen-exit'}
-                    size={35}
-                    color={colors.Primary}
-                  />
-                ) : (
-                  <MaterialIcon
-                    name={'fullscreen'}
-                    size={35}
-                    color={colors.Primary}
-                  />
-                )}
-              </TouchableOpacity>
+              {type === 'video' && (
+                <TouchableWithoutFeedback
+                  style={styles.fullScreenButton}
+                  onPress={toggleFullScreen}>
+                  {isFullScreen ? (
+                    <MaterialIcon
+                      name={'fullscreen-exit'}
+                      size={35}
+                      color={colors.Primary}
+                    />
+                  ) : (
+                    <MaterialIcon
+                      name={'fullscreen'}
+                      size={35}
+                      color={colors.Primary}
+                    />
+                  )}
+                </TouchableWithoutFeedback>
+              )}
               {/* volume */}
               {/* {isMuted && (
                 <Slider
@@ -315,7 +340,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(19, 17, 17, 0.342)',
+    backgroundColor: 'rgba(19, 17, 17, 0.082)',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -325,9 +350,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   playPauseButton: {
-    width: 60,
-    height: 60,
-    position: 'absolute',
+    width: 35,
+    height: 35,
   },
   loading: {
     position: 'absolute',
@@ -372,6 +396,9 @@ const styles = StyleSheet.create({
     right: -30,
     position: 'absolute',
     bottom: 40,
+  },
+  loaderStyle: {
+    height: metrics.screenHeight / 4,
   },
 });
 

@@ -5,7 +5,10 @@ import CustomDropdown from '../../dropdown/CustomDropdown';
 import CustomTextInput from '../../../atoms/inputs/CustomTextInput';
 import PrimaryButton from '../../../atoms/buttons/PrimaryButton';
 import metrics from '../../../../theme/constant/metrics';
-import {saveOptions} from '../../../../screens/Download/Utils/constant';
+import {
+  options,
+  saveOptions,
+} from '../../../../screens/Download/Utils/constant';
 import colors from '../../../../theme/constant/colors';
 
 const RequestCard = ({
@@ -24,7 +27,7 @@ const RequestCard = ({
   return (
     <View>
       <CustomDropdown
-        options={saveOptions}
+        options={options}
         onSelect={handleSelectOption}
         selectedValue={selectedOption}
         placeholder="Select Type"
