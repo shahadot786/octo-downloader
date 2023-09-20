@@ -12,6 +12,7 @@ import SettingsDetailsScreen from '../screens/SettingsDetails/SettingsDetailsScr
 import HomeItemListScreen from '../screens/HomeItemList/HomeItemListScreen';
 import HomeItemListDetailsScreen from '../screens/HomeItemListDetails/HomeItemListDetailsScreen';
 import CloudDownloadScreen from '../screens/Download/CloudDownloadScreen';
+import PromotionScreen from '../screens/Promotion/PromotionScreen';
 
 const Stack = createNativeStackNavigator();
 // bottom navigation
@@ -76,6 +77,18 @@ const MainStack = () => {
           options={({navigation}) => ({
             header: props => (
               <CustomHeaderHandler title={'Download'} navigation={navigation} />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name={strings.PromotionScreen}
+          component={PromotionScreen}
+          options={({navigation}) => ({
+            header: props => (
+              <CustomHeaderHandler
+                title={'Update Items'}
+                navigation={navigation}
+              />
             ),
           })}
         />

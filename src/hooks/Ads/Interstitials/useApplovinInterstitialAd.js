@@ -4,7 +4,7 @@ import AppLovinMAX from 'react-native-applovin-max';
 
 const INTERSTITIAL_AD_UNIT_ID = Platform.select({
   android: 'd00adb19d092912f',
-  ios: 'ios_interstitial_ad_unit_ID',
+  ios: 'd00adb19d092912f',
 });
 
 const useApplovinInterstitialAd = () => {

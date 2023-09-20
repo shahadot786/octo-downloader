@@ -4,22 +4,21 @@ import {useEffect, useState} from 'react';
 import {useFirebase} from '../../../hooks/Firebase/useFirebase';
 import {keyStrings} from '../../../hooks/Firebase/keyStrings';
 import {useAppSelector} from '../../../store/store';
-import useApplovinInterstitialAd from '../../../hooks/Ads/Interstitials/useApplovinInterstitialAd';
-import useInterstitialAd from '../../../hooks/Ads/Interstitials/useInterstitialAd';
+
+import useRewardAd from '../../../hooks/Ads/Rewarded/useRewardedAd';
+import useApplovinRewardedAd from '../../../hooks/Ads/Rewarded/useApplovinRewardedAd';
 
 export const useSaveLink = navigation => {
   const [uniqueId, setUniqueId] = useState();
   const {data, loading} = useFirebase(keyStrings.saveLinkDoc);
   let _count = 0;
   let _count1 = 0;
-  const {isAdPriority, isApplovin, isAdShown} = useAppSelector(
-    state => state.ads,
-  );
-  const {isInterstitialReady, showInterstitial} = useApplovinInterstitialAd();
-  const {playInterstitialAd, isLoading} = useInterstitialAd();
+  const {isApplovin, isAdShown} = useAppSelector(state => state.ads);
+  const {playRewardedAd, isLoading} = useRewardAd();
+  const {isRewardedAdReady, showRewardedAd} = useApplovinRewardedAd();
 
   useEffect(() => {
-    DeviceInfo.getUniqueId().then(uId => {
+    DeviceInfo.getAndroidId().then(uId => {
       setUniqueId(uId);
     });
   }, []);
@@ -32,21 +31,21 @@ export const useSaveLink = navigation => {
       sortedData.sort((a, b) => parseInt(b.id, 10) - parseInt(a.id, 10));
     }
   }
-  const handleShowInterstitial = async () => {
-    await showInterstitial();
+  const handleShowRewardedAd = async () => {
+    await showRewardedAd();
   };
   const onDownloadPressHandler = item => {
     _count1++;
-    if (isAdPriority) {
+    if (isAdShown) {
       if (_count1 % 2 === 0) {
         if (isApplovin) {
-          if (isInterstitialReady) {
-            handleShowInterstitial();
+          if (isRewardedAdReady) {
+            handleShowRewardedAd();
           } else {
-            playInterstitialAd();
+            playRewardedAd();
           }
         } else {
-          playInterstitialAd();
+          playRewardedAd();
         }
       }
     }
@@ -55,16 +54,16 @@ export const useSaveLink = navigation => {
 
   const onViewPressHandler = item => {
     _count++;
-    if (isAdPriority) {
+    if (isAdShown) {
       if (_count % 2 === 0) {
         if (isApplovin) {
-          if (isInterstitialReady) {
-            handleShowInterstitial();
+          if (isRewardedAdReady) {
+            handleShowRewardedAd();
           } else {
-            playInterstitialAd();
+            playRewardedAd();
           }
         } else {
-          playInterstitialAd();
+          playRewardedAd();
         }
       }
     }

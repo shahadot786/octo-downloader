@@ -65,9 +65,7 @@ const Splash = () => {
     if (loading === true) {
       timer = setTimeout(() => {
         return setLoading(false);
-      }, 4000);
-    } else {
-      return () => clearTimeout(timer);
+      }, 2000);
     }
     return () => clearTimeout(timer);
   }, [loading]);

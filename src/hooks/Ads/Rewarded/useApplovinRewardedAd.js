@@ -4,7 +4,7 @@ import AppLovinMAX from 'react-native-applovin-max';
 
 const REWARDED_AD_UNIT_ID = Platform.select({
   android: '51197a5dbc23d84f',
-  ios: 'ios_rewarded_ad_unit_ID',
+  ios: '51197a5dbc23d84f',
 });
 
 const useApplovinRewardedAd = () => {

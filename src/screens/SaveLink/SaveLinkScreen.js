@@ -18,6 +18,7 @@ const SaveLinkScreen = ({navigation}) => {
   const {
     data,
     loading,
+    isLoading,
     onDownloadPressHandler,
     onViewPressHandler,
     isAdShown,
@@ -77,7 +78,7 @@ const SaveLinkScreen = ({navigation}) => {
 
   return (
     <ScreenSafeAreaView>
-      <LoaderModal visible={loading} />
+      <LoaderModal visible={loading || isLoading} />
       <BigText
         text={'Save Links'}
         textStyle={{marginHorizontal: 15, marginTop: 20}}

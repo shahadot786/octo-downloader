@@ -3,7 +3,6 @@ import {Provider} from 'react-redux';
 import store from './src/store/store';
 import Splash from './src/screens/Splash/Utils/Splash';
 import {LogBox} from 'react-native';
-import codePush from 'react-native-code-push';
 
 const App = () => {
   LogBox.ignoreLogs(['new NativeEventEmitter']);
@@ -14,4 +13,4 @@ const App = () => {
   );
 };
 
-export default codePush(App);
+export default App;
