@@ -1,12 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import CustomHeader from '../../components/common/CustomHeader';
 
-const CloudItemScreen = ({navigation}) => {
+const CloudItemScreen = ({navigation, route}) => {
+  const {type} = route.params;
   return (
     <ScreenSafeAreaView>
-      <CustomHeader title={'Promotion'} navigation={navigation} />
+      <CustomHeader title={type} navigation={navigation} />
     </ScreenSafeAreaView>
   );
 };

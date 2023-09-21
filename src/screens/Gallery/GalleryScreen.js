@@ -14,6 +14,7 @@ import LoaderModal from '../../components/common/LoaderModal';
 import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
 import useRewardAd from '../../hooks/Ads/Rewarded/useRewardedAd';
 import useApplovinRewardedAd from '../../hooks/Ads/Rewarded/useApplovinRewardedAd';
+import images from '../../theme/constant/images';
 
 const GalleryScreen = ({navigation}) => {
   const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
@@ -68,12 +69,14 @@ const GalleryScreen = ({navigation}) => {
               title={'Video'}
               iconName={'video-collection'}
               onPress={() => onItemPressHandler('video')}
+              imageSource={images.videoFiles}
             />
             <GalleryItem
               backgroundColor={colors.Grey}
               title={'Audio'}
               iconName={'music-video'}
               onPress={() => onItemPressHandler('audio')}
+              imageSource={images.audio}
             />
           </View>
           <View
@@ -86,12 +89,14 @@ const GalleryScreen = ({navigation}) => {
               title={'Software'}
               iconName={'file-copy'}
               onPress={() => onItemPressHandler('software')}
+              imageSource={images.software}
             />
             <GalleryItem
               backgroundColor={colors.Yellow}
               title={'Image'}
               iconName={'image'}
               onPress={() => onItemPressHandler('image')}
+              imageSource={images.images}
             />
           </View>
           <View
@@ -104,12 +109,14 @@ const GalleryScreen = ({navigation}) => {
               title={'PDF'}
               iconName={'picture-as-pdf'}
               onPress={() => onItemPressHandler('pdf')}
+              imageSource={images.pdf}
             />
             <GalleryItem
               backgroundColor={colors.Cyan}
               title={'Zip'}
               iconName={'folder'}
               onPress={() => onItemPressHandler('zip')}
+              imageSource={images.zip}
             />
           </View>
           <View
@@ -122,6 +129,7 @@ const GalleryScreen = ({navigation}) => {
               title={'Text'}
               iconName={'text-snippet'}
               onPress={() => onItemPressHandler('text')}
+              imageSource={images.text}
             />
           </View>
         </View>

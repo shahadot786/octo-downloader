@@ -4,10 +4,13 @@ import {useEffect} from 'react';
 import {toastNotification} from '../../../utils/constants';
 import {useAppSelector} from '../../../store/store';
 import useBackButtonHandler from '../../../hooks/Utils/useBackButtonHandler';
+import useTheme from '../../../hooks/theme/useTheme';
+import strings from '../../../theme/constant/strings';
 
 export const useHome = navigation => {
   const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
   const toast = useToast();
+  const {initialMode} = useTheme();
   const netInfoState = useConnectionCheck();
   const {
     isModalVisible,
@@ -26,6 +29,11 @@ export const useHome = navigation => {
     }
   }, [netInfoState, toast]);
 
+  //item press handler
+  const onItemPressHandler = type => {
+    navigation.navigate(strings.CloudItemScreen, {type: type});
+  };
+
   return {
     isAdShown,
     isApplovin,
@@ -33,5 +41,7 @@ export const useHome = navigation => {
     setIsModalVisible,
     exitAppPressHandler,
     cancelPressHandler,
+    initialMode,
+    onItemPressHandler,
   };
 };

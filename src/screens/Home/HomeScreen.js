@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Image, StyleSheet, ScrollView, View} from 'react-native';
+import {Image, StyleSheet, ScrollView, View, Pressable} from 'react-native';
 import React from 'react';
 import ScreenSafeAreaView from '../../theme/Global/ScreenSafeAreaView';
 import colors from '../../theme/constant/colors';
@@ -14,6 +14,8 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import {useHome} from './Utils/useHome';
 import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
 import AppExitModal from '../../components/templates/modal/AppExitModal';
+import BigText from '../../theme/Text/BigText';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const HomeScreen = ({navigation}) => {
   const {
@@ -23,6 +25,8 @@ const HomeScreen = ({navigation}) => {
     setIsModalVisible,
     exitAppPressHandler,
     cancelPressHandler,
+    initialMode,
+    onItemPressHandler,
   } = useHome(navigation);
 
   return (
@@ -60,24 +64,38 @@ const HomeScreen = ({navigation}) => {
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.scrollView}>
-            <View style={{}}>
-              <View
-                style={{
-                  height: 150,
-                  backgroundColor: colors.Blue,
-                  borderRadius: 10,
-                }}>
+            <View style={{marginVertical: 5}}>
+              <Pressable
+                onPress={() => onItemPressHandler('Movies')}
+                style={({pressed}) => [
+                  {
+                    height: 150,
+                    backgroundColor: colors.Blue,
+                    borderRadius: 10,
+                    opacity: pressed ? 0.7 : 1,
+                  },
+                ]}>
                 <Image
                   source={images.movies}
                   style={{
                     width: '100%',
                     height: 150,
-                    resizeMode: 'cover',
+                    resizeMode: 'center',
                     opacity: 0.4,
                     borderRadius: 10,
                   }}
                 />
-              </View>
+                <View style={{position: 'absolute', bottom: 10, left: 10}}>
+                  <BigText text={'Movies'} />
+                </View>
+                <View style={{position: 'absolute', bottom: 2, right: 10}}>
+                  <Ionicons
+                    name="arrow-forward-circle-sharp"
+                    color={initialMode ? colors.White : colors.Black}
+                    size={18}
+                  />
+                </View>
+              </Pressable>
 
               <View
                 style={[
@@ -85,57 +103,96 @@ const HomeScreen = ({navigation}) => {
                   commonStyles.justifyBetween,
                   {marginVertical: 10},
                 ]}>
-                <View
+                <Pressable
+                  onPress={() => onItemPressHandler('Videos')}
                   style={{
                     width: '45%',
                     backgroundColor: colors.Green,
                     height: 200,
                     borderRadius: 10,
-                  }}
-                />
-                <View
+                  }}>
+                  <Image
+                    source={images.videos}
+                    style={{
+                      width: '100%',
+                      height: 200,
+                      resizeMode: 'center',
+                      opacity: 0.4,
+                      borderRadius: 10,
+                    }}
+                  />
+                  <View style={{position: 'absolute', bottom: 10, left: 10}}>
+                    <BigText text={'Videos'} />
+                  </View>
+                  <View style={{position: 'absolute', bottom: 2, right: 10}}>
+                    <Ionicons
+                      name="arrow-forward-circle-sharp"
+                      color={initialMode ? colors.White : colors.Black}
+                      size={18}
+                    />
+                  </View>
+                </Pressable>
+                <Pressable
+                  onPress={() => onItemPressHandler("Audio's")}
                   style={{
                     width: '45%',
                     backgroundColor: colors.Warning,
                     height: 200,
                     borderRadius: 10,
-                  }}
-                />
+                  }}>
+                  <Image
+                    source={images.audioFiles}
+                    style={{
+                      width: '100%',
+                      height: 200,
+                      resizeMode: 'center',
+                      opacity: 0.4,
+                      borderRadius: 10,
+                    }}
+                  />
+                  <View style={{position: 'absolute', bottom: 10, left: 10}}>
+                    <BigText text={"Audio's"} />
+                  </View>
+                  <View style={{position: 'absolute', bottom: 2, right: 10}}>
+                    <Ionicons
+                      name="arrow-forward-circle-sharp"
+                      color={initialMode ? colors.White : colors.Black}
+                      size={18}
+                    />
+                  </View>
+                </Pressable>
               </View>
-              <View
+              <Pressable
+                onPress={() => onItemPressHandler('Images')}
                 style={{
                   height: 150,
                   backgroundColor: colors.Yellow,
                   borderRadius: 10,
-                }}
-              />
-              <View
-                style={[
-                  commonStyles.flexRow,
-                  commonStyles.justifyBetween,
-                  {marginVertical: 10},
-                ]}>
-                <View
+                }}>
+                <Image
+                  source={images.imageFiles}
                   style={{
-                    width: '45%',
-                    backgroundColor: colors.Green,
-                    height: 200,
+                    width: '100%',
+                    height: 150,
+                    resizeMode: 'center',
+                    opacity: 0.4,
                     borderRadius: 10,
                   }}
                 />
-                <View
-                  style={{
-                    width: '45%',
-                    backgroundColor: colors.Warning,
-                    height: 200,
-                    borderRadius: 10,
-                  }}
-                />
-              </View>
+                <View style={{position: 'absolute', bottom: 10, left: 10}}>
+                  <BigText text={'Images'} />
+                </View>
+                <View style={{position: 'absolute', bottom: 2, right: 10}}>
+                  <Ionicons
+                    name="arrow-forward-circle-sharp"
+                    color={initialMode ? colors.White : colors.Black}
+                    size={18}
+                  />
+                </View>
+              </Pressable>
             </View>
             {/* bottom spacing */}
             <BottomSpacingNav />
-            <BottomSpacing />
           </ScrollView>
         </View>
         <AppExitModal
@@ -163,12 +220,12 @@ const styles = StyleSheet.create({
   scrollView: {},
   topCardView: {
     justifyContent: 'space-between',
-    // borderBottomColor: colors.Grey,
-    // borderBottomWidth: 1,
-    // borderStyle: 'dotted',
+    borderBottomColor: colors.Grey,
+    borderBottomWidth: 1,
+    borderStyle: 'dotted',
+    paddingBottom: 5,
   },
   topLogoImage: {
     resizeMode: 'contain',
   },
-  topView: {},
 });
