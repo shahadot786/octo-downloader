@@ -108,8 +108,8 @@ const CustomVideoPlayerV1 = ({
     }
   };
 
-  let truncatedFilename = data?.name;
-  if (truncatedFilename.length > 30) {
+  let truncatedFilename = data?.name || data?.title;
+  if (truncatedFilename?.length > 30) {
     truncatedFilename = truncatedFilename.substring(0, 30) + '...';
   } else if (truncatedFilename) {
     truncatedFilename = truncatedFilename;

@@ -9,8 +9,6 @@ import GalleryViewerScreen from '../screens/Gallery/GalleryViewerScreen';
 import ItemViewerScreen from '../screens/Gallery/ItemViewerScreen';
 import SaveLinkScreen from '../screens/SaveLink/SaveLinkScreen';
 import SettingsDetailsScreen from '../screens/SettingsDetails/SettingsDetailsScreen';
-import HomeItemListScreen from '../screens/HomeItemList/HomeItemListScreen';
-import HomeItemListDetailsScreen from '../screens/HomeItemListDetails/HomeItemListDetailsScreen';
 import CloudDownloadScreen from '../screens/Download/CloudDownloadScreen';
 import CloudItemScreen from '../screens/CloudItem/CloudItemScreen';
 import CloudItemViewerScreen from '../screens/CloudItemViewer/CloudItemViewerScreen';
@@ -60,16 +58,6 @@ const MainStack = () => {
         <Stack.Screen
           name={strings.SettingsDetailsScreen}
           component={SettingsDetailsScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name={strings.HomeItemListScreen}
-          component={HomeItemListScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name={strings.HomeItemListDetailsScreen}
-          component={HomeItemListDetailsScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen

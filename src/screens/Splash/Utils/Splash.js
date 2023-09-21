@@ -25,6 +25,7 @@ import SplashScreen from '../SplashScreen';
 import {ToastProvider} from 'react-native-toast-notifications';
 import {StoragePermissionProvider} from '../../../hooks/Permission/StoragePermissionProvider';
 import Routes from '../../../navigation/Routes';
+import strings from '../../../theme/constant/strings';
 
 const Splash = () => {
   const [loading, setLoading] = useState(true);
@@ -42,9 +43,7 @@ const Splash = () => {
 
   const initialApplovinAds = useMemo(() => {
     return () => {
-      AppLovinMAX.initialize(
-        '1zWIpgA5ypdhsOvsw5LkOKHivpN2aMwgH0qMm77xmphANnQtbfRSXZTnCvCC_R3fvEXiz37ehgP2UVgypc0MCF',
-      )
+      AppLovinMAX.initialize(strings.ApplovinAPIKey)
         .then(configuration => {
           // console.log(configuration, 'start loading ads');
         })
@@ -65,7 +64,7 @@ const Splash = () => {
     if (loading === true) {
       timer = setTimeout(() => {
         return setLoading(false);
-      }, 2000);
+      }, 3000);
     }
     return () => clearTimeout(timer);
   }, [loading]);

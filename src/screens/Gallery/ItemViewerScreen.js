@@ -49,9 +49,9 @@ const ItemViewerScreen = ({route, navigation}) => {
   const [currentPage, setCurrentPage] = useState();
   const [isFullScreen, setIsFullScreen] = useState(false);
 
-  let truncatedFilename = data?.name;
-  if (truncatedFilename.length > 40) {
-    truncatedFilename = truncatedFilename.substring(0, 40) + '...';
+  let truncatedFilename = data?.name || data?.title;
+  if (truncatedFilename?.length > 30) {
+    truncatedFilename = truncatedFilename.substring(0, 30) + '...';
   } else if (truncatedFilename) {
     truncatedFilename = truncatedFilename;
   }

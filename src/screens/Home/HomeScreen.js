@@ -10,7 +10,6 @@ import DescriptionText from '../../theme/Text/DescriptionText';
 import BottomSpacingNav from '../../theme/Global/BottomSpacingNav';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
 import HomePromotion from '../../components/molecules/cards/promotion/HomePromotion';
-import BottomSpacing from '../../theme/Global/BottomSpacing';
 import {useHome} from './Utils/useHome';
 import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
 import AppExitModal from '../../components/templates/modal/AppExitModal';
@@ -88,7 +87,7 @@ const HomeScreen = ({navigation}) => {
                 <View style={{position: 'absolute', bottom: 10, left: 10}}>
                   <BigText text={'Movies'} />
                 </View>
-                <View style={{position: 'absolute', bottom: 2, right: 10}}>
+                <View style={{position: 'absolute', bottom: 10, right: 10}}>
                   <Ionicons
                     name="arrow-forward-circle-sharp"
                     color={initialMode ? colors.White : colors.Black}
@@ -105,12 +104,15 @@ const HomeScreen = ({navigation}) => {
                 ]}>
                 <Pressable
                   onPress={() => onItemPressHandler('Videos')}
-                  style={{
-                    width: '45%',
-                    backgroundColor: colors.Green,
-                    height: 200,
-                    borderRadius: 10,
-                  }}>
+                  style={({pressed}) => [
+                    {
+                      width: '45%',
+                      backgroundColor: colors.Green,
+                      height: 200,
+                      borderRadius: 10,
+                      opacity: pressed ? 0.7 : 1,
+                    },
+                  ]}>
                   <Image
                     source={images.videos}
                     style={{
@@ -124,7 +126,7 @@ const HomeScreen = ({navigation}) => {
                   <View style={{position: 'absolute', bottom: 10, left: 10}}>
                     <BigText text={'Videos'} />
                   </View>
-                  <View style={{position: 'absolute', bottom: 2, right: 10}}>
+                  <View style={{position: 'absolute', bottom: 10, right: 10}}>
                     <Ionicons
                       name="arrow-forward-circle-sharp"
                       color={initialMode ? colors.White : colors.Black}
@@ -134,12 +136,15 @@ const HomeScreen = ({navigation}) => {
                 </Pressable>
                 <Pressable
                   onPress={() => onItemPressHandler("Audio's")}
-                  style={{
-                    width: '45%',
-                    backgroundColor: colors.Warning,
-                    height: 200,
-                    borderRadius: 10,
-                  }}>
+                  style={({pressed}) => [
+                    {
+                      width: '45%',
+                      backgroundColor: colors.Warning,
+                      height: 200,
+                      borderRadius: 10,
+                      opacity: pressed ? 0.7 : 1,
+                    },
+                  ]}>
                   <Image
                     source={images.audioFiles}
                     style={{
@@ -153,7 +158,7 @@ const HomeScreen = ({navigation}) => {
                   <View style={{position: 'absolute', bottom: 10, left: 10}}>
                     <BigText text={"Audio's"} />
                   </View>
-                  <View style={{position: 'absolute', bottom: 2, right: 10}}>
+                  <View style={{position: 'absolute', bottom: 10, right: 10}}>
                     <Ionicons
                       name="arrow-forward-circle-sharp"
                       color={initialMode ? colors.White : colors.Black}
@@ -164,11 +169,14 @@ const HomeScreen = ({navigation}) => {
               </View>
               <Pressable
                 onPress={() => onItemPressHandler('Images')}
-                style={{
-                  height: 150,
-                  backgroundColor: colors.Yellow,
-                  borderRadius: 10,
-                }}>
+                style={({pressed}) => [
+                  {
+                    height: 150,
+                    backgroundColor: colors.Yellow,
+                    borderRadius: 10,
+                    opacity: pressed ? 0.7 : 1,
+                  },
+                ]}>
                 <Image
                   source={images.imageFiles}
                   style={{
@@ -182,7 +190,7 @@ const HomeScreen = ({navigation}) => {
                 <View style={{position: 'absolute', bottom: 10, left: 10}}>
                   <BigText text={'Images'} />
                 </View>
-                <View style={{position: 'absolute', bottom: 2, right: 10}}>
+                <View style={{position: 'absolute', bottom: 10, right: 10}}>
                   <Ionicons
                     name="arrow-forward-circle-sharp"
                     color={initialMode ? colors.White : colors.Black}
@@ -190,6 +198,77 @@ const HomeScreen = ({navigation}) => {
                   />
                 </View>
               </Pressable>
+              <View
+                style={[
+                  commonStyles.flexRow,
+                  commonStyles.justifyBetween,
+                  {marginVertical: 10},
+                ]}>
+                <Pressable
+                  onPress={() => onItemPressHandler('PDF')}
+                  style={({pressed}) => [
+                    {
+                      width: '45%',
+                      backgroundColor: '#5ea04c',
+                      height: 200,
+                      borderRadius: 10,
+                      opacity: pressed ? 0.7 : 1,
+                    },
+                  ]}>
+                  <Image
+                    source={images.pdf}
+                    style={{
+                      width: '100%',
+                      height: 200,
+                      resizeMode: 'center',
+                      opacity: 0.4,
+                      borderRadius: 10,
+                    }}
+                  />
+                  <View style={{position: 'absolute', bottom: 10, left: 10}}>
+                    <BigText text={'PDF'} />
+                  </View>
+                  <View style={{position: 'absolute', bottom: 10, right: 10}}>
+                    <Ionicons
+                      name="arrow-forward-circle-sharp"
+                      color={initialMode ? colors.White : colors.Black}
+                      size={18}
+                    />
+                  </View>
+                </Pressable>
+                <Pressable
+                  onPress={() => onItemPressHandler('Zip')}
+                  style={({pressed}) => [
+                    {
+                      width: '45%',
+                      backgroundColor: '#254feb',
+                      height: 200,
+                      borderRadius: 10,
+                      opacity: pressed ? 0.7 : 1,
+                    },
+                  ]}>
+                  <Image
+                    source={images.zip}
+                    style={{
+                      width: '100%',
+                      height: 200,
+                      resizeMode: 'center',
+                      opacity: 0.4,
+                      borderRadius: 10,
+                    }}
+                  />
+                  <View style={{position: 'absolute', bottom: 10, left: 10}}>
+                    <BigText text={'Zip'} />
+                  </View>
+                  <View style={{position: 'absolute', bottom: 10, right: 10}}>
+                    <Ionicons
+                      name="arrow-forward-circle-sharp"
+                      color={initialMode ? colors.White : colors.Black}
+                      size={18}
+                    />
+                  </View>
+                </Pressable>
+              </View>
             </View>
             {/* bottom spacing */}
             <BottomSpacingNav />
