@@ -108,13 +108,11 @@ const CustomVideoPlayerV1 = ({
     }
   };
 
-  let truncatedFilename = '';
-  const audioFile = data?.name ? data?.name : data?.title;
-  const formattedFilename = audioFile?.split('.')[0].replace(/_/g, ' ');
-  if (formattedFilename.length > 40) {
-    truncatedFilename = formattedFilename.substring(0, 40) + '...';
-  } else {
-    truncatedFilename = formattedFilename;
+  let truncatedFilename = data?.name;
+  if (truncatedFilename.length > 30) {
+    truncatedFilename = truncatedFilename.substring(0, 30) + '...';
+  } else if (truncatedFilename) {
+    truncatedFilename = truncatedFilename;
   }
 
   return (
@@ -125,7 +123,7 @@ const CustomVideoPlayerV1 = ({
         <Video
           source={{uri: data?.path ? `file://${data.path}` : data?.url || ''}}
           ref={videoPlayer}
-          resizeMode={isFullScreen ? 'stretch' : 'contain'}
+          resizeMode={isFullScreen ? 'cover' : 'contain'}
           style={isFullScreen ? styles.fullScreenVideo : styles.video}
           useTextureView={true}
           preload={true}
@@ -214,7 +212,8 @@ const CustomVideoPlayerV1 = ({
                   )}
                 </View>
               </TouchableWithoutFeedback>
-              <TitleText text={formatDuration(videoDuration)} />
+              <TitleText text={formatDuration(videoCurrentTime)} />
+
               <Slider
                 style={styles.slider}
                 minimumValue={0}
@@ -225,7 +224,7 @@ const CustomVideoPlayerV1 = ({
                 maximumTrackTintColor="white"
                 thumbTintColor="white"
               />
-              <TitleText text={formatDuration(videoCurrentTime)} />
+              <TitleText text={formatDuration(videoDuration)} />
               <TouchableWithoutFeedback onPress={handleMutePress}>
                 <View style={styles.volumeButton}>
                   {isMuted ? (
@@ -322,7 +321,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    overflow: 'hidden',
   },
   fullScreenContainer: {
     flex: 1,

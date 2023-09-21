@@ -66,8 +66,18 @@ const HomeScreen = ({navigation}) => {
                   height: 150,
                   backgroundColor: colors.Blue,
                   borderRadius: 10,
-                }}
-              />
+                }}>
+                <Image
+                  source={images.movies}
+                  style={{
+                    width: '100%',
+                    height: 150,
+                    resizeMode: 'cover',
+                    opacity: 0.4,
+                    borderRadius: 10,
+                  }}
+                />
+              </View>
 
               <View
                 style={[

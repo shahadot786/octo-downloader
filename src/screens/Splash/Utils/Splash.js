@@ -102,8 +102,6 @@ const Splash = () => {
       setPromotion({
         imageUrl: promotionData?.promotion?.image,
         message: promotionData?.promotion?.message,
-        uri: promotionData?.promotion?.uri,
-        title: promotionData?.promotion?.title,
       }),
     );
   }, [

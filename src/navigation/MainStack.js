@@ -12,7 +12,8 @@ import SettingsDetailsScreen from '../screens/SettingsDetails/SettingsDetailsScr
 import HomeItemListScreen from '../screens/HomeItemList/HomeItemListScreen';
 import HomeItemListDetailsScreen from '../screens/HomeItemListDetails/HomeItemListDetailsScreen';
 import CloudDownloadScreen from '../screens/Download/CloudDownloadScreen';
-import PromotionScreen from '../screens/Promotion/PromotionScreen';
+import CloudItemScreen from '../screens/CloudItem/CloudItemScreen';
+import CloudItemViewerScreen from '../screens/CloudItemViewer/CloudItemViewerScreen';
 
 const Stack = createNativeStackNavigator();
 // bottom navigation
@@ -81,16 +82,14 @@ const MainStack = () => {
           })}
         />
         <Stack.Screen
-          name={strings.PromotionScreen}
-          component={PromotionScreen}
-          options={({navigation}) => ({
-            header: props => (
-              <CustomHeaderHandler
-                title={'Update Items'}
-                navigation={navigation}
-              />
-            ),
-          })}
+          name={strings.CloudItemScreen}
+          component={CloudItemScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={strings.CloudItemViewerScreen}
+          component={CloudItemViewerScreen}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

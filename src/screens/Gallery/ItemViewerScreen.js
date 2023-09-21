@@ -49,12 +49,11 @@ const ItemViewerScreen = ({route, navigation}) => {
   const [currentPage, setCurrentPage] = useState();
   const [isFullScreen, setIsFullScreen] = useState(false);
 
-  let truncatedFilename = '';
-  const formattedFilename = data?.name?.split('.')[0]?.replace(/_/g, ' ');
-  if (formattedFilename && formattedFilename.length > 30) {
-    truncatedFilename = formattedFilename.substring(0, 30) + '...';
-  } else if (formattedFilename) {
-    truncatedFilename = formattedFilename;
+  let truncatedFilename = data?.name;
+  if (truncatedFilename.length > 40) {
+    truncatedFilename = truncatedFilename.substring(0, 40) + '...';
+  } else if (truncatedFilename) {
+    truncatedFilename = truncatedFilename;
   }
 
   return (

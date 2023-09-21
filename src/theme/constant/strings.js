@@ -14,6 +14,7 @@ const strings = {
   HomeItemListScreen: 'HomeItemListScreen',
   HomeItemListDetailsScreen: 'HomeItemListDetailsScreen',
   CloudDownloadScreen: 'CloudDownloadScreen',
-  PromotionScreen: 'PromotionScreen',
+  CloudItemScreen: 'CloudItemScreen',
+  CloudItemViewerScreen: 'CloudItemViewerScreen',
 };
 export default strings;
