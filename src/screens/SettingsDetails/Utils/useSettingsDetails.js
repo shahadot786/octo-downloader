@@ -55,14 +55,14 @@ export const useSettingDetails = navigation => {
     let payload = {};
 
     if (selectedOption === '') {
-      toast.show('Please Select an Option', toastNotification('normal'));
+      toast.show('Please Select an Option', toastNotification('danger'));
     } else if (titleValue === '') {
-      toast.show('Field is required!', toastNotification('normal'));
+      toast.show('Field is required!', toastNotification('danger'));
     } else {
       let showError = false;
       if (isSaved) {
         if (!validateURL(titleValue)) {
-          toast.show('Enter a valid URL', toastNotification('normal'));
+          toast.show('Enter a valid URL', toastNotification('danger'));
           showError = true;
         } else {
           const urlFileType = getFileTypeFromUrl(titleValue);
@@ -70,7 +70,7 @@ export const useSettingDetails = navigation => {
           if (!urlFileType) {
             toast.show(
               'Invalid File Type. Please select a valid file type.',
-              toastNotification('normal'),
+              toastNotification('danger'),
             );
             showError = true;
           } else {
@@ -79,7 +79,7 @@ export const useSettingDetails = navigation => {
             if (!selectedFileType) {
               toast.show(
                 'Selected file type is invalid!',
-                toastNotification('normal'),
+                toastNotification('danger'),
               );
               showError = true;
             } else {
@@ -88,7 +88,7 @@ export const useSettingDetails = navigation => {
               if (!extension.includes(urlFileType.toLowerCase())) {
                 toast.show(
                   'Invalid file type for the selected option.',
-                  toastNotification('normal'),
+                  toastNotification('danger'),
                 );
                 showError = true;
               }

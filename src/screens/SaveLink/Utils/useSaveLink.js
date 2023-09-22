@@ -13,7 +13,9 @@ export const useSaveLink = navigation => {
   const {data, loading} = useFirebase(keyStrings.saveLinkDoc);
   let _count = 0;
   let _count1 = 0;
-  const {isApplovin, isAdShown} = useAppSelector(state => state.ads);
+  const {isApplovin, isAdShown, rewardAdCount} = useAppSelector(
+    state => state.ads,
+  );
   const {playRewardedAd, isLoading} = useRewardAd();
   const {isRewardedAdReady, showRewardedAd} = useApplovinRewardedAd();
 
@@ -37,7 +39,7 @@ export const useSaveLink = navigation => {
   const onDownloadPressHandler = item => {
     _count1++;
     if (isAdShown) {
-      if (_count1 % 2 === 0) {
+      if (_count1 % rewardAdCount === 0) {
         if (isApplovin) {
           if (isRewardedAdReady) {
             handleShowRewardedAd();
@@ -55,7 +57,7 @@ export const useSaveLink = navigation => {
   const onViewPressHandler = item => {
     _count++;
     if (isAdShown) {
-      if (_count % 2 === 0) {
+      if (_count % rewardAdCount === 0) {
         if (isApplovin) {
           if (isRewardedAdReady) {
             handleShowRewardedAd();

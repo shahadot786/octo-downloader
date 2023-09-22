@@ -5,7 +5,10 @@ import Splash from './src/screens/Splash/Utils/Splash';
 import {LogBox} from 'react-native';
 
 const App = () => {
-  LogBox.ignoreLogs(['new NativeEventEmitter']);
+  LogBox.ignoreLogs([
+    'new NativeEventEmitter',
+    'Non-serializable values were found in the navigation state',
+  ]);
   return (
     <Provider store={store}>
       <Splash />

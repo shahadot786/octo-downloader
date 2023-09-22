@@ -16,9 +16,11 @@ import {
   setZip,
 } from '../../../store/slices/firebase/firebaseSlice';
 import {
+  setInterAdCount,
   setIsAdPriority,
   setIsAdShown,
   setIsApplovin,
+  setRewardAdCount,
 } from '../../../store/slices/ad/adSlice';
 import AppLovinMAX from 'react-native-applovin-max';
 import SplashScreen from '../SplashScreen';
@@ -97,6 +99,8 @@ const Splash = () => {
     dispatch(setIsAdShown(adsData?.ads?.isAdsShown));
     dispatch(setIsAdPriority(adsData?.ads?.isAdPriority));
     dispatch(setIsApplovin(adsData?.ads?.isApplovin));
+    dispatch(setInterAdCount(adsData?.ads?.interAdCount));
+    dispatch(setRewardAdCount(adsData?.ads?.rewardAdCount));
     dispatch(
       setPromotion({
         imageUrl: promotionData?.promotion?.image,

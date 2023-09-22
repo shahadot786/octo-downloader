@@ -11,6 +11,7 @@ import {useAppSelector} from '../../store/store';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
 import CustomHeader from '../../components/common/CustomHeader';
 import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
+// import NativeAdView from '../../hooks/Ads/Native/NativeAdView';
 
 const GalleryViewerScreen = ({route, navigation}) => {
   const {type} = route.params;

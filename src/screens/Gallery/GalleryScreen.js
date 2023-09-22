@@ -12,36 +12,38 @@ import {useAppSelector} from '../../store/store';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
 import LoaderModal from '../../components/common/LoaderModal';
 import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
-import useRewardAd from '../../hooks/Ads/Rewarded/useRewardedAd';
-import useApplovinRewardedAd from '../../hooks/Ads/Rewarded/useApplovinRewardedAd';
 import images from '../../theme/constant/images';
+import useApplovinInterstitialAd from '../../hooks/Ads/Interstitials/useApplovinInterstitialAd';
+import useInterstitialAd from '../../hooks/Ads/Interstitials/useInterstitialAd';
 
 const GalleryScreen = ({navigation}) => {
-  const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
-  const {playRewardedAd, isLoading} = useRewardAd();
-  const {isRewardedAdReady, showRewardedAd} = useApplovinRewardedAd();
+  const {isAdShown, isApplovin, interAdCount} = useAppSelector(
+    state => state.ads,
+  );
+  const {isInterstitialReady, showInterstitial} = useApplovinInterstitialAd();
+  const {playInterstitialAd, isLoading} = useInterstitialAd();
 
   let _count = 0;
   const onItemPressHandler = type => {
     _count++;
     if (isAdShown) {
-      if (_count % 2 === 0) {
+      if (_count % interAdCount === 0) {
         if (isApplovin) {
-          if (isRewardedAdReady) {
-            handleShowRewardedAd();
+          if (isInterstitialReady) {
+            handleShowInterstitial();
           } else {
-            playRewardedAd();
+            playInterstitialAd();
           }
         } else {
-          playRewardedAd();
+          playInterstitialAd();
         }
       }
     }
     navigation.navigate(strings.GalleryViewerScreen, {type: type});
   };
 
-  const handleShowRewardedAd = async () => {
-    await showRewardedAd();
+  const handleShowInterstitial = async () => {
+    await showInterstitial();
   };
   return (
     <ScreenSafeAreaView style={styles.container}>

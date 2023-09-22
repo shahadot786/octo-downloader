@@ -14,10 +14,12 @@ import {useAppSelector} from '../../../../store/store';
 const HomePromotion = () => {
   const navigation = useNavigation();
   const {promotion} = useAppSelector(state => state.firebase);
-  const onPressHandler = () => {
-    navigation.navigate(strings.CloudItemScreen);
-  };
   const {initialMode} = useTheme();
+
+  const onPressHandler = () => {
+    navigation.navigate(strings.CloudItemScreen, {type: 'Movies'});
+  };
+
   return (
     <Pressable
       onPress={onPressHandler}

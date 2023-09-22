@@ -64,6 +64,10 @@ const useRewardAd = () => {
 
   const openAdInspector = () => MobileAds().openAdInspector();
 
+  // useEffect(() => {
+  //   playRewardedAd();
+  // }, []);
+
   useEffect(() => {
     if (isLoaded && rewarded.current) {
       rewarded.current.show();

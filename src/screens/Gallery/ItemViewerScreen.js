@@ -80,7 +80,7 @@ const ItemViewerScreen = ({route, navigation}) => {
           <ItemDetails
             iconName={'settings-applications'}
             title={truncatedFilename}
-            time={data?.mtime}
+            time={data?.mtime?.toISOString()}
             size={data?.size}
           />
         )}

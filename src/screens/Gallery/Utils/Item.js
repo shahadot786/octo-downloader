@@ -18,7 +18,7 @@ import useTheme from '../../../hooks/theme/useTheme';
 const Item = ({data, type, navigation}) => {
   const {initialMode} = useTheme();
   const [pdfThumbnailUri, setPdfThumbnailUri] = useState(null);
-  const {onItemPressHandler, isLoading} = useGallery();
+  const {onItemPressHandler, isLoading, onDeletePressHandler} = useGallery();
 
   useEffect(() => {
     if (type === 'pdf') {
@@ -130,15 +130,15 @@ const Item = ({data, type, navigation}) => {
           />
           <DescriptionText text={`Size: ${formatBytes(data?.size)}`} />
         </View>
-        {/* <Pressable
+        <Pressable
           style={({pressed}) => [{opacity: pressed ? 0.7 : 1}]}
           onPress={() => onDeletePressHandler(data?.path)}>
           <MaterialCommunityIcons
             name={'trash-can'}
-            size={20}
+            size={25}
             color={colors.Primary}
           />
-        </Pressable> */}
+        </Pressable>
       </Pressable>
     </View>
   );

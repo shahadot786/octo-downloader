@@ -15,6 +15,8 @@ import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
 import AppExitModal from '../../components/templates/modal/AppExitModal';
 import BigText from '../../theme/Text/BigText';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import BottomSpacing from '../../theme/Global/BottomSpacing';
+import LoaderModal from '../../components/common/LoaderModal';
 
 const HomeScreen = ({navigation}) => {
   const {
@@ -26,10 +28,12 @@ const HomeScreen = ({navigation}) => {
     cancelPressHandler,
     initialMode,
     onItemPressHandler,
+    isLoading,
   } = useHome(navigation);
 
   return (
     <ScreenSafeAreaView style={styles.container}>
+      <LoaderModal visible={isLoading} />
       {/* main container */}
       <View style={styles.mainContainer}>
         {/* top view */}
@@ -65,7 +69,7 @@ const HomeScreen = ({navigation}) => {
             style={styles.scrollView}>
             <View style={{marginVertical: 5}}>
               <Pressable
-                onPress={() => onItemPressHandler('Movies')}
+                onPress={() => onItemPressHandler('movies')}
                 style={({pressed}) => [
                   {
                     height: 150,
@@ -103,7 +107,7 @@ const HomeScreen = ({navigation}) => {
                   {marginVertical: 10},
                 ]}>
                 <Pressable
-                  onPress={() => onItemPressHandler('Videos')}
+                  onPress={() => onItemPressHandler('videos')}
                   style={({pressed}) => [
                     {
                       width: '45%',
@@ -135,7 +139,7 @@ const HomeScreen = ({navigation}) => {
                   </View>
                 </Pressable>
                 <Pressable
-                  onPress={() => onItemPressHandler("Audio's")}
+                  onPress={() => onItemPressHandler('audio')}
                   style={({pressed}) => [
                     {
                       width: '45%',
@@ -168,7 +172,7 @@ const HomeScreen = ({navigation}) => {
                 </Pressable>
               </View>
               <Pressable
-                onPress={() => onItemPressHandler('Images')}
+                onPress={() => onItemPressHandler('images')}
                 style={({pressed}) => [
                   {
                     height: 150,
@@ -205,7 +209,7 @@ const HomeScreen = ({navigation}) => {
                   {marginVertical: 10},
                 ]}>
                 <Pressable
-                  onPress={() => onItemPressHandler('PDF')}
+                  onPress={() => onItemPressHandler('pdf')}
                   style={({pressed}) => [
                     {
                       width: '45%',
@@ -237,7 +241,7 @@ const HomeScreen = ({navigation}) => {
                   </View>
                 </Pressable>
                 <Pressable
-                  onPress={() => onItemPressHandler('Zip')}
+                  onPress={() => onItemPressHandler('zip')}
                   style={({pressed}) => [
                     {
                       width: '45%',
@@ -269,9 +273,41 @@ const HomeScreen = ({navigation}) => {
                   </View>
                 </Pressable>
               </View>
+              <Pressable
+                onPress={() => onItemPressHandler('software')}
+                style={({pressed}) => [
+                  {
+                    height: 150,
+                    backgroundColor: '#054a63',
+                    borderRadius: 10,
+                    opacity: pressed ? 0.7 : 1,
+                  },
+                ]}>
+                <Image
+                  source={images.software}
+                  style={{
+                    width: '100%',
+                    height: 150,
+                    resizeMode: 'center',
+                    opacity: 0.4,
+                    borderRadius: 10,
+                  }}
+                />
+                <View style={{position: 'absolute', bottom: 10, left: 10}}>
+                  <BigText text={'Software'} />
+                </View>
+                <View style={{position: 'absolute', bottom: 10, right: 10}}>
+                  <Ionicons
+                    name="arrow-forward-circle-sharp"
+                    color={initialMode ? colors.White : colors.Black}
+                    size={18}
+                  />
+                </View>
+              </Pressable>
             </View>
             {/* bottom spacing */}
             <BottomSpacingNav />
+            <BottomSpacing />
           </ScrollView>
         </View>
         <AppExitModal

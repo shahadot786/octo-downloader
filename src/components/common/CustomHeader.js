@@ -13,7 +13,7 @@ const CustomHeader = ({title, navigation}) => {
   return (
     <View style={styles.header}>
       <Pressable onPress={handleGoBack} style={styles.backButton}>
-        <Ionicons name="arrow-back" size={24} color="white" />
+        <Ionicons name="arrow-back" size={30} color="white" />
       </Pressable>
       <TitleText text={title} textStyle={styles.headerTitle} />
     </View>
@@ -25,7 +25,7 @@ export default CustomHeader;
 const styles = StyleSheet.create({
   header: {
     height: 60,
-    backgroundColor: colors.Primary,
+    backgroundColor: colors.Green,
     flexDirection: 'row',
     alignItems: 'center',
   },
