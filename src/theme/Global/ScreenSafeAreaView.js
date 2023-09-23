@@ -8,7 +8,8 @@ const ScreenSafeAreaView = props => {
   return (
     <SafeAreaView style={[styles.container, backgroundColor, props.style]}>
       <StatusBar
-        // animated={true}
+        animated={true}
+        hidden={props.hidden}
         backgroundColor={initialMode ? colors.Black : colors.White}
         barStyle={initialMode ? 'light-content' : 'dark-content'}
       />
