@@ -17,13 +17,13 @@ export const data = [
     iconName: 'share',
     onPress: 'Share with Friends',
   },
-  {
-    id: 3,
-    title: 'Favorites',
-    iconName: 'heart-circle-sharp',
-    onPress: 'Favorites',
-    //heart-circle-outline
-  },
+  // {
+  //   id: 3,
+  //   title: 'Favorites',
+  //   iconName: 'heart-circle-sharp',
+  //   onPress: 'Favorites',
+  //   //heart-circle-outline
+  // },
   {
     id: 4,
     title: 'Rate now',

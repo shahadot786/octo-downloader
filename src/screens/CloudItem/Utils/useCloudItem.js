@@ -6,6 +6,7 @@ import useRewardAd from '../../../hooks/Ads/Rewarded/useRewardedAd';
 
 export const useCloudItem = ({navigation, type}) => {
   const [sortedData, setSortedData] = useState([]);
+
   const {movies, videos, images, audio, pdf, zip, software} = useAppSelector(
     state => state.firebase,
   );

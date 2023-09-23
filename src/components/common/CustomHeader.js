@@ -25,7 +25,7 @@ export default CustomHeader;
 const styles = StyleSheet.create({
   header: {
     height: 60,
-    backgroundColor: colors.Green,
+    backgroundColor: colors.Primary,
     flexDirection: 'row',
     alignItems: 'center',
   },

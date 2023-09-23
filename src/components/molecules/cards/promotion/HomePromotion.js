@@ -17,7 +17,7 @@ const HomePromotion = () => {
   const {initialMode} = useTheme();
 
   const onPressHandler = () => {
-    navigation.navigate(strings.CloudItemScreen, {type: 'Movies'});
+    navigation.navigate(strings.CloudItemScreen, {type: 'movies'});
   };
 
   return (

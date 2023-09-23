@@ -23,19 +23,26 @@ const RenderCloudItem = ({
   const {initialMode} = useTheme();
   return (
     <View style={{margin: 15, alignItems: 'center'}}>
-      <Image
-        source={{
-          uri: item?.image ? item?.image : item?.url || '',
-        }}
-        style={{
-          width: metrics.screenWidth - 50,
-          height: metrics.screenHeight / 1.2,
-          borderRadius: 20,
-          resizeMode: 'cover',
-          opacity: initialMode ? 0.4 : 0.8,
-        }}
-      />
-
+      {(item?.type === 'movies' ||
+        item.type === 'video' ||
+        item.type === 'image' ||
+        item.type === 'pdf' ||
+        item.type === 'audio' ||
+        item.type === 'software' ||
+        item?.type === 'zip') && (
+        <Image
+          source={{
+            uri: item?.image ? item?.image : item?.url || '',
+          }}
+          style={{
+            width: metrics.screenWidth - 50,
+            height: metrics.screenHeight / 1.5,
+            borderRadius: 20,
+            resizeMode: 'cover',
+            opacity: initialMode ? 0.6 : 0.8,
+          }}
+        />
+      )}
       {item?.rating && (
         <View
           style={{

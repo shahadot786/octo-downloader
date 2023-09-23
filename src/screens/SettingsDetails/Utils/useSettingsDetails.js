@@ -55,14 +55,14 @@ export const useSettingDetails = navigation => {
     let payload = {};
 
     if (selectedOption === '') {
-      toast.show('Please Select an Option', toastNotification('danger'));
+      toast.show('Please Select an Option', toastNotification('normal'));
     } else if (titleValue === '') {
-      toast.show('Field is required!', toastNotification('danger'));
+      toast.show('Field is required!', toastNotification('normal'));
     } else {
       let showError = false;
       if (isSaved) {
         if (!validateURL(titleValue)) {
-          toast.show('Enter a valid URL', toastNotification('danger'));
+          toast.show('Enter a valid URL', toastNotification('normal'));
           showError = true;
         } else {
           const urlFileType = getFileTypeFromUrl(titleValue);
@@ -70,7 +70,7 @@ export const useSettingDetails = navigation => {
           if (!urlFileType) {
             toast.show(
               'Invalid File Type. Please select a valid file type.',
-              toastNotification('danger'),
+              toastNotification('normal'),
             );
             showError = true;
           } else {
@@ -79,7 +79,7 @@ export const useSettingDetails = navigation => {
             if (!selectedFileType) {
               toast.show(
                 'Selected file type is invalid!',
-                toastNotification('danger'),
+                toastNotification('normal'),
               );
               showError = true;
             } else {
@@ -88,7 +88,7 @@ export const useSettingDetails = navigation => {
               if (!extension.includes(urlFileType.toLowerCase())) {
                 toast.show(
                   'Invalid file type for the selected option.',
-                  toastNotification('danger'),
+                  toastNotification('normal'),
                 );
                 showError = true;
               }
@@ -133,7 +133,7 @@ export const useSettingDetails = navigation => {
           toast.show('Data sent successfully.', toastNotification('success'));
           navigation.navigate(strings.SettingsTabScreen);
         } catch (error) {
-          toast.show('Please try again', toastNotification('danger'));
+          toast.show('Please try again', toastNotification('normal'));
         } finally {
           setIsLoading(false);
         }
