@@ -50,6 +50,7 @@ const Splash = () => {
           // console.log(configuration, 'start loading ads');
         })
         .catch(error => {});
+      AppLovinMAX.setHasUserConsent(true);
     };
   }, []);
 
