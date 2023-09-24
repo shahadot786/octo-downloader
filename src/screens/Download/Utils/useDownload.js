@@ -166,9 +166,9 @@ export const useDownload = data => {
               );
             }
           } else {
-            toast.show(
-              'Invalid file type for the selected option.',
-              toastNotification('danger'),
+            Alert.alert(
+              'Warning',
+              "Download Instruction, Link should be end with dot extension. File Types['mp4', 'avi', 'mkv', 'mov', 'wmv', 'flv', 'webm','mp3', 'ogg', 'wav', 'flac', 'aac','jpeg', 'png', 'gif', 'bmp', 'jpg', 'tif','pdf', 'xpdf', 'postscript','standard', 'x7z', 'rar', 'tar', 'gzip', 'zip','plain', 'csv', 'html', 'xml', 'css', 'javascript', 'txt','octetStream', 'exe', 'dmg', 'deb', 'rpm', 'msi', 'apk']",
             );
           }
         } else {

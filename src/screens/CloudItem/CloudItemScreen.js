@@ -171,7 +171,9 @@ const CloudItemScreen = ({navigation, route}) => {
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<BottomSpacing />}
       />
-      {isAdShown && <>{isApplovin ? <ApplovinBannerAd /> : <BannerAds />}</>}
+      <View style={{alignItems: 'center'}}>
+        {isAdShown && <>{isApplovin ? <ApplovinBannerAd /> : <BannerAds />}</>}
+      </View>
     </ScreenSafeAreaView>
   );
 };

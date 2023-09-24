@@ -82,36 +82,36 @@ const SettingsScreen = ({navigation}) => {
                 />
               </View>
             </View>
-            <View
-              style={[
-                styles.items,
-                {
-                  borderWidth: initialMode ? 1 : 0,
-                  backgroundColor: initialMode
-                    ? colors.Black
-                    : colors.SoftWhite,
-                },
-              ]}>
-              {/* left icon */}
-              <MaterialIcons
-                name={isExternal ? 'sd-card' : 'sd'}
-                size={20}
-                color={colors.Primary}
-              />
-              {/* title */}
-              <TitleText
-                text={isExternal ? 'External Storage' : 'Internal Storage'}
-              />
-              <View style={{position: 'absolute', right: 10, top: 6}}>
-                <Switch
-                  trackColor={{false: colors.Grey, true: colors.Green}}
-                  thumbColor={isEnabled ? colors.Primary : colors.SoftWhite}
-                  ios_backgroundColor={colors.Grey}
-                  onValueChange={toggleStorageSwitch}
-                  value={isExternal}
+            {/* <>
+              <View
+                style={[
+                  styles.items,
+                  {
+                    borderWidth: initialMode ? 1 : 0,
+                    backgroundColor: initialMode
+                      ? colors.Black
+                      : colors.SoftWhite,
+                  },
+                ]}>
+                <MaterialIcons
+                  name={isExternal ? 'sd-card' : 'sd'}
+                  size={20}
+                  color={colors.Primary}
                 />
+                <TitleText
+                  text={isExternal ? 'External Storage' : 'Internal Storage'}
+                />
+                <View style={{position: 'absolute', right: 10, top: 6}}>
+                  <Switch
+                    trackColor={{false: colors.Grey, true: colors.Green}}
+                    thumbColor={isEnabled ? colors.Primary : colors.SoftWhite}
+                    ios_backgroundColor={colors.Grey}
+                    onValueChange={toggleStorageSwitch}
+                    value={isExternal}
+                  />
+                </View>
               </View>
-            </View>
+            </> */}
             {data.map((item, index) => {
               return (
                 <Pressable

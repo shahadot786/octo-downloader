@@ -95,7 +95,7 @@ const ItemViewerScreen = ({route, navigation}) => {
           <VideoPlayer
             source={{uri: data?.path ? `file://${data.path}` : data?.url || ''}}
             isFullscreen={false}
-            onBack={() => navigation.goBack()}
+            onBack={onEndVideo}
             rewindTime={10}
             showOnStart={true}
             showTimeRemaining={false}
