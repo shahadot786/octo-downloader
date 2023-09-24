@@ -14,10 +14,17 @@ export const useSettings = navigation => {
   const openLink = useOpenLink();
   let appVersion = DeviceInfo.getVersion();
   const [isEnabled, setIsEnabled] = useState(true);
+  const [isExternal, setIsExternal] = useState(true);
+
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
     toggleTheme();
   };
+
+  const toggleStorageSwitch = () => {
+    setIsExternal(previousState => !previousState);
+  };
+
   const handleShare = () => {
     shareURL(
       version?.appUrl,
@@ -44,5 +51,7 @@ export const useSettings = navigation => {
     onItemPressHandler,
     isAdShown,
     isApplovin,
+    isExternal,
+    toggleStorageSwitch,
   };
 };

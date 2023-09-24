@@ -1,4 +1,6 @@
 const strings = {
+  ApplovinAPIKey:
+    '1zWIpgA5ypdhsOvsw5LkOKHivpN2aMwgH0qMm77xmphANnQtbfRSXZTnCvCC_R3fvEXiz37ehgP2UVgypc0MCF',
   HomeTabScreen: 'HomeTabScreen',
   DownloadTabScreen: 'DownloadTabScreen',
   GalleryTabScreen: 'GalleryTabScreen',
@@ -11,7 +13,8 @@ const strings = {
   ItemViewerScreen: 'ItemViewerScreen',
   SaveLinkScreen: 'SaveLinkScreen',
   SettingsDetailsScreen: 'SettingsDetailsScreen',
-  HomeItemListScreen: 'HomeItemListScreen',
-  HomeItemListDetailsScreen: 'HomeItemListDetailsScreen',
+  CloudDownloadScreen: 'CloudDownloadScreen',
+  CloudItemScreen: 'CloudItemScreen',
+  CloudItemViewerScreen: 'CloudItemViewerScreen',
 };
 export default strings;

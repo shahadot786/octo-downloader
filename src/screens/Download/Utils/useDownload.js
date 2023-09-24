@@ -21,15 +21,15 @@ import useApplovinRewardedAd from '../../../hooks/Ads/Rewarded/useApplovinReward
 
 const STORAGE_PERMISSION_KEY = '@StoragePermission';
 
-export const useDownload = () => {
+export const useDownload = data => {
   const {isAdShown, isAdPriority, isApplovin} = useAppSelector(
     state => state.ads,
   );
   const storagePermission = useAppSelector(state => state.storagePermission);
   const {playRewardedAd} = useRewardAd();
   const {isRewardedAdReady, showRewardedAd} = useApplovinRewardedAd();
-  const [selectedOption, setSelectedOption] = useState('');
-  const [inputValue, setInputValue] = useState('');
+  const [selectedOption, setSelectedOption] = useState(data?.type);
+  const [inputValue, setInputValue] = useState(data?.url);
   const [downloadProgress, setDownloadProgress] = useState(0);
   const [currentSize, setCurrentSize] = useState(0);
   const [totalSize, setTotalSize] = useState(0);
@@ -38,7 +38,6 @@ export const useDownload = () => {
   const dispatch = useAppDispatch();
   const toast = useToast();
   const netInfoState = useConnectionCheck();
-
   const handleSelectOption = useCallback(value => {
     setSelectedOption(value);
   }, []);
@@ -167,9 +166,9 @@ export const useDownload = () => {
               );
             }
           } else {
-            toast.show(
-              'Invalid file type for the selected option.',
-              toastNotification('danger'),
+            Alert.alert(
+              'Warning',
+              "Download Instruction, Link should be end with dot extension. File Types['mp4', 'avi', 'mkv', 'mov', 'wmv', 'flv', 'webm','mp3', 'ogg', 'wav', 'flac', 'aac','jpeg', 'png', 'gif', 'bmp', 'jpg', 'tif','pdf', 'xpdf', 'postscript','standard', 'x7z', 'rar', 'tar', 'gzip', 'zip','plain', 'csv', 'html', 'xml', 'css', 'javascript', 'txt','octetStream', 'exe', 'dmg', 'deb', 'rpm', 'msi', 'apk']",
             );
           }
         } else {

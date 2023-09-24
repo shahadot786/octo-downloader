@@ -15,6 +15,7 @@ import BottomSpacing from '../../theme/Global/BottomSpacing';
 import BigText from '../../theme/Text/BigText';
 import DescriptionText from '../../theme/Text/DescriptionText';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import colors from '../../theme/constant/colors';
 import TitleText from '../../theme/Text/TitleText';
 import metrics from '../../theme/constant/metrics';
@@ -28,10 +29,12 @@ const SettingsScreen = ({navigation}) => {
     initialMode,
     isEnabled,
     toggleSwitch,
-    version,
+    appVersion,
     onItemPressHandler,
     isAdShown,
     isApplovin,
+    isExternal,
+    toggleStorageSwitch,
   } = useSettings(navigation);
 
   return (
@@ -46,7 +49,7 @@ const SettingsScreen = ({navigation}) => {
               style={[styles.topLogoImage, commonStyles.bigImageSize]}
             />
             <BigText text={'Octo Downloader'} />
-            <DescriptionText text={`Version: ${version}`} />
+            <DescriptionText text={`Version: ${appVersion}`} />
           </View>
           {/* settings items */}
           <View style={styles.settingsContainer}>
@@ -79,6 +82,36 @@ const SettingsScreen = ({navigation}) => {
                 />
               </View>
             </View>
+            {/* <>
+              <View
+                style={[
+                  styles.items,
+                  {
+                    borderWidth: initialMode ? 1 : 0,
+                    backgroundColor: initialMode
+                      ? colors.Black
+                      : colors.SoftWhite,
+                  },
+                ]}>
+                <MaterialIcons
+                  name={isExternal ? 'sd-card' : 'sd'}
+                  size={20}
+                  color={colors.Primary}
+                />
+                <TitleText
+                  text={isExternal ? 'External Storage' : 'Internal Storage'}
+                />
+                <View style={{position: 'absolute', right: 10, top: 6}}>
+                  <Switch
+                    trackColor={{false: colors.Grey, true: colors.Green}}
+                    thumbColor={isEnabled ? colors.Primary : colors.SoftWhite}
+                    ios_backgroundColor={colors.Grey}
+                    onValueChange={toggleStorageSwitch}
+                    value={isExternal}
+                  />
+                </View>
+              </View>
+            </> */}
             {data.map((item, index) => {
               return (
                 <Pressable

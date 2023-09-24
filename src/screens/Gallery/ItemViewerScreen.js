@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {ActivityIndicator, Image, StyleSheet, View} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Pdf from 'react-native-pdf';
@@ -15,7 +15,9 @@ import DescriptionText from '../../theme/Text/DescriptionText';
 import formatBytes from '../../utils/formatBytes';
 import formatTimestamp from '../../utils/formatTimestamp';
 import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
-import CustomVideoPlayerV1 from '../Player/Video/CustomVideoPlayer';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import VideoPlayer from 'react-native-media-console';
+import AnimatedLottieView from 'lottie-react-native';
 
 const renderActivityIndicator = progress => {
   const percentage = Math.floor(progress * 100) + '%';
@@ -48,17 +50,40 @@ const ItemViewerScreen = ({route, navigation}) => {
   const [numberOfPages, setNumberOfPages] = useState();
   const [currentPage, setCurrentPage] = useState();
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const videoPlayer = useRef(null);
 
-  let truncatedFilename = '';
-  const formattedFilename = data?.name?.split('.')[0]?.replace(/_/g, ' ');
-  if (formattedFilename && formattedFilename.length > 30) {
-    truncatedFilename = formattedFilename.substring(0, 30) + '...';
-  } else if (formattedFilename) {
-    truncatedFilename = formattedFilename;
+  let truncatedFilename = data?.name || data?.title;
+  if (truncatedFilename?.length > 30) {
+    truncatedFilename = truncatedFilename.substring(0, 30) + '...';
+  } else if (truncatedFilename) {
+    truncatedFilename = truncatedFilename;
   }
 
+  const toggleFullScreen = async () => {
+    if (isFullScreen) {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT,
+      );
+    } else {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE,
+      );
+    }
+    setIsFullScreen(!isFullScreen);
+  };
+
+  const onEndVideo = async () => {
+    if (isFullScreen) {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT,
+      );
+      setIsFullScreen(false);
+      navigation.goBack();
+    }
+  };
+
   return (
-    <ScreenSafeAreaView>
+    <ScreenSafeAreaView hidden={isFullScreen}>
       {!isFullScreen && (
         <CustomHeader
           title={truncatedFilename || 'Item Details'}
@@ -66,22 +91,55 @@ const ItemViewerScreen = ({route, navigation}) => {
         />
       )}
       <View style={styles.container}>
-        {/* {type === 'audio' && <AudioPlayer data={data} autoPlay={true} />} */}
         {(type === 'video' || type === 'audio') && (
-          <CustomVideoPlayerV1
-            data={data}
-            autoplay={true}
-            isFullScreen={isFullScreen}
-            setIsFullScreen={setIsFullScreen}
-            repeat={true}
-            muted={true}
+          <VideoPlayer
+            source={{uri: data?.path ? `file://${data.path}` : data?.url || ''}}
+            isFullscreen={false}
+            onBack={onEndVideo}
+            rewindTime={10}
+            showOnStart={true}
+            showTimeRemaining={false}
+            showHours={true}
+            videoRef={videoPlayer}
+            onEnterFullscreen={() => toggleFullScreen()}
+            disableBack={!isFullScreen}
+            onEnd={onEndVideo}
+            controlAnimationTiming={350}
+            controlTimeoutDelay={5000}
+            seekColor={colors.Primary}
+            showDuration={true}
+            disableFullscreen={type === 'audio' ? true : false}
           />
+        )}
+        {type === 'audio' && (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: colors.Grey,
+              padding: 10,
+              margin: 10,
+              borderRadius: 10,
+              position: 'absolute',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flex: 1,
+              top: '30%',
+              left: 50,
+            }}>
+            <AnimatedLottieView
+              autoPlay
+              loop
+              source={require('../.../../../assets/music.json')}
+              style={styles.loaderStyle}
+            />
+            <TitleText text={truncatedFilename} />
+          </View>
         )}
         {type === 'software' && (
           <ItemDetails
             iconName={'settings-applications'}
             title={truncatedFilename}
-            time={data?.mtime}
+            time={data?.mtime?.toISOString()}
             size={data?.size}
           />
         )}
@@ -179,5 +237,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  loaderStyle: {
+    height: metrics.screenHeight / 4,
   },
 });

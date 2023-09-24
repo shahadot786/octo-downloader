@@ -10,20 +10,24 @@ import colors from '../../theme/constant/colors';
 import strings from '../../theme/constant/strings';
 import {useAppSelector} from '../../store/store';
 import BannerAds from '../../hooks/Ads/Banner/BannerAds';
-import useInterstitialAd from '../../hooks/Ads/Interstitials/useInterstitialAd';
 import LoaderModal from '../../components/common/LoaderModal';
 import ApplovinBannerAd from '../../hooks/Ads/Banner/ApplovinBannerAd';
+import images from '../../theme/constant/images';
 import useApplovinInterstitialAd from '../../hooks/Ads/Interstitials/useApplovinInterstitialAd';
+import useInterstitialAd from '../../hooks/Ads/Interstitials/useInterstitialAd';
 
 const GalleryScreen = ({navigation}) => {
-  const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
-  const {playInterstitialAd, isLoading} = useInterstitialAd();
+  const {isAdShown, isApplovin, interAdCount} = useAppSelector(
+    state => state.ads,
+  );
   const {isInterstitialReady, showInterstitial} = useApplovinInterstitialAd();
+  const {playInterstitialAd, isLoading} = useInterstitialAd();
+
   let _count = 0;
   const onItemPressHandler = type => {
     _count++;
     if (isAdShown) {
-      if (_count % 2 === 0) {
+      if (_count % interAdCount === 0) {
         if (isApplovin) {
           if (isInterstitialReady) {
             handleShowInterstitial();
@@ -67,12 +71,14 @@ const GalleryScreen = ({navigation}) => {
               title={'Video'}
               iconName={'video-collection'}
               onPress={() => onItemPressHandler('video')}
+              imageSource={images.videoFiles}
             />
             <GalleryItem
               backgroundColor={colors.Grey}
               title={'Audio'}
               iconName={'music-video'}
               onPress={() => onItemPressHandler('audio')}
+              imageSource={images.audio}
             />
           </View>
           <View
@@ -85,12 +91,14 @@ const GalleryScreen = ({navigation}) => {
               title={'Software'}
               iconName={'file-copy'}
               onPress={() => onItemPressHandler('software')}
+              imageSource={images.software}
             />
             <GalleryItem
               backgroundColor={colors.Yellow}
               title={'Image'}
               iconName={'image'}
               onPress={() => onItemPressHandler('image')}
+              imageSource={images.images}
             />
           </View>
           <View
@@ -103,12 +111,14 @@ const GalleryScreen = ({navigation}) => {
               title={'PDF'}
               iconName={'picture-as-pdf'}
               onPress={() => onItemPressHandler('pdf')}
+              imageSource={images.pdf}
             />
             <GalleryItem
               backgroundColor={colors.Cyan}
               title={'Zip'}
               iconName={'folder'}
               onPress={() => onItemPressHandler('zip')}
+              imageSource={images.zip}
             />
           </View>
           <View
@@ -121,6 +131,7 @@ const GalleryScreen = ({navigation}) => {
               title={'Text'}
               iconName={'text-snippet'}
               onPress={() => onItemPressHandler('text')}
+              imageSource={images.text}
             />
           </View>
         </View>

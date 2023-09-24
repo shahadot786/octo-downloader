@@ -4309,11 +4309,6 @@ expo-asset@~8.10.1:
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
 
-expo-av@^13.4.1:
-  version "13.6.0"
-  resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-13.6.0.tgz#76356223b30b94c0c6fe8dfe8d185515570cc2d1"
-  integrity sha512-42dDX53uao+IxuecNRcAvLuO7CiF9lriCufDfw2sSIGKRYox6m2RXYFstVpDSv2gzsuScGk7fwT23EUrUXbk8A==
-
 expo-constants@~14.4.2:
   version "14.4.2"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-14.4.2.tgz#cac5e8b524069545739b8d8595ce96cc5be6578c"
@@ -7774,6 +7769,11 @@ react-native-google-mobile-ads@^11.1.1:
   dependencies:
     "@iabtcf/core" "^1.5.3"
     use-deep-compare-effect "^1.8.1"
+
+react-native-media-console@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-media-console/-/react-native-media-console-2.0.7.tgz#3b4ccc31e8c1b4120b53f6e7d8ba6bb95c1f4f94"
+  integrity sha512-COgmAuM3BTELyiZMO7+8Db3KZDPMueVTMY42D9g80fs0nJbkDavq/jFx+QWUmyRMUhp1kFvX2+6yxUJFbYxu4A==
 
 react-native-mmkv@^2.10.1:
   version "2.10.2"

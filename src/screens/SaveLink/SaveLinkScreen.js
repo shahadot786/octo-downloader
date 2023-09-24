@@ -18,8 +18,9 @@ const SaveLinkScreen = ({navigation}) => {
   const {
     data,
     loading,
+    isLoading,
     onDownloadPressHandler,
-    onPlayPressHandler,
+    onViewPressHandler,
     isAdShown,
     isApplovin,
   } = useSaveLink(navigation);
@@ -59,25 +60,34 @@ const SaveLinkScreen = ({navigation}) => {
           onPress={() => onDownloadPressHandler(item)}>
           <Ionicons name={'cloud-download'} size={25} color={colors.Primary} />
         </Pressable>
-        <Pressable
-          style={({pressed}) => [{opacity: pressed ? 0.7 : 1}]}
-          onPress={() => {
-            onPlayPressHandler(item);
-          }}>
-          <Ionicons name={'eye'} size={28} color={colors.Green} />
-        </Pressable>
+        {(item?.type === 'audio' ||
+          item?.type === 'video' ||
+          item?.type === 'image' ||
+          item?.type === 'pdf') && (
+          <Pressable
+            style={({pressed}) => [{opacity: pressed ? 0.7 : 1}]}
+            onPress={() => {
+              onViewPressHandler(item);
+            }}>
+            <Ionicons name={'eye'} size={28} color={colors.Green} />
+          </Pressable>
+        )}
       </View>
     </View>
   );
 
   return (
     <ScreenSafeAreaView>
-      <LoaderModal visible={loading} />
+      <LoaderModal visible={loading || isLoading} />
       <BigText
         text={'Save Links'}
         textStyle={{marginHorizontal: 15, marginTop: 20}}
       />
-      {isAdShown && <>{isApplovin ? <ApplovinBannerAd /> : <BannerAds />}</>}
+      {isAdShown && (
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          {isApplovin ? <ApplovinBannerAd /> : <BannerAds />}
+        </View>
+      )}
       {data?.length <= 0 ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <AnimatedLottieView

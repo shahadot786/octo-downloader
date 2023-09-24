@@ -4,7 +4,7 @@ import AppLovinMAX from 'react-native-applovin-max';
 
 const REWARDED_AD_UNIT_ID = Platform.select({
   android: '51197a5dbc23d84f',
-  ios: 'ios_rewarded_ad_unit_ID',
+  ios: '51197a5dbc23d84f',
 });
 
 const useApplovinRewardedAd = () => {
@@ -20,9 +20,9 @@ const useApplovinRewardedAd = () => {
     const rewardedAdLoadFailedListener = () => {
       setRetryAttempt(retryAttempt + 1);
       const retryDelay = Math.pow(2, Math.min(6, retryAttempt));
-      console.log(
-        'Rewarded ad failed to load - retrying in ' + retryDelay + 's',
-      );
+      // console.log(
+      //   'Rewarded ad failed to load - retrying in ' + retryDelay + 's',
+      // );
       setTimeout(() => {
         loadRewardedAd();
       }, retryDelay * 1000);

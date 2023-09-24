@@ -19,9 +19,10 @@ export const data = [
   },
   // {
   //   id: 3,
-  //   title: 'Select storage',
-  //   iconName: 'folder',
-  //   onPress: 'Storage',
+  //   title: 'Favorites',
+  //   iconName: 'heart-circle-sharp',
+  //   onPress: 'Favorites',
+  //   //heart-circle-outline
   // },
   {
     id: 4,

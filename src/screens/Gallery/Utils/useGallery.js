@@ -13,13 +13,16 @@ export const useGallery = type => {
   const [dirData, setDirData] = useState();
   const [loading, setLoading] = useState(true);
   const [sortData, setSortData] = useState([]);
-  const {isAdPriority, isApplovin} = useAppSelector(state => state.ads);
+  const {isAdPriority, isApplovin, interAdCount} = useAppSelector(
+    state => state.ads,
+  );
   const {isInterstitialReady, showInterstitial} = useApplovinInterstitialAd();
   const {playInterstitialAd, isLoading} = useInterstitialAd();
+
   const onItemPressHandler = (navigation, data, itemType) => {
     _count++;
     if (isAdPriority) {
-      if (_count % 2 === 0) {
+      if (_count % interAdCount === 0) {
         if (isApplovin) {
           if (isInterstitialReady) {
             handleShowInterstitial();
@@ -40,13 +43,16 @@ export const useGallery = type => {
     await showInterstitial();
   };
 
-  const onDeletePressHandler = useCallback(path => {
-    RNFS.unlink(path)
-      .then(() => {
-        getDirData();
-      })
-      .catch(e => {});
-  }, []);
+  const onDeletePressHandler = useCallback(
+    path => {
+      RNFS.unlink(path)
+        .then(() => {
+          getDirData();
+        })
+        .catch(e => {});
+    },
+    [dirData],
+  );
 
   const getDirData = useCallback(() => {
     RNFS.readDir(basePath + type)

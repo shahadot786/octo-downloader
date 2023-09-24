@@ -14,10 +14,12 @@ import {useAppSelector} from '../../../../store/store';
 const HomePromotion = () => {
   const navigation = useNavigation();
   const {promotion} = useAppSelector(state => state.firebase);
-  const onPressHandler = () => {
-    navigation.navigate(strings.DownloadTabScreen);
-  };
   const {initialMode} = useTheme();
+
+  const onPressHandler = () => {
+    navigation.navigate(strings.CloudItemScreen, {type: 'movies'});
+  };
+
   return (
     <Pressable
       onPress={onPressHandler}
@@ -44,7 +46,7 @@ const HomePromotion = () => {
         <DescriptionText
           text={
             promotion?.message
-              ? promotion?.message
+              ? promotion?.message.substring(0, 100) + '...'
               : 'Clicked to watch or download new videos..'
           }
         />
@@ -68,6 +70,8 @@ const styles = StyleSheet.create({
     width: '65%',
     borderRadius: 10,
     marginVertical: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     resizeMode: 'contain',

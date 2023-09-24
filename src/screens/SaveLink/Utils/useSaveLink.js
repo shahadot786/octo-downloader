@@ -5,13 +5,22 @@ import {useFirebase} from '../../../hooks/Firebase/useFirebase';
 import {keyStrings} from '../../../hooks/Firebase/keyStrings';
 import {useAppSelector} from '../../../store/store';
 
+import useRewardAd from '../../../hooks/Ads/Rewarded/useRewardedAd';
+import useApplovinRewardedAd from '../../../hooks/Ads/Rewarded/useApplovinRewardedAd';
+
 export const useSaveLink = navigation => {
   const [uniqueId, setUniqueId] = useState();
   const {data, loading} = useFirebase(keyStrings.saveLinkDoc);
-  const {isAdShown, isApplovin} = useAppSelector(state => state.ads);
+  let _count = 0;
+  let _count1 = 0;
+  const {isApplovin, isAdShown, rewardAdCount} = useAppSelector(
+    state => state.ads,
+  );
+  const {playRewardedAd, isLoading} = useRewardAd();
+  const {isRewardedAdReady, showRewardedAd} = useApplovinRewardedAd();
 
   useEffect(() => {
-    DeviceInfo.getUniqueId().then(uId => {
+    DeviceInfo.getAndroidId().then(uId => {
       setUniqueId(uId);
     });
   }, []);
@@ -24,11 +33,42 @@ export const useSaveLink = navigation => {
       sortedData.sort((a, b) => parseInt(b.id, 10) - parseInt(a.id, 10));
     }
   }
-
-  const onDownloadPressHandler = item => {
-    navigation.navigate(strings.DownloadTabScreen, {data: item});
+  const handleShowRewardedAd = async () => {
+    await showRewardedAd();
   };
-  const onPlayPressHandler = item => {
+  const onDownloadPressHandler = item => {
+    _count1++;
+    if (isAdShown) {
+      if (_count1 % rewardAdCount === 0) {
+        if (isApplovin) {
+          if (isRewardedAdReady) {
+            handleShowRewardedAd();
+          } else {
+            playRewardedAd();
+          }
+        } else {
+          playRewardedAd();
+        }
+      }
+    }
+    navigation.navigate(strings.CloudDownloadScreen, {data: item});
+  };
+
+  const onViewPressHandler = item => {
+    _count++;
+    if (isAdShown) {
+      if (_count % rewardAdCount === 0) {
+        if (isApplovin) {
+          if (isRewardedAdReady) {
+            handleShowRewardedAd();
+          } else {
+            playRewardedAd();
+          }
+        } else {
+          playRewardedAd();
+        }
+      }
+    }
     navigation.navigate(strings.ItemViewerScreen, {
       data: item,
       type: item?.type,
@@ -38,8 +78,9 @@ export const useSaveLink = navigation => {
   return {
     data: sortedData,
     loading,
+    isLoading,
     onDownloadPressHandler,
-    onPlayPressHandler,
+    onViewPressHandler,
     isAdShown,
     isApplovin,
   };

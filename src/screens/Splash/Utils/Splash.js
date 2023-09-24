@@ -16,15 +16,18 @@ import {
   setZip,
 } from '../../../store/slices/firebase/firebaseSlice';
 import {
+  setInterAdCount,
   setIsAdPriority,
   setIsAdShown,
   setIsApplovin,
+  setRewardAdCount,
 } from '../../../store/slices/ad/adSlice';
 import AppLovinMAX from 'react-native-applovin-max';
 import SplashScreen from '../SplashScreen';
 import {ToastProvider} from 'react-native-toast-notifications';
 import {StoragePermissionProvider} from '../../../hooks/Permission/StoragePermissionProvider';
 import Routes from '../../../navigation/Routes';
+import strings from '../../../theme/constant/strings';
 
 const Splash = () => {
   const [loading, setLoading] = useState(true);
@@ -42,13 +45,12 @@ const Splash = () => {
 
   const initialApplovinAds = useMemo(() => {
     return () => {
-      AppLovinMAX.initialize(
-        '1zWIpgA5ypdhsOvsw5LkOKHivpN2aMwgH0qMm77xmphANnQtbfRSXZTnCvCC_R3fvEXiz37ehgP2UVgypc0MCF',
-      )
+      AppLovinMAX.initialize(strings.ApplovinAPIKey)
         .then(configuration => {
           // console.log(configuration, 'start loading ads');
         })
         .catch(error => {});
+      AppLovinMAX.setHasUserConsent(true);
     };
   }, []);
 
@@ -65,9 +67,7 @@ const Splash = () => {
     if (loading === true) {
       timer = setTimeout(() => {
         return setLoading(false);
-      }, 4000);
-    } else {
-      return () => clearTimeout(timer);
+      }, 3000);
     }
     return () => clearTimeout(timer);
   }, [loading]);
@@ -100,12 +100,12 @@ const Splash = () => {
     dispatch(setIsAdShown(adsData?.ads?.isAdsShown));
     dispatch(setIsAdPriority(adsData?.ads?.isAdPriority));
     dispatch(setIsApplovin(adsData?.ads?.isApplovin));
+    dispatch(setInterAdCount(adsData?.ads?.interAdCount));
+    dispatch(setRewardAdCount(adsData?.ads?.rewardAdCount));
     dispatch(
       setPromotion({
         imageUrl: promotionData?.promotion?.image,
         message: promotionData?.promotion?.message,
-        uri: promotionData?.promotion?.uri,
-        title: promotionData?.promotion?.title,
       }),
     );
   }, [

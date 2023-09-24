@@ -67,7 +67,7 @@ export default CustomTextInput;
 const styles = StyleSheet.create({
   defaultInputStyle: {
     height:
-      metrics.screenWidth <= 380 ? 50 : metrics.screenWidth <= 600 ? 60 : 70,
+      metrics.screenWidth <= 380 ? 60 : metrics.screenWidth <= 600 ? 70 : 80,
     borderWidth: 1,
     borderColor: colors.Grey,
     padding: 10,

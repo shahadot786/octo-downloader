@@ -131,13 +131,9 @@ export const useSettingDetails = navigation => {
           setTitleValue('');
           setDetailsValue('');
           toast.show('Data sent successfully.', toastNotification('success'));
-          if (isSaved) {
-            navigation.navigate(strings.SaveLinkScreen);
-          } else {
-            navigation.navigate(strings.SettingsTabScreen);
-          }
+          navigation.navigate(strings.SettingsTabScreen);
         } catch (error) {
-          toast.show('Please try again', toastNotification('danger'));
+          toast.show('Please try again', toastNotification('normal'));
         } finally {
           setIsLoading(false);
         }

@@ -1,9 +1,16 @@
-import {StyleSheet, Pressable} from 'react-native';
+import {StyleSheet, Pressable, Image} from 'react-native';
 import React from 'react';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import metrics from '../../../../theme/constant/metrics';
-import TitleText from '../../../../theme/Text/TitleText';
-const GalleryItem = ({backgroundColor, iconName, title, onPress}) => {
+import BigText from '../../../../theme/Text/BigText';
+
+const GalleryItem = ({
+  backgroundColor,
+  iconName,
+  title,
+  onPress,
+  imageSource,
+}) => {
   return (
     <Pressable
       style={({pressed}) => [
@@ -11,10 +18,11 @@ const GalleryItem = ({backgroundColor, iconName, title, onPress}) => {
         {backgroundColor: backgroundColor, opacity: pressed ? 0.7 : 1},
       ]}
       onPress={onPress}>
+      <Image source={imageSource} style={styles.imagesContainer} />
       {/* icon */}
-      <MaterialIcon name={iconName} size={30} color="#fff" />
+      <MaterialIcon name={iconName} size={35} color="#fff" />
       {/* name */}
-      <TitleText text={title} />
+      <BigText text={title} />
       {/* length */}
     </Pressable>
   );
@@ -30,5 +38,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10,
+  },
+  imagesContainer: {
+    height: 130,
+    width: metrics.screenWidth / 2.2,
+    borderRadius: 10,
+    // marginVertical: 10,
+    position: 'absolute',
+    opacity: 0.2,
   },
 });

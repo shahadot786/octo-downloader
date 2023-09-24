@@ -5,9 +5,7 @@ apply plugin: 'applovin-quality-service'
 
 import com.android.build.OutputFile
 
-  applovin {
-    apiKey "4d3Drim-AJPr7ZcQJUkc1sI4Q3DcBowUH6WXGbHZDg26DaNe48Vq53l3fZ6UTpv4O6S5K0ScNKS0RD1eIiNb0J"    
-  }
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -94,8 +92,8 @@ android {
         applicationId "com.octodownloader"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 7
-        versionName "1.0.6"
+        versionCode 9
+        versionName "1.0.0.9"
         multiDexEnabled true
     }
     
@@ -164,5 +162,10 @@ dependencies {
     }
 }
 
+applovin {
+    apiKey "4d3Drim-AJPr7ZcQJUkc1sI4Q3DcBowUH6WXGbHZDg26DaNe48Vq53l3fZ6UTpv4O6S5K0ScNKS0RD1eIiNb0J"    
+}
+
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
